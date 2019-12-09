@@ -1,8 +1,10 @@
 (defpackage #:lisp-tracer-tuples
   (:use #:cl)
-  (:export #:tuple
+  (:export #:tuple!
            #:point
+           #:point!
            #:vec
+           #:vec!
            #:x
            #:y
            #:z

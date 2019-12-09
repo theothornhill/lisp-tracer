@@ -1,31 +1,42 @@
 (in-package #:lisp-tracer-tuples)
 
-(defun tuple (x y z w)
-  (list x y z w))
+(defclass tuple ()
+  ((x
+    :initarg :x
+    :accessor x)
+   (y
+    :initarg :y
+    :accessor y)
+   (z
+    :initarg :z
+    :accessor z)
+   (w
+    :initarg :w
+    :accessor w)))
 
-(defun point (x y z)
-  (tuple x y z 1))
+(defun tuple! (x y z w)
+  (make-instance 'tuple :x x :y y :z z :w w))
 
-(defun vec (x y z)
-  (tuple x y z 0))
+(defun point! (x y z)
+  (make-instance 'tuple :x x :y y :z z :w 1.0))
+
+(defun vec! (x y z)
+  (make-instance 'tuple :x x :y y :z z :w 0.0))
 
 (defun zerovec ()
-  (vec 0 0 0))
-
-(defun x (tuple)
-  (first tuple))
-
-(defun y (tuple)
-  (second tuple))
-
-(defun z (tuple)
-  (third tuple))
-
-(defun w (tuple)
-  (fourth tuple))
+  (vec! 0 0 0))
 
 (defun point? (tuple)
-  (not (zerop (w tuple))))
+  (= (w tuple) 1))
 
 (defun vec? (tuple)
-  (zerop (w tuple)))
+  (= (w tuple) 0))
+
+(defmethod print-object ((obj tuple) stream)
+      (print-unreadable-object (obj stream :type t)
+        (with-accessors ((x x)
+                         (y y)
+                         (z z)
+                         (w w))
+            obj
+          (format stream "(~a, ~a, ~a, ~a)" x y z w))))

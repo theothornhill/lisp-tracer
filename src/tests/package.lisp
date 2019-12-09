@@ -4,4 +4,6 @@
   (:use #:cl
         #:rove
         #:lisp-tracer-utilities
+        #:lisp-tracer-colors
+        #:lisp-tracer-canvas
         #:lisp-tracer-tuples))

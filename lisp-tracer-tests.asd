@@ -9,4 +9,7 @@
   :components ((:module "src/tests"
                         :serial t
                         :components ((:file "package")
-                                     (:file "tuple-tests")))))
+                                     (:file "tuple-tests")
+                                     (:file "color-tests")
+                                     (:file "canvas-tests")
+                                     (:file "tracer-tests")))))
