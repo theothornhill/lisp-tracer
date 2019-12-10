@@ -26,4 +26,4 @@
                (:module "src/tracer"
                         :serial t
                         :components ((:file "package")
-                                     (:file "chapter01")))))
+                                     (:file "clock")))))

@@ -4,4 +4,5 @@
            #:color!
            #:red
            #:green
-           #:blue))
+           #:blue
+           #:black))
