@@ -46,7 +46,17 @@
                                         (* (m a i 2)
                                            (m b 2 j))
                                         (* (m a i 3)
-                                           (m b 3 j)))))))))
+                                           (m b 3 j))))))))
+  (:method ((a matrix) (b tuple))
+    (apply #'tuple! (loop :for i :below 4
+                       :collect (+ (* (m a i 0)
+                                      (x b))
+                                   (* (m a i 1)
+                                      (y b))
+                                   (* (m a i 2)
+                                      (z b))
+                                   (* (m a i 3)
+                                      (w b)))))))
 
 (defgeneric div (term1 term2)
   (:documentation "Dividing datastructures with scalar")
