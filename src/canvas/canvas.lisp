@@ -7,11 +7,11 @@
    (height
     :initarg :height
     :accessor height)
-   (grid
-    :initarg :grid
-    :accessor grid)))
+   (canvas
+    :initarg :canvas
+    :accessor canvas)))
 
-(defun make-grid (width height)
+(defun make-canvas (width height)
   (make-array (list width height)
               :element-type 'color
               :initial-element (black)))
@@ -21,13 +21,13 @@
   (make-instance 'canvas
                  :width width
                  :height height
-                 :grid (make-grid width height)))
+                 :canvas (make-canvas width height)))
 
 (defun write-pixel! (canvas x y col)
-  (setf (aref (grid canvas) x y) col))
+  (setf (aref (canvas canvas) x y) col))
 
 (defun pixel-at (canvas x y)
-  (aref (grid canvas) x y))
+  (aref (canvas canvas) x y))
 
 (defun color-as-255 (col)
   (cond
@@ -37,7 +37,7 @@
 
 
 (defun canvas-to-ppm! (canvas)
-  (destructuring-bind (n m) (array-dimensions (grid canvas))
+  (destructuring-bind (n m) (array-dimensions (canvas canvas))
     (with-open-file (str "~/quicklisp/local-projects/lisp-tracer/picture.ppm"
                          :direction :output
                          :if-exists :supersede

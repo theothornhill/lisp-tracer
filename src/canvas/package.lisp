@@ -10,7 +10,7 @@
   (:export #:canvas!
            #:width
            #:height
-           #:grid
+           #:canv
            #:canvas-to-ppm!
            #:write-pixel!
            #:pixel-at))
