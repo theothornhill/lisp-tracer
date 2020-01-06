@@ -15,6 +15,10 @@
                 #:red
                 #:green
                 #:blue)
+  (:import-from #:lisp-tracer-matrices
+                #:matrix!
+                #:matrix
+                #:grid)
   (:export #:add
            #:sub
            #:mult

@@ -1,2 +1,4 @@
 (defpackage #:lisp-tracer-matrices
-  (:use #:cl))
+  (:use #:cl)
+  (:export #:matrix!
+           #:m))

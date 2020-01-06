@@ -57,7 +57,9 @@
   (:method ((x color) (y color))
     (and (eq? (red x) (red y))
          (eq? (green x) (green y))
-         (eq? (blue x) (blue y)))))
+         (eq? (blue x) (blue y))))
+  (:method ((x matrix) (y matrix))
+    (equalp (grid x) (grid y))))
 
 (defgeneric neg (element)
   (:documentation "Negates provided value")
