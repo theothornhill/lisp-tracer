@@ -81,7 +81,9 @@
          (eq? (green x) (green y))
          (eq? (blue x) (blue y))))
   (:method ((x matrix) (y matrix))
-    (equalp (grid x) (grid y))))
+    (loop :for i :below (dimensions x) :always
+         (loop :for j :below (dimensions x) :always
+              (eq? (m x i j) (m y i j))))))
 
 (defgeneric neg (element)
   (:documentation "Negates provided value")
