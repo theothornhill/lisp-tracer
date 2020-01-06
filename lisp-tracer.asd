@@ -1,9 +1,9 @@
 ;;;; lisp-tracer.asd
 
 (asdf:defsystem :lisp-tracer
-  :description "Ray tracer in common lisp based on The Ray Tracer Challenge"
+  :description "Ray tracer"
   :author "Theodor Thornhill <theothornhill@pm.me>"
-  :license  "Specify license here"
+  :license  "MIT"
   :version "0.0.1"
   :serial t
   :components ((:module "src/tuples"

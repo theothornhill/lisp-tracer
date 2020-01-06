@@ -38,19 +38,18 @@
 
 (defun canvas-to-ppm! (canvas)
   (destructuring-bind (n m) (array-dimensions (grid canvas))
-    (with-open-file (str "/home/theodor/quicklisp/local-projects/lisp-tracer/picture.ppm"
+    (with-open-file (str "~/quicklisp/local-projects/lisp-tracer/picture.ppm"
                          :direction :output
                          :if-exists :supersede
                          :if-does-not-exist :create)
-      (progn
-        (format str "P3~%~a ~a~%255" n m)
-        (loop for j from 0 below m do
-             (format str "~%")
-             (loop for i from 0 below n do
-                  (let ((pixel (pixel-at canvas i j)))
-                    (format str
-                            "~a ~a ~a "
-                            (color-as-255 (red pixel))
-                            (color-as-255 (green pixel))
-                            (color-as-255 (blue pixel))))))
-        (format str "~%")))))
+      (format str "P3~%~a ~a~%255" n m)
+      (loop for j from 0 below m do
+           (format str "~%")
+           (loop for i from 0 below n do
+                (let ((pixel (pixel-at canvas i j)))
+                  (format str
+                          "~a ~a ~a "
+                          (color-as-255 (red pixel))
+                          (color-as-255 (green pixel))
+                          (color-as-255 (blue pixel))))))
+      (format str "~%"))))
