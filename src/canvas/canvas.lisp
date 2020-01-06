@@ -38,7 +38,7 @@
 
 (defun canvas-to-ppm! (canvas)
   (destructuring-bind (n m) (array-dimensions (canvas canvas))
-    (with-open-file (str "~/quicklisp/local-projects/lisp-tracer/picture.ppm"
+    (with-open-file (str "/home/theodor/quicklisp/local-projects/lisp-tracer/picture.ppm"
                          :direction :output
                          :if-exists :supersede
                          :if-does-not-exist :create)
