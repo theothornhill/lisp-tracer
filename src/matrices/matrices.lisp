@@ -26,3 +26,20 @@
 (defun m (matrix i j)
   "Getter for matrix at index i j"
   (aref (grid matrix) i j))
+
+(defun identity-matrix ()
+  (matrix! 4 '(1 0 0 0
+               0 1 0 0
+               0 0 1 0
+               0 0 0 1)))
+
+(defun transpose (matrix)
+  (matrix! 4 (loop :for i :below 4 :append
+                  (loop :for j :below 4 :collect
+                       (m matrix j i)))))
+
+(defun determinant (matrix)
+  (- (* (m matrix 0 0)
+        (m matrix 1 1))
+     (* (m matrix 0 1)
+        (m matrix 1 0))))

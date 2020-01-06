@@ -4,4 +4,7 @@
            #:matrix
            #:m
            #:dimensions
-           #:grid))
+           #:grid
+           #:identity-matrix
+           #:transpose
+           #:determinant))

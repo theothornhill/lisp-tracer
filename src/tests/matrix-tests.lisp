@@ -49,4 +49,22 @@
   (testing "Multiplying matrix by a tuple"
     (let ((a (matrix! 4 '(1 2 3 4 2 4 4 2 8 6 4 1 0 0 0 1)))
           (b (tuple! 1 2 3 1)))
-      (ok (equal? (mult a b) (tuple! 18 24 33 1))))))
+      (ok (equal? (mult a b) (tuple! 18 24 33 1)))))
+  (testing "Multiplying matrix by identity matrix"
+    (let ((a (matrix! 4 '(0 1 2 4 1 2 4 8 2 4 8 16 4 8 16 32)))
+          (id-matrix (identity-matrix)))
+      (ok (equal? (mult a id-matrix) a)))))
+
+(deftest transposing-matrix
+  (testing "Transposing a matrix"
+    (let ((a (matrix! 4 '(0 9 3 0 9 8 0 8 1 8 5 3 0 0 5 8)))
+          (b (matrix! 4 '(0 9 1 0 9 8 8 0 3 0 5 5 0 8 3 8))))
+      (ok (equal? (transpose a) b))))
+  (testing "Transposing the identity matrix"
+    (let ((a (transpose (identity-matrix))))
+      (ok (equal? a (identity-matrix))))))
+
+(deftest determinant-determination
+  (testing "Calculating the determinant of a 2x2 matrix"
+    (let ((a (matrix! 2 '(1 5 -3 2))))
+      (ok (equal? (determinant a) 17)))))
