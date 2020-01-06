@@ -34,4 +34,8 @@
   (testing "Matrix equality with identical matrices"
     (let ((a (matrix! 4 '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2)))
           (b (matrix! 4 '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2))))
-      (ok (equal? a b)))))
+      (ok (equal? a b))))
+  (testing "Matrix equality with different matrices"
+    (let ((a (matrix! 4 '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2)))
+          (b (matrix! 4 '(1 2 3 4 5 9 9 8 9 8 7 6 5 4 3 2))))
+      (ng (equal? a b)))))
