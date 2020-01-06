@@ -18,7 +18,9 @@
   (:import-from #:lisp-tracer-matrices
                 #:matrix!
                 #:matrix
-                #:grid)
+                #:m
+                #:grid
+                #:dimensions)
   (:export #:add
            #:sub
            #:mult

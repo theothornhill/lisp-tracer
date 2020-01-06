@@ -34,7 +34,19 @@
             (* (green x) y)
             (* (blue x) y)))
   (:method ((x color) (y color))
-    (apply #'color! (mapcolor #'* x y))))
+    (apply #'color! (mapcolor #'* x y)))
+  (:method ((a matrix) (b matrix))
+    (let ((size (dimensions a)))
+      (matrix! size (loop :for i :below size :append
+                         (loop :for j :below size
+                            :collect (+ (* (m a i 0)
+                                           (m b 0 j))
+                                        (* (m a i 1)
+                                           (m b 1 j))
+                                        (* (m a i 2)
+                                           (m b 2 j))
+                                        (* (m a i 3)
+                                           (m b 3 j)))))))))
 
 (defgeneric div (term1 term2)
   (:documentation "Dividing datastructures with scalar")
