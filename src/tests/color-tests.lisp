@@ -23,6 +23,3 @@
     (let ((c1 (color! 1 0.2 0.4))
           (c2 (color! 0.9 1 0.1)))
       (ok (equal? (mult c1 c2) (color! 0.9 0.2 0.04))))))
-
-
-(run-suite *package*)

@@ -106,5 +106,3 @@
           (b (vec! 2 3 4)))
       (ok (equal? (cross a b) (vec! -1 2 -1)))
       (ok (equal? (cross b a) (vec! 1 -2 1))))))
-
-(run-suite *package*)

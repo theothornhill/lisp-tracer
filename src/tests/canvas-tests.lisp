@@ -7,14 +7,6 @@
       while line
       collect line)))
 
-(defun line-as-list (line)
-  "Read all objects from the line as a list."
-  (read-from-string (concatenate 'string "(" line ")")))
-
-(defun lines-as-list ()
-  (mapcar #'line-as-list (read-file-as-lines "../../picture.ppm")))
-
-
 (deftest canvas-test
   (testing "Creating a canvas"
     (let ((c (canvas! 10 20)))
@@ -32,10 +24,10 @@
   (testing "Constructing PPM header"
     (let ((c (canvas! 5 3)))
       (canvas-to-ppm! c)
-      (let ((lines (lines-as-list)))
-        (ok (equal (first lines) (list 'P3)))
-        (ok (equal (second lines) (list 5 3)))
-        (ok (equal (third lines) (list 255)))))))
+      (let ((lines (read-file-as-lines "../../picture.ppm")))
+        (ok (string= (car lines) "P3"))
+        (ok (string= (cadr lines) "5 3"))
+        (ok (string= (caddr lines) "255"))))))
 
 (deftest ppm-pixel-data
   (testing "Constructing the PPM pixel data"
@@ -47,11 +39,8 @@
       (write-pixel! c 2 1 c2)
       (write-pixel! c 4 2 c3)
       (canvas-to-ppm! c)
-      (let ((lines (lines-as-list)))
-        (ok (equal (fourth lines) (list 255 0 0 0 0 0 0 0 0 0 0 0 0 0 0)))
-        (ok (equal (fifth lines) (list 0 0 0 0 0 0 0 128 0 0 0 0 0 0 0)))
-        (ok (equal (sixth lines) (list 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255)))
+      (let ((lines (read-file-as-lines "../../picture.ppm")))
+        (ok (string= (fourth lines) "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "))
+        (ok (string= (fifth lines) "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0 "))
+        (ok (string= (sixth lines) "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 "))
         (ng (seventh lines))))))
-
-
-(run-suite *package*)

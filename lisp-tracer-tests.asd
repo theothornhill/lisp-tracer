@@ -1,7 +1,7 @@
 (asdf:defsystem #:lisp-tracer-tests
   :description "Describe lisp-tracer here"
-  :author "Your Name <your.name@example.com>"
-  :license  "Specify license here"
+  :author "Theodor Thornhill <theothornhill@pm.me>"
+  :license  "MIT"
   :version "0.0.1"
   :serial t
   :depends-on (#:rove

@@ -10,6 +10,10 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "tuples")))
+               (:module "src/matrices"
+                        :serial t
+                        :components ((:file "package")
+                                     (:file "matrices")))
                (:module "src/colors"
                         :serial t
                         :components ((:file "package")
