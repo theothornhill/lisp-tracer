@@ -43,3 +43,10 @@
         (m matrix 1 1))
      (* (m matrix 0 1)
         (m matrix 1 0))))
+
+(defun submatrix (matrix x y)
+  (let ((size (dimensions matrix)))
+    (matrix! (1- size) (loop :for i :below size :append
+                            (loop :for j :below size
+                               :unless (or (= i x) (= j y))
+                                 :collect (m matrix i j))))))

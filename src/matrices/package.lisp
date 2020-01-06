@@ -7,4 +7,5 @@
            #:grid
            #:identity-matrix
            #:transpose
-           #:determinant))
+           #:determinant
+           #:submatrix))

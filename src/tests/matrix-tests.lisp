@@ -68,3 +68,13 @@
   (testing "Calculating the determinant of a 2x2 matrix"
     (let ((a (matrix! 2 '(1 5 -3 2))))
       (ok (equal? (determinant a) 17)))))
+
+(deftest submatrices
+  (testing "A submatrix of a 3x3 matrix is a 2x2 matrix"
+    (let ((a (matrix! 3 '(1 5 0 -3 2 7 0 6 -3)))
+          (b (matrix! 2 '(-3 2 0 6))))
+      (ok (equal? (submatrix a 0 2) b))))
+  (testing "A submatrix of a 4x4 matrix is a 3x3 matrix"
+    (let ((a (matrix! 4 '(-6 1 1 6 -8 5 8 6 -1 0 8 2 -7 1 -1 1)))
+          (b (matrix! 3 '(-6 1 6 -8 8 6 -7 -1 1))))
+      (ok (equal? (submatrix a 2 1) b)))))
