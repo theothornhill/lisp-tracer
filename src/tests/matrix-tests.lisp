@@ -93,3 +93,20 @@
       (ok (equal? (cofactor a 0 0) -12))
       (ok (equal? (minor a 1 0) 25))
       (ok (equal? (cofactor a 1 0) -25)))))
+
+(deftest determinant-3x3
+  (testing "Calculating the determinant of a 3x3 matrix"
+    (let ((a (matrix! 3 '(1 2 6 -5 8 -4 2 6 4))))
+      (ok (equal? (cofactor a 0 0) 56))
+      (ok (equal? (cofactor a 0 1) 12))
+      (ok (equal? (cofactor a 0 2) -46))
+      (ok (equal? (determinant a) -196)))))
+
+(deftest determinant-4x4
+  (testing "Calculating the determinant of a 4x4 matrix"
+    (let ((a (matrix! 4 '(-2 -8 3 5 -3 1 7 3 1 2 -9 6 -6 7 7 -9))))
+      (ok (equal? (cofactor a 0 0) 690))
+      (ok (equal? (cofactor a 0 1) 447))
+      (ok (equal? (cofactor a 0 2) 210))
+      (ok (equal? (cofactor a 0 3) 51))
+      (ok (equal? (determinant a) -4071)))))

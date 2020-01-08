@@ -38,11 +38,21 @@
                   (loop :for j :below 4 :collect
                        (m matrix j i)))))
 
-(defun determinant (matrix)
+(defun determinant2x2 (matrix)
   (- (* (m matrix 0 0)
         (m matrix 1 1))
      (* (m matrix 0 1)
         (m matrix 1 0))))
+
+(defun determinant (matrix)
+  (let ((det 0))
+    (cond
+      ((eq (dimensions matrix) 2)
+       (setf det (determinant2x2 matrix)))
+      (t (loop :for column :below (dimensions matrix) do
+              (setf det (+ det (* (m matrix 0 column)
+                                  (cofactor matrix 0 column)))))))
+    det))
 
 (defun submatrix (matrix x y)
   (let ((size (dimensions matrix)))
