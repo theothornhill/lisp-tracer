@@ -8,4 +8,6 @@
            #:identity-matrix
            #:transpose
            #:determinant
-           #:submatrix))
+           #:submatrix
+           #:minor
+           #:cofactor))

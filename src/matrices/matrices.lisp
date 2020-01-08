@@ -50,3 +50,10 @@
                             (loop :for j :below size
                                :unless (or (= i x) (= j y))
                                  :collect (m matrix i j))))))
+
+(defun minor (matrix i j)
+  (determinant (submatrix matrix i j)))
+
+(defun cofactor (matrix i j)
+  (let ((minor (minor matrix i j)))
+    (if (oddp (+ i j)) (- minor) minor)))

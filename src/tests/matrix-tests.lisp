@@ -78,3 +78,18 @@
     (let ((a (matrix! 4 '(-6 1 1 6 -8 5 8 6 -1 0 8 2 -7 1 -1 1)))
           (b (matrix! 3 '(-6 1 6 -8 8 6 -7 -1 1))))
       (ok (equal? (submatrix a 2 1) b)))))
+
+(deftest manipulating-minors
+  (testing "Calculating a minor of a 3x3 matrix"
+    (let* ((a (matrix! 3 '(3 5 0 2 -1 -7 6 -1 5)))
+           (b (submatrix a 1 0)))
+      (ok (equal? (determinant b) 25))
+      (ok (equal? (minor a 1 0) 25)))))
+
+(deftest computing-cofactors
+  (testing "Calculating a cofactor of a 3x3 matrix"
+    (let ((a (matrix! 3 '(3 5 0 2 -1 -7 6 -1 5))))
+      (ok (equal? (minor a 0 0) -12))
+      (ok (equal? (cofactor a 0 0) -12))
+      (ok (equal? (minor a 1 0) 25))
+      (ok (equal? (cofactor a 1 0) -25)))))
