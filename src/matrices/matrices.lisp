@@ -67,3 +67,6 @@
 (defun cofactor (matrix i j)
   (let ((minor (minor matrix i j)))
     (if (oddp (+ i j)) (- minor) minor)))
+
+(defun invertible? (matrix)
+  (not (equal (determinant matrix) 0)))

@@ -110,3 +110,15 @@
       (ok (equal? (cofactor a 0 2) 210))
       (ok (equal? (cofactor a 0 3) 51))
       (ok (equal? (determinant a) -4071)))))
+
+(deftest invertible-matrix
+  (testing "Testing an invertible matrix for invertibility"
+    (let ((a (matrix! 4 '(6 4 4 4 5 5 7 6 4 -9 3 -7 9 1 7 -6))))
+      (ok (equal? (determinant a) -2120))
+      (ok (invertible? a)))))
+
+(deftest invertible-matrix
+  (testing "Testing an noninvertible matrix for invertibility"
+    (let ((a (matrix! 4 '(-4 2 -2 -3 9 6 2 6 0 -5 1 -5 0 0 0 0))))
+      (ok (equal? (determinant a) 0))
+      (ng (invertible? a)))))

@@ -10,4 +10,5 @@
            #:determinant
            #:submatrix
            #:minor
-           #:cofactor))
+           #:cofactor
+           #:invertible?))
