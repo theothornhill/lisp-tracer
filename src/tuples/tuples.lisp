@@ -33,10 +33,10 @@
   (= (w tuple) 0))
 
 (defmethod print-object ((obj tuple) stream)
-      (print-unreadable-object (obj stream :type t)
-        (with-accessors ((x x)
-                         (y y)
-                         (z z)
-                         (w w))
-            obj
-          (format stream "(~a, ~a, ~a, ~a)" x y z w))))
+  (print-unreadable-object (obj stream :type t)
+    (with-accessors ((x x)
+                     (y y)
+                     (z z)
+                     (w w))
+        obj
+      (format stream "(~a, ~a, ~a, ~a)" x y z w))))
