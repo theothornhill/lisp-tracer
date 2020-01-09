@@ -81,3 +81,9 @@
               (setf (aref (grid m2) column row)
                     (float (/ c (determinant matrix)))))))
     m2))
+
+(defmethod print-object ((obj matrix) stream)
+  (print-unreadable-object (obj stream :type t)
+    (with-accessors ((grid grid))
+        obj
+      (format stream "~a" grid))))
