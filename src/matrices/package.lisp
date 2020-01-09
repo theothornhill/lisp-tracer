@@ -11,4 +11,5 @@
            #:submatrix
            #:minor
            #:cofactor
-           #:invertible?))
+           #:invertible?
+           #:inverse))

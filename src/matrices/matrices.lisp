@@ -1,6 +1,5 @@
 (in-package #:lisp-tracer-matrices)
 
-
 (defun partition (size list)
   (labels ((part (list) (nthcdr size list)))
     (loop :for sublist :on list :by #'part
@@ -70,3 +69,15 @@
 
 (defun invertible? (matrix)
   (not (equal (determinant matrix) 0)))
+
+(defun inverse (matrix)
+  (unless (invertible? matrix)
+    (error "error here mister"))
+  (let ((m2 (identity-matrix))
+        (size (dimensions matrix)))
+    (loop :for row :below size :do
+      (loop :for column :below size :do
+            (let ((c (cofactor matrix row column)))
+              (setf (aref (grid m2) column row)
+                    (float (/ c (determinant matrix)))))))
+    m2))

@@ -1,6 +1,6 @@
 (in-package #:lisp-tracer-utilities)
 
-(defparameter *epsilon* 0.00001)
+(defparameter *epsilon* 0.0001)
 
 (defun eq? (a b)
   (< (abs (- a b)) *epsilon*))
@@ -61,7 +61,7 @@
 (defgeneric div (term1 term2)
   (:documentation "Dividing datastructures with scalar")
   (:method ((x number) (y number))
-    (/ x y))
+    (float (/ x y)))
   (:method ((x tuple) (y number))
     (->> (mapnumber #'/ x y)
          (map 'list #'float)

@@ -122,3 +122,17 @@
     (let ((a (matrix! 4 '(-4 2 -2 -3 9 6 2 6 0 -5 1 -5 0 0 0 0))))
       (ok (equal? (determinant a) 0))
       (ng (invertible? a)))))
+
+(deftest invert-matrix
+  (testing "Calculating the inverse of a matrix"
+    (let* ((a (matrix! 4 '(-5 2 6 -8 1 -5 1 8 7 7 -6 -7 1 -3 7 4)))
+           (b (inverse a)))
+      (ok (equal? (determinant a) 532))
+      (ok (equal? (cofactor a 2 3) -160))
+      (ok (equal? (m b 3 2) (div -160 532)))
+      (ok (equal? (cofactor a 3 2) 105))
+      (ok (equal? (m b 2 3) (div 105 532)))
+      (ok (equal? b (matrix! 4 '(0.21805 0.45113 0.24060 -0.04511
+                                 -0.80827 -1.45677 -0.44361 0.52068
+                                 -0.07895 -0.22368 -0.05263 0.19737
+                                 -0.52256 -0.81381 -0.30075 0.30639)))))))
