@@ -79,7 +79,7 @@
       (loop :for column :below size :do
             (let ((c (cofactor matrix row column)))
               (setf (aref (grid m2) column row)
-                    (float (/ c (determinant matrix)))))))
+                    (/ c (determinant matrix))))))
     m2))
 
 (defmethod print-object ((obj matrix) stream)
