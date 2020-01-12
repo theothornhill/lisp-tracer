@@ -32,6 +32,12 @@
 (defun vec? (tuple)
   (= (w tuple) 0))
 
+(defun to-pixel (tuple)
+  (tuple! (round (x tuple))
+          (round (y tuple))
+          (z tuple)
+          (w tuple)))
+
 (defmethod print-object ((obj tuple) stream)
   (print-unreadable-object (obj stream :type t)
     (with-accessors ((x x)

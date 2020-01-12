@@ -12,4 +12,5 @@
            #:point?
            #:vec?
            #:epsilon
-           #:zerovec))
+           #:zerovec
+           #:to-pixel))
