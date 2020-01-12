@@ -15,6 +15,12 @@
     :initarg :grid
     :accessor grid)))
 
+(defmethod print-object ((obj matrix) stream)
+  (print-unreadable-object (obj stream :type t)
+    (with-accessors ((grid grid))
+        obj
+      (format stream "~a" grid))))
+
 (defun matrix! (dimensions list)
   (make-instance 'matrix
                  :dimensions dimensions
@@ -82,8 +88,14 @@
                     (/ c (determinant matrix))))))
     m2))
 
-(defmethod print-object ((obj matrix) stream)
-  (print-unreadable-object (obj stream :type t)
-    (with-accessors ((grid grid))
-        obj
-      (format stream "~a" grid))))
+(defun translation (x y z)
+  (matrix! 4 `(1  0  0 ,x
+               0  1  0 ,y
+               0  0  1 ,z
+               0  0  0  1)))
+
+(defun scaling (x y z)
+  (matrix! 4 `(,x  0  0  0
+                0 ,y  0  0 
+                0  0 ,z  0
+                0  0  0  1)))

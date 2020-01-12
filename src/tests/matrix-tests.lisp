@@ -163,3 +163,37 @@
           (b (matrix! 4 '(8 2 2 2 3 -1 7 0 7 0 5 4 6 -2 0 5)))
           (c (mult a b)))
       (ok (equal? a (mult c (inverse b)))))))
+
+(deftest translate-matrix
+  (testing "Multiplying by a translation matrix"
+    (let ((transform (translation 5 -3 2))
+          (p (point! -3 4 5)))
+      (ok (equal? (mult transform p) (point! 2 1 7)))))
+  (testing "Multiplying by the inverse of a translation matrix"
+    (let* ((transform (translation 5 -3 2))
+           (inv (inverse transform))
+           (p (point! -3 4 5)))
+      (ok (equal? (mult inv p) (point! -8 7 3)))))
+  (testing "Translation does not affect vectors"
+    (let ((transform (translation 5 -3 2))
+          (v (vec! -3 4 5)))
+      (ok (equal? (mult transform v) v)))))
+
+(deftest scaling-matrix
+  (testing "A scaling matrix applied to a point"
+    (let ((transform (scaling 2 3 4))
+          (p (point! -4 6 8)))
+      (ok (equal? (mult transform p) (point! -8 18 32)))))
+  (testing "A scaling matrix applied to a vector"
+    (let ((transform (scaling 2 3 4))
+          (v (vec! -4 6 8)))
+      (ok (equal? (mult transform v) (vec! -8 18 32)))))
+  (testing "Multiplying by the inverse of a scaling matrix"
+    (let* ((transform (scaling 2 3 4))
+           (inv (inverse transform))
+           (v (vec! -4 6 8)))
+      (ok (equal? (mult inv v) (vec! -2 2 2)))))
+  (testing "Reflection is scaling by a negative value"
+    (let ((transform (scaling -1 1 1))
+          (p (point! 2 3 4)))
+      (ok (equal? (mult transform p) (point! -2 3 4))))))

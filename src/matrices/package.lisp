@@ -12,4 +12,6 @@
            #:minor
            #:cofactor
            #:invertible?
-           #:inverse))
+           #:inverse
+           #:translation
+           #:scaling))
