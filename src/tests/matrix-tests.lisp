@@ -234,3 +234,29 @@
                                                 (div (sqrt 2) 2)
                                                 0)))
       (ok (equal? (mult full-quarter p) (point! -1 0 0))))))
+
+(deftest shearing
+  (testing "A shearing transformation moves x in proportion to y"
+    (let ((transform (shearing 1 0 0 0 0 0))
+          (p (point! 2 3 4)))
+      (ok (equal? (mult transform p) (point! 5 3 4)))))
+  (testing "A shearing transformation moves x in proportion to z"
+    (let ((transform (shearing 0 1 0 0 0 0))
+          (p (point! 2 3 4)))
+      (ok (equal? (mult transform p) (point! 6 3 4)))))
+  (testing "A shearing transformation moves y in proportion to x"
+    (let ((transform (shearing 0 0 1 0 0 0))
+          (p (point! 2 3 4)))
+      (ok (equal? (mult transform p) (point! 2 5 4)))))
+  (testing "A shearing transformation moves y in proportion to z"
+    (let ((transform (shearing 0 0 0 1 0 0))
+          (p (point! 2 3 4)))
+      (ok (equal? (mult transform p) (point! 2 7 4)))))
+  (testing "A shearing transformation moves z in proportion to x"
+    (let ((transform (shearing 0 0 0 0 1 0))
+          (p (point! 2 3 4)))
+      (ok (equal? (mult transform p) (point! 2 3 6)))))
+  (testing "A shearing transformation moves z in proportion to y"
+    (let ((transform (shearing 0 0 0 0 0 1))
+          (p (point! 2 3 4)))
+      (ok (equal? (mult transform p) (point! 2 3 7))))))

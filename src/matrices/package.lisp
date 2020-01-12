@@ -17,4 +17,5 @@
            #:scaling
            #:rotation-x
            #:rotation-y
-           #:rotation-z))
+           #:rotation-z
+           #:shearing))

@@ -117,3 +117,9 @@
                ,(sin r) ,(cos r)     0 0
                0        0            1 0
                0        0            0 1)))
+
+(defun shearing (q w e a s d)
+  (matrix! 4 `(1  ,q ,w 0
+               ,e 1  ,a 0
+               ,s ,d 1  0
+               0  0  0  1)))
