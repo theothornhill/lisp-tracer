@@ -197,3 +197,40 @@
     (let ((transform (scaling -1 1 1))
           (p (point! 2 3 4)))
       (ok (equal? (mult transform p) (point! -2 3 4))))))
+
+(deftest rotation-x-axis
+  (testing "Rotating a point around the x axis"
+    (let ((p (point! 0 1 0))
+          (half-quarter (rotation-x (div pi 4)))
+          (full-quarter (rotation-x (div pi 2))))
+      (ok (equal? (mult half-quarter p) (point! 0
+                                                (div (sqrt 2) 2)
+                                                (div (sqrt 2) 2))))
+      (ok (equal? (mult full-quarter p) (point! 0 0 1)))))
+  (testing "The inverse of an x-rotation rotates in the opposite direction"
+    (let* ((p (point! 0 1 0))
+           (half-quarter (rotation-x (div pi 4)))
+           (inv (inverse half-quarter)))
+      (ok (equal? (mult inv p) (point! 0
+                                       (div (sqrt 2) 2)
+                                       (- (div (sqrt 2) 2))))))))
+
+(deftest rotation-y-axis
+  (testing "Rotating a point around the y axis"
+    (let ((p (point! 0 0 1))
+          (half-quarter (rotation-y (div pi 4)))
+          (full-quarter (rotation-y (div pi 2))))
+      (ok (equal? (mult half-quarter p) (point! (div (sqrt 2) 2)
+                                                0
+                                                (div (sqrt 2) 2))))
+      (ok (equal? (mult full-quarter p) (point! 1 0 0))))))
+
+(deftest rotation-z-axis
+  (testing "Rotating a point around the z axis"
+    (let ((p (point! 0 1 0))
+          (half-quarter (rotation-z (div pi 4)))
+          (full-quarter (rotation-z (div pi 2))))
+      (ok (equal? (mult half-quarter p) (point! (- (div (sqrt 2) 2))
+                                                (div (sqrt 2) 2)
+                                                0)))
+      (ok (equal? (mult full-quarter p) (point! -1 0 0))))))

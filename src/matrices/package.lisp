@@ -14,4 +14,7 @@
            #:invertible?
            #:inverse
            #:translation
-           #:scaling))
+           #:scaling
+           #:rotation-x
+           #:rotation-y
+           #:rotation-z))

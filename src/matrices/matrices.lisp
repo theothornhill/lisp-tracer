@@ -96,6 +96,24 @@
 
 (defun scaling (x y z)
   (matrix! 4 `(,x  0  0  0
-                0 ,y  0  0 
+                0 ,y  0  0
                 0  0 ,z  0
                 0  0  0  1)))
+
+(defun rotation-x (r)
+  (matrix! 4 `(1 0        0            0
+               0 ,(cos r) ,(- (sin r)) 0
+               0 ,(sin r) ,(cos r)     0
+               0 0        0            1)))
+
+(defun rotation-y (r)
+  (matrix! 4 `(,(cos r) 0            ,(sin r)    0
+               0        1            0           0
+               0        ,(- (sin r)) ,(cos r)    0
+               0        0            0           1)))
+
+(defun rotation-z (r)
+  (matrix! 4 `(,(cos r) ,(- (sin r)) 0 0
+               ,(sin r) ,(cos r)     0 0
+               0        0            1 0
+               0        0            0 1)))
