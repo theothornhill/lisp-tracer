@@ -260,3 +260,21 @@
     (let ((transform (shearing 0 0 0 0 0 1))
           (p (point! 2 3 4)))
       (ok (equal? (mult transform p) (point! 2 3 7))))))
+
+(deftest matrix-composing
+  (testing "Individual transformations are applied in sequence"
+    (let* ((p (point! 1 0 1))
+           (a (rotation-x (div pi 2)))
+           (b (scaling 5 5 5))
+           (c (translation 10 5 7))
+           (p2 (mult a p))
+           (p3 (mult b p2))
+           (p4 (mult c p3)))
+      (ok (equal? p4 (point! 15 0 7)))))
+  (testing "Chained transformations must be applied in reverse order"
+    (let* ((p (point! 1 0 1))
+           (a (rotation-x (div pi 2)))
+           (b (scaling 5 5 5))
+           (c (translation 10 5 7))
+           (transformed (reduce #'mult (list c b a p))))
+      (ok (equal? transformed (point! 15 0 7))))))
