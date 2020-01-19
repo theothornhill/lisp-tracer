@@ -11,6 +11,7 @@
                         :components ((:file "package")
                                      (:file "tuple-tests")
                                      (:file "matrix-tests")
+                                     (:file "ray-tests")
                                      (:file "color-tests")
                                      (:file "canvas-tests")
                                      (:file "tracer-tests")))))

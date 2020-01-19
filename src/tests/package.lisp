@@ -7,4 +7,5 @@
         #:lisp-tracer-colors
         #:lisp-tracer-canvas
         #:lisp-tracer-tuples
-        #:lisp-tracer-matrices))
+        #:lisp-tracer-matrices
+        #:lisp-tracer-rays))

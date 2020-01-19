@@ -23,6 +23,10 @@
                         :components ((:file "package")
                                      (:file "macros")
                                      (:file "math")))
+               (:module "src/rays"
+                        :serial t
+                        :components ((:file "package")
+                                     (:file "rays")))
                (:module "src/canvas"
                         :serial t
                         :components ((:file "package")
