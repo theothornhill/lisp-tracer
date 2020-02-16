@@ -8,4 +8,5 @@
         #:lisp-tracer-canvas
         #:lisp-tracer-tuples
         #:lisp-tracer-matrices
-        #:lisp-tracer-rays))
+        #:lisp-tracer-rays
+        #:lisp-tracer-spheres))

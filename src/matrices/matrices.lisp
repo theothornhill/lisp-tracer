@@ -22,6 +22,7 @@
       (format stream "~a" grid))))
 
 (defun matrix! (dimensions list)
+  (declare (fixnum dimensions) (list list))
   (make-instance 'matrix
                  :dimensions dimensions
                  :grid (make-array (list dimensions dimensions)

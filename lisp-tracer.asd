@@ -27,6 +27,10 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "rays")))
+               (:module "src/spheres"
+                        :serial t
+                        :components ((:file "package")
+                                     (:file "spheres")))
                (:module "src/canvas"
                         :serial t
                         :components ((:file "package")
