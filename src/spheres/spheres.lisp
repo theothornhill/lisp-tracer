@@ -6,12 +6,12 @@
     :initform (gensym)
     :accessor id)))
 
-(defun sphere! ()
+(defun make-sphere ()
   (make-instance 'sphere))
 
 (defun intersect (sphere ray)
   (declare (sphere sphere) (ray ray))
-  (let* ((sphere-to-ray (sub (origin ray) (point! 0 0 0)))
+  (let* ((sphere-to-ray (sub (origin ray) (make-point 0 0 0)))
          (a (dot (direction ray) (direction ray)))
          (b (mult 2 (dot (direction ray) sphere-to-ray)))
          (c (sub (dot sphere-to-ray sphere-to-ray) 1))

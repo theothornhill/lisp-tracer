@@ -3,7 +3,7 @@
 (defun partition (size list)
   (labels ((part (list) (nthcdr size list)))
     (loop :for sublist :on list :by #'part
-                :collect (subseq sublist 0 size))))
+       :collect (subseq sublist 0 size))))
 
 (defclass matrix ()
   ((dimensions
@@ -21,7 +21,7 @@
         obj
       (format stream "~a" grid))))
 
-(defun matrix! (dimensions list)
+(defun make-matrix (dimensions list)
   (declare (fixnum dimensions) (list list))
   (make-instance 'matrix
                  :dimensions dimensions
@@ -34,15 +34,15 @@
   (aref (grid matrix) i j))
 
 (defun identity-matrix ()
-  (matrix! 4 '(1 0 0 0
-               0 1 0 0
-               0 0 1 0
-               0 0 0 1)))
+  (make-matrix 4 '(1 0 0 0
+                   0 1 0 0
+                   0 0 1 0
+                   0 0 0 1)))
 
 (defun transpose (matrix)
-  (matrix! 4 (loop :for i :below 4 :append
-                  (loop :for j :below 4 :collect
-                       (m matrix j i)))))
+  (make-matrix 4 (loop :for i :below 4 :append
+                      (loop :for j :below 4
+                         :collect (m matrix j i)))))
 
 (defun determinant2x2 (matrix)
   (- (* (m matrix 0 0)
@@ -62,10 +62,10 @@
 
 (defun submatrix (matrix x y)
   (let ((size (dimensions matrix)))
-    (matrix! (1- size) (loop :for i :below size :append
-                            (loop :for j :below size
-                               :unless (or (= i x) (= j y))
-                                 :collect (m matrix i j))))))
+    (make-matrix (1- size) (loop :for i :below size :append
+                                (loop :for j :below size
+                                   :unless (or (= i x) (= j y))
+                                   :collect (m matrix i j))))))
 
 (defun minor (matrix i j)
   (determinant (submatrix matrix i j)))
@@ -90,37 +90,37 @@
     m2))
 
 (defun translation (x y z)
-  (matrix! 4 `(1  0  0 ,x
-               0  1  0 ,y
-               0  0  1 ,z
-               0  0  0  1)))
+  (make-matrix 4 `(1  0  0 ,x
+                   0  1  0 ,y
+                   0  0  1 ,z
+                   0  0  0  1)))
 
 (defun scaling (x y z)
-  (matrix! 4 `(,x  0  0  0
-                0 ,y  0  0
-                0  0 ,z  0
-                0  0  0  1)))
+  (make-matrix 4 `(,x  0  0  0
+                    0 ,y  0  0
+                    0  0 ,z  0
+                    0  0  0  1)))
 
 (defun rotation-x (r)
-  (matrix! 4 `(1 0        0            0
-               0 ,(cos r) ,(- (sin r)) 0
-               0 ,(sin r) ,(cos r)     0
-               0 0        0            1)))
+  (make-matrix 4 `(1 0        0            0
+                   0 ,(cos r) ,(- (sin r)) 0
+                   0 ,(sin r) ,(cos r)     0
+                   0 0        0            1)))
 
 (defun rotation-y (r)
-  (matrix! 4 `(,(cos r) 0            ,(sin r)    0
-               0        1            0           0
-               0        ,(- (sin r)) ,(cos r)    0
-               0        0            0           1)))
+  (make-matrix 4 `(,(cos r) 0            ,(sin r)    0
+                   0        1            0           0
+                   0        ,(- (sin r)) ,(cos r)    0
+                   0        0            0           1)))
 
 (defun rotation-z (r)
-  (matrix! 4 `(,(cos r) ,(- (sin r)) 0 0
-               ,(sin r) ,(cos r)     0 0
-               0        0            1 0
-               0        0            0 1)))
+  (make-matrix 4 `(,(cos r) ,(- (sin r)) 0 0
+                   ,(sin r) ,(cos r)     0 0
+                   0        0            1 0
+                   0        0            0 1)))
 
 (defun shearing (q w e a s d)
-  (matrix! 4 `(1  ,q ,w 0
-               ,e 1  ,a 0
-               ,s ,d 1  0
-               0  0  0  1)))
+  (make-matrix 4 `(1  ,q ,w 0
+                   ,e 1  ,a 0
+                   ,s ,d 1  0
+                   0  0  0  1)))

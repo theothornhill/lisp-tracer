@@ -3,14 +3,14 @@
   (:import-from #:lisp-tracer-colors
                 #:black
                 #:color
-                #:color!
+                #:make-color
                 #:red
                 #:green
                 #:blue)
-  (:export #:canvas!
+  (:export #:make-canvas
            #:width
            #:height
            #:canv
-           #:canvas-to-ppm!
-           #:write-pixel!
+           #:canvas-to-ppm
+           #:write-pixel
            #:pixel-at))

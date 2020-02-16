@@ -1,7 +1,7 @@
 (defpackage #:lisp-tracer-colors
   (:use #:cl)
   (:export #:color
-           #:color!
+           #:make-color
            #:red
            #:green
            #:blue

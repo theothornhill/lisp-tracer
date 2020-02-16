@@ -1,19 +1,19 @@
 (in-package #:lisp-tracer)
 
-(defparameter *canvas* (canvas! 200 100))
+(defparameter *canvas* (make-canvas 200 100))
 
 (defun create-pixel (x)
-  (let*  ((white (color! 1 1 1))
+  (let*  ((white (make-color 1 1 1))
           (radians (mult x (div pi 6)))
           (r (reduce #'mult
                      (list (translation 100 50 0)
                            (rotation-z radians)
                            (translation 0 30 0)
-                           (point! 0 0 0)))))
+                           (make-point 0 0 0)))))
     (let* ((pixel (to-pixel r))
            (i (x pixel))
            (j (y pixel)))
-      (write-pixel! *canvas* i j white))))
+      (write-pixel *canvas* i j white))))
 
 (defun clock ()
   (map 'list #'create-pixel
@@ -22,4 +22,4 @@
 (clock)
 
 
-(canvas-to-ppm! *canvas*)
+(canvas-to-ppm *canvas*)

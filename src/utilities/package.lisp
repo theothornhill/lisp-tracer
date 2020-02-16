@@ -2,21 +2,21 @@
   (:use #:cl)
   (:import-from #:lisp-tracer-tuples
                 #:tuple
-                #:tuple!
-                #:point!
-                #:vec!
+                #:make-tuple
+                #:make-point
+                #:make-vec
                 #:x
                 #:y
                 #:z
                 #:w)
   (:import-from #:lisp-tracer-colors
                 #:color
-                #:color!
+                #:make-color
                 #:red
                 #:green
                 #:blue)
   (:import-from #:lisp-tracer-matrices
-                #:matrix!
+                #:make-matrix
                 #:matrix
                 #:m
                 #:grid

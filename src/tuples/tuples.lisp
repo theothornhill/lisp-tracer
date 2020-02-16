@@ -14,17 +14,17 @@
     :initarg :w
     :accessor w)))
 
-(defun tuple! (x y z w)
+(defun make-tuple (x y z w)
   (make-instance 'tuple :x x :y y :z z :w w))
 
-(defun point! (x y z)
+(defun make-point (x y z)
   (make-instance 'tuple :x x :y y :z z :w 1.0))
 
-(defun vec! (x y z)
+(defun make-vec (x y z)
   (make-instance 'tuple :x x :y y :z z :w 0.0))
 
 (defun zerovec ()
-  (vec! 0 0 0))
+  (make-vec 0 0 0))
 
 (defun point? (tuple)
   (= (w tuple) 1))
@@ -33,7 +33,7 @@
   (= (w tuple) 0))
 
 (defun to-pixel (tuple)
-  (tuple! (round (x tuple))
+  (make-tuple (round (x tuple))
           (round (y tuple))
           (z tuple)
           (w tuple)))

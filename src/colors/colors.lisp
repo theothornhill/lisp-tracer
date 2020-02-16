@@ -11,7 +11,7 @@
     :initarg :blue
     :accessor blue)))
 
-(defun color! (red green blue)
+(defun make-color (red green blue)
   (make-instance 'color
                  :red red
                  :green green
@@ -19,7 +19,7 @@
 
 
 (defun black ()
-  (color! 0 0 0))
+  (make-color 0 0 0))
 
 (defmethod print-object ((obj color) stream)
       (print-unreadable-object (obj stream :type nil)

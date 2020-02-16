@@ -10,7 +10,7 @@
     :initarg :direction
     :accessor direction)))
 
-(defun ray! (origin direction)
+(defun make-ray (origin direction)
   (declare (tuple origin) (tuple direction))
   (make-instance 'ray
                  :origin origin

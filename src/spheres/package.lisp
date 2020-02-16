@@ -3,7 +3,7 @@
         #:lisp-tracer-utilities
         #:lisp-tracer-rays)
   (:import-from #:lisp-tracer-tuples
-                #:point!)
+                #:make-point)
   (:export #:sphere
-           #:sphere!
+           #:make-sphere
            #:intersect))
