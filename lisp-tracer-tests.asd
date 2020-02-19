@@ -14,4 +14,5 @@
                                      (:file "color-tests")
                                      (:file "canvas-tests")
                                      (:file "tracer-tests")
-                                     (:file "sphere-tests")))))
+                                     (:file "sphere-tests")
+                                     (:file "intersection-tests")))))

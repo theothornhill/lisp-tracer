@@ -1,5 +1,3 @@
-;;;; package.lisp
-
 (defpackage #:lisp-tracer-tests
   (:use #:cl
         #:rove
@@ -9,4 +7,5 @@
         #:lisp-tracer-tuples
         #:lisp-tracer-matrices
         #:lisp-tracer-rays
-        #:lisp-tracer-spheres))
+        #:lisp-tracer-spheres
+        #:lisp-tracer-intersections))

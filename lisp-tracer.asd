@@ -31,6 +31,10 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "spheres")))
+               (:module "src/intersections"
+                        :serial t
+                        :components ((:file "package")
+                                     (:file "intersections")))
                (:module "src/canvas"
                         :serial t
                         :components ((:file "package")

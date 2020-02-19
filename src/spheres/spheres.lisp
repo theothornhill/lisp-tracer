@@ -9,6 +9,22 @@
 (defun make-sphere ()
   (make-instance 'sphere))
 
+(defclass intersection ()
+  ((tt
+    :initarg :tt
+    :accessor tt)
+   (object
+    :initarg :object
+    :accessor object)))
+
+(defun make-intersection (tt sphere)
+  (make-instance 'intersection :tt tt :object sphere))
+
+(defun intersections (&rest xs)
+  (if xs
+      xs
+      nil))
+
 (defun intersect (sphere ray)
   (declare (sphere sphere) (ray ray))
   (let* ((sphere-to-ray (sub (origin ray) (make-point 0 0 0)))
@@ -17,8 +33,10 @@
          (c (sub (dot sphere-to-ray sphere-to-ray) 1))
          (discriminant (sub (mult b b) (reduce 'mult (list 4 a c)))))
     (if (< discriminant 0)
-        nil
-        (list (div (sub (- b) (sqrt discriminant))
-                   (mult 2 a))
-              (div (add (- b) (sqrt discriminant))
-                   (mult 2 a))))))
+        (intersections)
+        (intersections (make-intersection (div (sub (- b) (sqrt discriminant))
+                                               (mult 2 a))
+                                          sphere)
+                       (make-intersection (div (add (- b) (sqrt discriminant))
+                                               (mult 2 a))
+                                          sphere)))))

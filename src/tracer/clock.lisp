@@ -3,13 +3,13 @@
 (defparameter *canvas* (make-canvas 200 100))
 
 (defun create-pixel (x)
-  (let*  ((white (make-color 1 1 1))
-          (radians (mult x (div pi 6)))
-          (r (reduce #'mult
-                     (list (translation 100 50 0)
-                           (rotation-z radians)
-                           (translation 0 30 0)
-                           (make-point 0 0 0)))))
+  (let* ((white (make-color 1 1 1))
+         (radians (mult x (div pi 6)))
+         (r (reduce #'mult
+                    (list (translation 100 50 0)
+                          (rotation-z radians)
+                          (translation 0 30 0)
+                          (make-point 0 0 0)))))
     (let* ((pixel (to-pixel r))
            (i (x pixel))
            (j (y pixel)))

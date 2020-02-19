@@ -6,4 +6,9 @@
                 #:make-point)
   (:export #:sphere
            #:make-sphere
-           #:intersect))
+           #:intersect
+           #:intersection
+           #:make-intersection
+           #:intersections
+           #:object
+           #:tt))

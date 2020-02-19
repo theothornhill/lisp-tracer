@@ -6,8 +6,8 @@
            (s (make-sphere))
            (xs (intersect s r)))
       (ok (equal? (length xs) 2))
-      (ok (equal? (car xs) 4.0))
-      (ok (equal? (cadr xs) 6.0)))))
+      (ok (equal? (tt (car xs)) 4.0))
+      (ok (equal? (tt (cadr xs)) 6.0)))))
 
 (deftest ray-intersect-tangent
   (testing "A ray intersect a sphere at a tangent"
@@ -15,8 +15,8 @@
            (s (make-sphere))
            (xs (intersect s r)))
       (ok (equal? (length xs) 2))
-      (ok (equal? (car xs) 5.0))
-      (ok (equal? (cadr xs) 5.0)))))
+      (ok (equal? (tt (car xs)) 5.0))
+      (ok (equal? (tt (cadr xs)) 5.0)))))
 
 (deftest ray-intersect-miss
   (testing "A ray misses a sphere"
@@ -31,8 +31,8 @@
            (s (make-sphere))
            (xs (intersect s r)))
       (ok (equal? (length xs) 2))
-      (ok (equal? (car xs) -1.0))
-      (ok (equal? (cadr xs) 1.0)))))
+      (ok (equal? (tt (car xs)) -1.0))
+      (ok (equal? (tt (cadr xs)) 1.0)))))
 
 (deftest ray-intersect-outside
   (testing "A sphere is behind a ray"
@@ -40,5 +40,14 @@
            (s (make-sphere))
            (xs (intersect s r)))
       (ok (equal? (length xs) 2))
-      (ok (equal? (car xs) -6.0))
-      (ok (equal? (cadr xs) -4.0)))))
+      (ok (equal? (tt (car xs)) -6.0))
+      (ok (equal? (tt (cadr xs)) -4.0)))))
+
+(deftest intersect-set-object
+  (testing "Intersect sets the object on the intersection"
+    (let* ((r (make-ray (make-point 0 0 -5) (make-vec 0 0 1)))
+           (s (make-sphere))
+           (xs (intersect s r)))
+      (ok (equal? (length xs) 2))
+      (ok (eq (object (first xs)) s))
+      (ok (eq (object (second xs)) s)))))
