@@ -36,4 +36,5 @@
            #:maptuple
            #:mapnumber
            #:mapcolor
-           #:tuple-to-list))
+           #:tuple-to-list
+           #:transform-object))

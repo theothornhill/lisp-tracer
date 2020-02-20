@@ -43,3 +43,6 @@
 
 (defun tuple-to-list (tuple)
   (list (x tuple) (y tuple) (z tuple) (w tuple)))
+
+(defmacro transform-object (&rest transforms)
+  `(reduce #'mult (list ,@(reverse transforms))))
