@@ -7,6 +7,7 @@
   :depends-on (#:rove
                #:lisp-tracer)
   :components ((:module "src/tests"
+                        :serial t
                         :components ((:file "package")
                                      (:file "tuple-tests")
                                      (:file "matrix-tests")
@@ -14,5 +15,5 @@
                                      (:file "color-tests")
                                      (:file "canvas-tests")
                                      (:file "tracer-tests")
-                                     (:file "sphere-tests")
-                                     (:file "intersection-tests")))))
+                                     (:file "intersection-tests")
+                                     (:file "sphere-tests")))))

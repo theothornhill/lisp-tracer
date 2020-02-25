@@ -5,10 +5,4 @@
   (:import-from #:lisp-tracer-tuples
                 #:make-point)
   (:export #:sphere
-           #:make-sphere
-           #:intersect
-           #:intersection
-           #:make-intersection
-           #:intersections
-           #:object
-           #:tt))
+           #:make-sphere))
