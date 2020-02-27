@@ -10,4 +10,5 @@
            #:tt
            #:object
            #:make-intersection
-           #:intersections))
+           #:intersections
+           #:hit))

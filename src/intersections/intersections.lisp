@@ -29,3 +29,9 @@
                      (make-intersection (div (add (- b) (sqrt discriminant))
                                              (mult 2 a))
                                         sphere)))))
+
+(defun hit (xs)
+  (declare (type list xs))
+  (cond ((null xs) nil)
+        ((> (tt (car xs)) 0) (car xs))
+        (t (hit (cdr xs)))))
