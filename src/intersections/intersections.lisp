@@ -12,9 +12,8 @@
   (make-instance 'ray-tracer-intersection :tt tt :object obj))
 
 (defun intersections (&rest xs)
-  (if xs
-      xs
-      nil))
+  (labels ((tt< (a b) (< (tt a) (tt b))))
+    (if xs (sort xs #'tt<))))
 
 (defun intersect (sphere ray)
   (declare (sphere sphere) (ray ray))
@@ -23,11 +22,10 @@
          (b (mult 2 (dot (direction ray) sphere-to-ray)))
          (c (sub (dot sphere-to-ray sphere-to-ray) 1))
          (discriminant (sub (mult b b) (reduce 'mult (list 4 a c)))))
-    (if (< discriminant 0)
-        (intersections)
-        (intersections (make-intersection (div (sub (- b) (sqrt discriminant))
-                                               (mult 2 a))
-                                          sphere)
-                       (make-intersection (div (add (- b) (sqrt discriminant))
-                                               (mult 2 a))
-                                          sphere)))))
+    (unless (< discriminant 0)
+      (intersections (make-intersection (div (sub (- b) (sqrt discriminant))
+                                             (mult 2 a))
+                                        sphere)
+                     (make-intersection (div (add (- b) (sqrt discriminant))
+                                             (mult 2 a))
+                                        sphere)))))
