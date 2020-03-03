@@ -17,9 +17,10 @@
 
 (defun intersect (sphere ray)
   (declare (sphere sphere) (ray ray))
-  (let* ((sphere-to-ray (sub (origin ray) (make-point 0 0 0)))
-         (a (dot (direction ray) (direction ray)))
-         (b (mult 2 (dot (direction ray) sphere-to-ray)))
+  (let* ((ray2 (transform ray (inverse (transform-matrix sphere))))
+         (sphere-to-ray (sub (origin ray2) (make-point 0 0 0)))
+         (a (dot (direction ray2) (direction ray2)))
+         (b (mult 2 (dot (direction ray2) sphere-to-ray)))
          (c (sub (dot sphere-to-ray sphere-to-ray) 1))
          (discriminant (sub (mult b b) (reduce 'mult (list 4 a c)))))
     (unless (< discriminant 0)

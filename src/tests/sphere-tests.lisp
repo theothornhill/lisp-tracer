@@ -61,3 +61,20 @@
           (trans (translation 2 3 4)))
       (set-transform s trans)
       (ok (equal? (transform-matrix s) trans)))))
+
+(deftest intersecting-spheres
+  (testing "Intersecting a scaled sphere with a ray"
+    (let* ((r (make-ray (make-point 0 0 -5) (make-vec 0 0 1)))
+           (s (make-sphere)))
+      (set-transform s (scaling 2 2 2))
+      (let ((xs (intersect s r)))
+        (ok (= (length xs) 2))
+        (ok (= (tt (car xs)) 3))
+        (ok (= (tt (cadr xs)) 7)))))
+  (testing "Intersecting a translated sphere with a ray"
+    (let* ((r (make-ray (make-point 0 0 -5) (make-vec 0 0 1)))
+           (s (make-sphere)))
+      (set-transform s (translation 5 0 0))
+      (let ((xs (intersect s r)))
+        (ok (= (length xs) 0))))))
+

@@ -2,9 +2,9 @@
   (:use #:cl
         #:lisp-tracer-utilities
         #:lisp-tracer-rays
-        #:lisp-tracer-tuples)
-  (:import-from #:lisp-tracer-spheres
-                #:sphere)
+        #:lisp-tracer-tuples
+        #:lisp-tracer-matrices
+        #:lisp-tracer-spheres)
   (:export #:intersect
            #:intersection
            #:tt
