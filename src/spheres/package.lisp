@@ -1,8 +1,10 @@
 (defpackage #:lisp-tracer-spheres
   (:use #:cl
         #:lisp-tracer-utilities
-        #:lisp-tracer-rays)
-  (:import-from #:lisp-tracer-tuples
-                #:make-point)
+        #:lisp-tracer-rays
+        #:lisp-tracer-matrices
+        #:lisp-tracer-tuples)
   (:export #:sphere
-           #:make-sphere))
+           #:make-sphere
+           #:transform-matrix
+           #:set-transform))

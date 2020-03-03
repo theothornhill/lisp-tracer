@@ -51,3 +51,13 @@
       (ok (equal? (length xs) 2))
       (ok (eq (object (first xs)) s))
       (ok (eq (object (second xs)) s)))))
+
+(deftest sphere-transformations
+  (testing "A sphere's default transformation"
+    (let ((s (make-sphere)))
+      (ok (equal? (transform-matrix s) (identity-matrix)))))
+  (testing "Changing a sphere's transformation"
+    (let ((s (make-sphere))
+          (trans (translation 2 3 4)))
+      (set-transform s trans)
+      (ok (equal? (transform-matrix s) trans)))))
