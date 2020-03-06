@@ -5,15 +5,16 @@
   :version "0.0.1"
   :serial t
   :depends-on (#:rove
+               #:iterate
                #:lisp-tracer)
   :components ((:module "src/tests"
-                        :serial t
-                        :components ((:file "package")
-                                     (:file "tuple-tests")
-                                     (:file "matrix-tests")
-                                     (:file "ray-tests")
-                                     (:file "color-tests")
-                                     (:file "canvas-tests")
-                                     (:file "tracer-tests")
-                                     (:file "intersection-tests")
-                                     (:file "sphere-tests")))))
+                :serial t
+                :components ((:file "package")
+                             (:file "tuple-tests")
+                             (:file "matrix-tests")
+                             (:file "ray-tests")
+                             (:file "color-tests")
+                             (:file "canvas-tests")
+                             (:file "tracer-tests")
+                             (:file "intersection-tests")
+                             (:file "sphere-tests")))))

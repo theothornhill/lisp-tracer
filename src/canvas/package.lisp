@@ -1,5 +1,5 @@
 (defpackage #:lisp-tracer-canvas
-  (:use #:cl)
+  (:use #:cl #:iterate)
   (:import-from #:lisp-tracer-colors
                 #:black
                 #:color
@@ -10,7 +10,7 @@
   (:export #:make-canvas
            #:width
            #:height
-           #:canv
+           #:canvas
            #:canvas-to-ppm
            #:write-pixel
            #:pixel-at))

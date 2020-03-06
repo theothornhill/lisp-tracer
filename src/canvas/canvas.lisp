@@ -43,13 +43,13 @@
                          :if-exists :supersede
                          :if-does-not-exist :create)
       (format str "P3~%~a ~a~%255" n m)
-      (loop for j from 0 below m do
-           (format str "~%")
-           (loop for i from 0 below n do
-                (let ((pixel (pixel-at canvas i j)))
-                  (format str
-                          "~a ~a ~a "
-                          (color-as-255 (red pixel))
-                          (color-as-255 (green pixel))
-                          (color-as-255 (blue pixel))))))
+      (iterate (for j from 0 below m)
+        (format str "~%")
+        (iterate (for i from 0 below n)
+          (let ((pixel (pixel-at canvas i j)))
+            (format str
+                    "~a ~a ~a "
+                    (color-as-255 (red pixel))
+                    (color-as-255 (green pixel))
+                    (color-as-255 (blue pixel))))))
       (format str "~%"))))

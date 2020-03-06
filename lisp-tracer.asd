@@ -6,40 +6,41 @@
   :license  "MIT"
   :version "0.0.1"
   :serial t
+  :depends-on (#:iterate)
   :components ((:module "src/tuples"
-                        :serial t
-                        :components ((:file "package")
-                                     (:file "tuples")))
+                :serial t
+                :components ((:file "package")
+                             (:file "tuples")))
                (:module "src/matrices"
-                        :serial t
-                        :components ((:file "package")
-                                     (:file "matrices")))
+                :serial t
+                :components ((:file "package")
+                             (:file "matrices")))
                (:module "src/colors"
-                        :serial t
-                        :components ((:file "package")
-                                     (:file "colors")))
+                :serial t
+                :components ((:file "package")
+                             (:file "colors")))
                (:module "src/utilities"
-                        :serial t
-                        :components ((:file "package")
-                                     (:file "macros")
-                                     (:file "math")))
+                :serial t
+                :components ((:file "package")
+                             (:file "macros")
+                             (:file "math")))
                (:module "src/rays"
-                        :serial t
-                        :components ((:file "package")
-                                     (:file "rays")))
+                :serial t
+                :components ((:file "package")
+                             (:file "rays")))
                (:module "src/spheres"
-                        :serial t
-                        :components ((:file "package")
-                                     (:file "spheres")))
+                :serial t
+                :components ((:file "package")
+                             (:file "spheres")))
                (:module "src/intersections"
-                        :serial t
-                        :components ((:file "package")
-                                     (:file "intersections")))
+                :serial t
+                :components ((:file "package")
+                             (:file "intersections")))
                (:module "src/canvas"
-                        :serial t
-                        :components ((:file "package")
-                                     (:file "canvas")))
+                :serial t
+                :components ((:file "package")
+                             (:file "canvas")))
                (:module "src/tracer"
-                        :serial t
-                        :components ((:file "package")
-                                     (:file "clock")))))
+                :serial t
+                :components ((:file "package")
+                             (:file "clock")))))
