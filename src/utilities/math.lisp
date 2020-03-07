@@ -96,11 +96,10 @@
                 (- (w tup)))))
 
 (defun magnitude (vec)
-  (let ((lst (tuple-to-list vec)))
-    (->> lst
-         (map 'list (lambda (x) (* x x)))
-         (reduce '+ )
-         (sqrt))))
+  (->> (tuple-to-list vec)
+       (map 'list (lambda (x) (* x x)))
+       (reduce '+)
+       (sqrt)))
 
 (defun normalize (vec)
   (make-tuple (div (x vec) (magnitude vec))
