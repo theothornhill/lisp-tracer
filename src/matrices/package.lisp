@@ -1,5 +1,6 @@
 (defpackage #:lisp-tracer-matrices
-  (:use #:cl)
+  (:use #:cl
+        #:iterate)
   (:export #:make-matrix
            #:matrix
            #:m

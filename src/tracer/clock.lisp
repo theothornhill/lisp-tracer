@@ -16,7 +16,8 @@
 
 (defun clock ()
   (map 'list #'create-pixel
-       (loop :for i :from 1 :to 12 :collect i)))
+       (iter (for i from 1 to 12)
+         (collect i))))
 
 (clock)
 

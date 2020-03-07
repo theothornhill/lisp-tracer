@@ -36,28 +36,20 @@
     (let ((size (dimensions a)))
       (make-matrix
        size
-       (loop :for i :below size
-             :append
-             (loop :for j :below size
-                   :collect (+ (* (m a i 0)
-                                  (m b 0 j))
-                               (* (m a i 1)
-                                  (m b 1 j))
-                               (* (m a i 2)
-                                  (m b 2 j))
-                               (* (m a i 3)
-                                  (m b 3 j))))))))
+       (iter (for i below size)
+         (appending
+          (iter (for j below size)
+            (collect (+ (* (m a i 0) (m b 0 j))
+                        (* (m a i 1) (m b 1 j))
+                        (* (m a i 2) (m b 2 j))
+                        (* (m a i 3) (m b 3 j))))))))))
   (:method ((a matrix) (b tuple))
     (apply #'make-tuple
-           (loop :for i :below 4
-                 :collect (+ (* (m a i 0)
-                                (x b))
-                             (* (m a i 1)
-                                (y b))
-                             (* (m a i 2)
-                                (z b))
-                             (* (m a i 3)
-                                (w b)))))))
+           (iter (for i :below 4)
+             (collect (+ (* (m a i 0) (x b))
+                         (* (m a i 1) (y b))
+                         (* (m a i 2) (z b))
+                         (* (m a i 3) (w b))))))))
 
 (defgeneric div (term1 term2)
   (:documentation "Dividing datastructures with scalar")
@@ -80,11 +72,11 @@
          (eq? (green x) (green y))
          (eq? (blue x) (blue y))))
   (:method ((x matrix) (y matrix))
-    (loop :for i :below (dimensions x)
-          :always
-          (loop :for j :below (dimensions x)
-                :always
-                (eq? (m x i j) (m y i j))))))
+    (iter (for i below (dimensions x))
+      (always
+       (iter (for j below (dimensions x))
+         (always
+          (eq? (m x i j) (m y i j))))))))
 
 (defgeneric neg (element)
   (:documentation "Negates provided value")

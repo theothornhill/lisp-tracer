@@ -3,9 +3,9 @@
 (defun read-file-as-lines (filename)
   "Read file into a list of lines."
   (with-open-file (in filename)
-    (loop for line = (read-line in nil nil)
-      while line
-      collect line)))
+    (iter (for line = (read-line in nil nil))
+      (while line)
+      (collect line))))
 
 (deftest canvas-test
   (testing "Creating a canvas"
