@@ -1,26 +1,9 @@
 (defpackage #:lisp-tracer-utilities
-  (:use #:cl)
-  (:import-from #:lisp-tracer-tuples
-                #:tuple
-                #:make-tuple
-                #:make-point
-                #:make-vec
-                #:x
-                #:y
-                #:z
-                #:w)
-  (:import-from #:lisp-tracer-colors
-                #:color
-                #:make-color
-                #:red
-                #:green
-                #:blue)
-  (:import-from #:lisp-tracer-matrices
-                #:make-matrix
-                #:matrix
-                #:m
-                #:grid
-                #:dimensions)
+  (:use #:cl
+        #:iterate
+        #:lisp-tracer-tuples
+        #:lisp-tracer-colors
+        #:lisp-tracer-matrices)
   (:export #:add
            #:sub
            #:mult
