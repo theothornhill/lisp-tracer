@@ -34,9 +34,9 @@
 
 (defun to-pixel (tuple)
   (make-tuple (round (x tuple))
-          (round (y tuple))
-          (z tuple)
-          (w tuple)))
+              (round (y tuple))
+              (z tuple)
+              (w tuple)))
 
 (defmethod print-object ((obj tuple) stream)
   (print-unreadable-object (obj stream :type t)

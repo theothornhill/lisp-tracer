@@ -23,21 +23,24 @@
 
 (defun make-matrix (dimensions list)
   (declare (fixnum dimensions) (list list))
-  (make-instance 'matrix
-                 :dimensions dimensions
-                 :grid (make-array (list dimensions dimensions)
-                                   :initial-contents
-                                   (partition dimensions list))))
+  (make-instance
+   'matrix
+   :dimensions dimensions
+   :grid (make-array (list dimensions dimensions)
+                     :initial-contents
+                     (partition dimensions list))))
 
 (defun m (matrix i j)
   "Getter for matrix at index i j"
   (aref (grid matrix) i j))
 
 (defun identity-matrix ()
-  (make-matrix 4 '(1 0 0 0
-                   0 1 0 0
-                   0 0 1 0
-                   0 0 0 1)))
+  (make-matrix
+   4
+   '(1 0 0 0
+     0 1 0 0
+     0 0 1 0
+     0 0 0 1)))
 
 (defun transpose (matrix)
   (make-matrix 4 (loop :for i :below 4 :append

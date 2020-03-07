@@ -7,8 +7,7 @@
 
 (defgeneric add (term1 term2)
   (:documentation "Adding datastructures together")
-  (:method ((x number) (y number))
-    (+ x y))
+  (:method ((x number) (y number)) (+ x y))
   (:method ((x tuple) (y tuple))
     (apply #'make-tuple (maptuple '+ x y)))
   (:method ((x color) (y color))
@@ -16,8 +15,7 @@
 
 (defgeneric sub (term1 term2)
   (:documentation "Subtracting datastructures")
-  (:method ((x number) (y number))
-    (- x y))
+  (:method ((x number) (y number)) (- x y))
   (:method ((x tuple) (y tuple))
     (apply #'make-tuple (maptuple '- x y)))
   (:method ((x color) (y color))
@@ -25,8 +23,7 @@
 
 (defgeneric mult (term1 term2)
   (:documentation "Multiplying datastructures with scalar")
-  (:method ((x number) (y number))
-    (* x y))
+  (:method ((x number) (y number)) (* x y))
   (:method ((x tuple) (y number))
     (apply #'make-tuple (mapnumber #'* x y)))
   (:method ((x color) (y number))
@@ -64,8 +61,7 @@
 
 (defgeneric div (term1 term2)
   (:documentation "Dividing datastructures with scalar")
-  (:method ((x number) (y number))
-    (float (/ x y)))
+  (:method ((x number) (y number)) (float (/ x y)))
   (:method ((x tuple) (y number))
     (->> (mapnumber #'/ x y)
          (map 'list #'float)
@@ -73,8 +69,7 @@
 
 (defgeneric equal? (a b)
   (:documentation "Checking for unsafe equality")
-  (:method ((a number) (b number))
-    (eq? a b))
+  (:method ((a number) (b number)) (eq? a b))
   (:method ((x tuple) (y tuple))
     (and (eq? (x x) (x y))
          (eq? (y x) (y y))
@@ -93,8 +88,7 @@
 
 (defgeneric neg (element)
   (:documentation "Negates provided value")
-  (:method ((x number))
-    (- x))
+  (:method ((x number)) (- x))
   (:method ((tup tuple))
     (make-tuple (- (x tup))
                 (- (y tup))
