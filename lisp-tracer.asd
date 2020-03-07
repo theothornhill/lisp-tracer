@@ -22,7 +22,7 @@
                (:module "src/utilities"
                 :serial t
                 :components ((:file "package")
-                             (:file "macros")
+                             (:file "utils")
                              (:file "math")))
                (:module "src/rays"
                 :serial t

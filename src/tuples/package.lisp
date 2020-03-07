@@ -1,6 +1,7 @@
 (defpackage #:lisp-tracer-tuples
   (:use #:cl)
   (:export #:make-tuple
+           #:tuple
            #:point
            #:make-point
            #:vec
