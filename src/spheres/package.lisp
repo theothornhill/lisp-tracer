@@ -7,4 +7,5 @@
   (:export #:sphere
            #:make-sphere
            #:transform-matrix
-           #:set-transform))
+           #:set-transform
+           #:normal-at))

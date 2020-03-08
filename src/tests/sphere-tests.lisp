@@ -78,3 +78,42 @@
       (let ((xs (intersect s r)))
         (ok (= (length xs) 0))))))
 
+(deftest normal-testing
+  (testing "The normal on a sphere at a point on the x axis"
+    (let* ((s (make-sphere))
+           (n (normal-at s (make-point 1 0 0))))
+      (ok (equal? n (make-vec 1 0 0)))))
+  (testing "The normal on a sphere at a point on the y axis"
+    (let* ((s (make-sphere))
+           (n (normal-at s (make-point 0 1 0))))
+      (ok (equal? n (make-vec 0 1 0)))))
+  (testing "The normal on a sphere at a point on the z axis"
+    (let* ((s (make-sphere))
+           (n (normal-at s (make-point 0 0 1))))
+      (ok (equal? n (make-vec 0 0 1)))))
+  (testing "The normal on a sphere at a nonaxial point"
+    (let* ((s (make-sphere))
+           (sqrt3/3 (/ (sqrt 3) 3))
+           (n (normal-at s (make-point sqrt3/3 sqrt3/3 sqrt3/3))))
+      (ok (equal? n (make-vec sqrt3/3 sqrt3/3 sqrt3/3)))))
+  (testing "The normal is a normalized vector"
+    (let* ((s (make-sphere))
+           (sqrt3/3 (/ (sqrt 3) 3))
+           (n (normal-at s (make-point sqrt3/3 sqrt3/3 sqrt3/3))))
+      (ok (equal? n (normalize n))))))
+
+(deftest normalizing-transformed-sphere
+  (testing "Computing the normal on a translated sphere"
+    (let* ((s (make-sphere)))
+      (set-transform s (translation 0 1 0))
+      (let ((n (normal-at s (make-point 0 1.70711 -0.70711))))
+        (ok (equal? n (make-vec 0 0.70711 -0.70711))))))
+  (testing "Computing the normal on a transformed sphere"
+    (let* ((s (make-sphere))
+           (sqrt2/2 (div (sqrt 2) 2))
+           (m (transform-object
+               (rotation-z (div pi 5))
+               (scaling 1 0.5 1))))
+      (set-transform s m)
+      (let ((n (normal-at s (make-point 0 sqrt2/2 (neg sqrt2/2)))))
+        (ok (equal? n (make-vec 0 0.97014 -0.24254)))))))
