@@ -32,6 +32,10 @@
 (defun vec? (tuple)
   (= (w tuple) 0))
 
+(defun reflect (in normal)
+  (declare (tuple in) (tuple normal))
+  (sub in (reduce #'mult (list normal 2 (dot in normal)))))
+
 (defun to-pixel (tuple)
   (make-tuple (round (x tuple))
               (round (y tuple))

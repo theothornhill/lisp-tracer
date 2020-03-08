@@ -106,3 +106,17 @@
           (b (make-vec 2 3 4)))
       (ok (equal? (cross a b) (make-vec -1 2 -1)))
       (ok (equal? (cross b a) (make-vec 1 -2 1))))))
+
+(deftest reflecting
+  (testing "Reflecting a vector approaching at 45 degrees"
+    (let* ((v (make-vec 1 -1 0))
+           (n (make-vec 0 1 0))
+           (r (reflect v n)))
+      (ok (equal? r (make-vec 1 1 0)))))
+  (testing "Reflecting a vector off a slanted surface"
+    (let* ((v (make-vec 0 -1 0))
+           (n (make-vec (div (sqrt 2) 2)
+                        (div (sqrt 2) 2)
+                        0))
+           (r (reflect v n)))
+      (ok (equal? r (make-vec 1 0 0))))))
