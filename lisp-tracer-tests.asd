@@ -1,5 +1,5 @@
 (asdf:defsystem #:lisp-tracer-tests
-  :description "Describe lisp-tracer here"
+  :description "Tests for ray tracer"
   :author "Theodor Thornhill <theothornhill@pm.me>"
   :license  "MIT"
   :version "0.0.1"
