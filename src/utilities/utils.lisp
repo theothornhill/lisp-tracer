@@ -22,3 +22,7 @@
 
 (defmacro transform-object (&rest transforms)
   `(reduce #'mult (list ,@(reverse transforms))))
+
+(defun reflect (in normal)
+  (declare (tuple in) (tuple normal))
+  (sub in (reduce #'mult (list normal 2 (dot in normal)))))
