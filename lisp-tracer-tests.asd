@@ -3,12 +3,11 @@
   :author "Theodor Thornhill <theothornhill@pm.me>"
   :license  "MIT"
   :version "0.0.1"
-  :serial t
   :depends-on (#:rove
                #:iterate
+               #:arrows
                #:lisp-tracer)
   :components ((:module "src/tests"
-                :serial t
                 :components ((:file "package")
                              (:file "tuple-tests")
                              (:file "matrix-tests")
