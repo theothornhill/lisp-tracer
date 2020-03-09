@@ -10,4 +10,5 @@
         #:lisp-tracer-matrices
         #:lisp-tracer-rays
         #:lisp-tracer-intersections
-        #:lisp-tracer-spheres))
+        #:lisp-tracer-spheres
+        #:lisp-tracer-lights))

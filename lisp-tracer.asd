@@ -32,6 +32,9 @@
                (:module "src/canvas"
                 :components ((:file "package")
                              (:file "canvas")))
+               (:module "src/lights"
+                :components ((:file "package")
+                             (:file "lights")))
                (:module "src/tracer"
                 :components ((:file "package")
                              (:file "clock")))))
