@@ -1,6 +1,7 @@
 (defpackage #:lisp-tracer-utilities
   (:use #:cl
         #:iterate
+        #:arrows
         #:lisp-tracer-tuples
         #:lisp-tracer-colors
         #:lisp-tracer-matrices)
@@ -13,9 +14,8 @@
            #:magnitude
            #:normalize
            #:dot
+           #:reflect
            #:cross
-           #:->
-           #:->>
            #:maptuple
            #:mapnumber
            #:mapcolor

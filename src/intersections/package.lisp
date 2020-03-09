@@ -1,9 +1,10 @@
 (defpackage #:lisp-tracer-intersections
   (:use #:cl
-        #:lisp-tracer-utilities
-        #:lisp-tracer-rays
+        #:arrows
         #:lisp-tracer-tuples
         #:lisp-tracer-matrices
+        #:lisp-tracer-utilities
+        #:lisp-tracer-rays
         #:lisp-tracer-spheres)
   (:export #:intersect
            #:intersection

@@ -1,18 +1,12 @@
 (defpackage #:lisp-tracer-rays
-  (:use #:cl)
+  (:use #:cl
+        #:arrows
+        #:lisp-tracer-tuples
+        #:lisp-tracer-utilities
+        #:lisp-tracer-matrices)
   (:export #:ray
            #:make-ray
            #:origin
            #:direction
            #:transform
-           #:pos)
-  (:import-from #:lisp-tracer-matrices
-                #:matrix)
-  (:import-from #:lisp-tracer-tuples
-                #:tuple
-                #:make-point
-                #:make-vec)
-  (:import-from #:lisp-tracer-utilities
-                #:add
-                #:mult
-                #:transform-object))
+           #:pos))
