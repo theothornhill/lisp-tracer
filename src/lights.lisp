@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-lights)
+(in-package #:lisp-tracer)
 
 (defclass light ()
   ((posit

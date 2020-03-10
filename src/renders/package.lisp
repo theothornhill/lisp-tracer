@@ -1,4 +1,4 @@
-(defpackage #:lisp-tracer-tests
+(defpackage #:lisp-tracer-renders
   (:use #:cl
         #:iterate
         #:arrows

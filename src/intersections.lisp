@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-intersections)
+(in-package #:lisp-tracer)
 
 (defclass ray-tracer-intersection ()
   ((tt

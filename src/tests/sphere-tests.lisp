@@ -117,3 +117,14 @@
       (set-transform s m)
       (let ((n (normal-at s (make-point 0 sqrt2/2 (neg sqrt2/2)))))
         (ok (equal? n (make-vec 0 0.97014 -0.24254)))))))
+
+(deftest sphere-materials
+  (testing "A sphere has a default material"
+    (let ((s (make-sphere)))
+      (ok (equal? (sphere-material s) (make-material)))))
+  (testing "A sphere may be assigned a material"
+    (let ((s (make-sphere))
+          (m (make-material)))
+      (setf (ambient m) 1)
+      (setf (sphere-material s) m)
+      (ok (equal? (sphere-material s) m)))))

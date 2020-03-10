@@ -16,5 +16,6 @@
                              (:file "canvas-tests")
                              (:file "tracer-tests")
                              (:file "lights-tests")
+                             (:file "materials-tests")
                              (:file "intersection-tests")
                              (:file "sphere-tests")))))

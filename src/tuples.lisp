@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-tuples)
+(in-package #:lisp-tracer)
 
 (defclass tuple ()
   ((x

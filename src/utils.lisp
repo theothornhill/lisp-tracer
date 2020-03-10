@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-utilities)
+(in-package #:lisp-tracer)
 
 (defun maptuple (op tuple-a tuple-b)
   (list (funcall op (x tuple-a) (x tuple-b))

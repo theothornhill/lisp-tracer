@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-matrices)
+(in-package #:lisp-tracer)
 
 (defun partition (size list)
   "Partition a list in chunks of SIZE size."

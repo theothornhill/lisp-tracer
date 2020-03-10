@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-colors)
+(in-package #:lisp-tracer)
 
 (defclass color ()
   ((red

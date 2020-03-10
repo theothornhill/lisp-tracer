@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-rays)
+(in-package #:lisp-tracer)
 
 (defclass ray ()
   ((origin

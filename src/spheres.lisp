@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-spheres)
+(in-package #:lisp-tracer)
 
 (defclass sphere ()
   ((id
@@ -8,7 +8,11 @@
    (transform-matrix
     :initarg :transform-matrix
     :initform (identity-matrix)
-    :accessor transform-matrix)))
+    :accessor transform-matrix)
+   (sphere-material
+    :initarg :sphere-material
+    :initform (make-material)
+    :accessor sphere-material)))
 
 (defun make-sphere ()
   (make-instance 'sphere))

@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-utilities)
+(in-package #:lisp-tracer)
 
 (defparameter epsilon 0.00001)
 
@@ -76,7 +76,13 @@
       (always
        (iter (for j below (dimensions x))
          (always
-          (eq? (m x i j) (m y i j))))))))
+          (eq? (m x i j) (m y i j)))))))
+  (:method ((x material) (y material))
+    (and (equal? (material-color x) (material-color y))
+         (eq? (ambient x) (ambient y))
+         (eq? (diffuse x) (diffuse y))
+         (eq? (specular x) (specular y))
+         (eq? (shininess x) (shininess y)))))
 
 (defgeneric neg (element)
   (:documentation "Negates provided value")
