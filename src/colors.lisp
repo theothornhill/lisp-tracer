@@ -24,6 +24,7 @@
 
 
 (defun black ()
+  "Create a color with R G B set to 0 0 0."
   (make-color 0 0 0))
 
 (defmethod print-object ((obj color) stream)
