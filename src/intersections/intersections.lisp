@@ -3,19 +3,25 @@
 (defclass ray-tracer-intersection ()
   ((tt
     :initarg :tt
-    :accessor tt)
+    :accessor tt
+    :documentation "Time of the intersection.")
    (object
     :initarg :object
-    :accessor object)))
+    :accessor object
+    :documentation "The intersected object."))
+  (:documentation "Structure keeping track of the intersected object at a given time."))
 
 (defun make-intersection (tt obj)
+  "Creates an intersection with an OBJECT at a given time TT."
   (make-instance 'ray-tracer-intersection :tt tt :object obj))
 
 (defun intersections (&rest xs)
+  "Sorted list of intersections. Compares by TT from smallest to largest."
   (labels ((tt< (a b) (< (tt a) (tt b))))
     (if xs (sort xs #'tt<))))
 
 (defun intersect (sphere ray)
+  "Intersect SPHERE with RAY"
   (declare (sphere sphere) (ray ray))
   (let* ((ray2 (transform ray (inverse (transform-matrix sphere))))
          (sphere-to-ray (sub (origin ray2) (make-point 0 0 0)))
@@ -32,6 +38,7 @@
                                         sphere)))))
 
 (defun hit (xs)
+  "If HIT is found with TT > 0, return the HIT"
   (declare (type list xs))
   (cond ((null xs) nil)
         ((> (tt (car xs)) 0) (car xs))
