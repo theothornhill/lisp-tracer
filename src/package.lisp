@@ -31,6 +31,7 @@
    #:intersections
    #:inverse
    #:invertible?
+   #:lighting
    #:m
    #:magnitude
    #:make-canvas
