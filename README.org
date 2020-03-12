@@ -1,0 +1,4 @@
+* Lisp tracer
+A ray tracer made in Common Lisp.
+
+It has a fairly fast implementation, inspired by .NET System.Numerics
