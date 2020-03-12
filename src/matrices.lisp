@@ -54,54 +54,6 @@ Shown only by one number, since we only deal with square matrices.")
       (iter (for j below 4)
         (collect (m matrix j i)))))))
 
-(defun determinant2x2 (matrix)
-  "Calculate the determinant of a 2x2 MATRIX."
-  (declare (matrix matrix))
-  (- (* (m matrix 0 0)
-        (m matrix 1 1))
-     (* (m matrix 0 1)
-        (m matrix 1 0))))
-
-(defun determinant (matrix)
-  "Calculate determinant of a MATRIX."
-  (declare (matrix matrix))
-  (let ((det 0))
-    (cond
-      ((eq (dimensions matrix) 2)
-       (setf det (determinant2x2 matrix)))
-      (t (iter (for column below (dimensions matrix))
-           (setf det (+ det (* (m matrix 0 column)
-                               (cofactor matrix 0 column)))))))
-    det))
-
-(defun submatrix (matrix x y)
-  "Returns a new MATRIX with row X and column Y removed."
-  (declare (matrix matrix) (integer x) (integer y))
-  (let ((size (dimensions matrix)))
-    (make-matrix
-     (1- size)
-     (iter (for i below size)
-       (appending
-        (iter (for j below size)
-          (unless (or (= i x) (= j y))
-            (collect (m matrix i j)))))))))
-
-(defun minor (matrix i j)
-  "Return the DETERMINANT of the SUBMATRIX at I and j."
-  (declare (matrix matrix) (integer i) (integer j))
-  (determinant (submatrix matrix i j)))
-
-(defun cofactor (matrix i j)
-  "Computes COFACTOR of a MATRIX. If I + J is odd, then negate value."
-  (declare (matrix matrix) (integer i) (integer j))
-  (let ((minor (minor matrix i j)))
-    (if (oddp (+ i j)) (- minor) minor)))
-
-(defun invertible? (matrix)
-  "If determinant != 0 then MATRIX is invertible."
-  (declare (matrix matrix))
-  (not (equal (determinant matrix) 0)))
-
 (declaim (inline ab-cd))
 (defun ab-cd (a b c d)
   "Helper function for inversion of matrix."

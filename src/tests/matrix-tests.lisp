@@ -64,73 +64,11 @@
     (let ((a (transpose (identity-matrix))))
       (ok (equal? a (identity-matrix))))))
 
-(deftest determinant-determination
-  (testing "Calculating the determinant of a 2x2 matrix"
-    (let ((a (make-matrix 2 '(1 5 -3 2))))
-      (ok (equal? (determinant a) 17)))))
-
-(deftest submatrices
-  (testing "A submatrix of a 3x3 matrix is a 2x2 matrix"
-    (let ((a (make-matrix 3 '(1 5 0 -3 2 7 0 6 -3)))
-          (b (make-matrix 2 '(-3 2 0 6))))
-      (ok (equal? (submatrix a 0 2) b))))
-  (testing "A submatrix of a 4x4 matrix is a 3x3 matrix"
-    (let ((a (make-matrix 4 '(-6 1 1 6 -8 5 8 6 -1 0 8 2 -7 1 -1 1)))
-          (b (make-matrix 3 '(-6 1 6 -8 8 6 -7 -1 1))))
-      (ok (equal? (submatrix a 2 1) b)))))
-
-(deftest manipulating-minors
-  (testing "Calculating a minor of a 3x3 matrix"
-    (let* ((a (make-matrix 3 '(3 5 0 2 -1 -7 6 -1 5)))
-           (b (submatrix a 1 0)))
-      (ok (equal? (determinant b) 25))
-      (ok (equal? (minor a 1 0) 25)))))
-
-(deftest computing-cofactors
-  (testing "Calculating a cofactor of a 3x3 matrix"
-    (let ((a (make-matrix 3 '(3 5 0 2 -1 -7 6 -1 5))))
-      (ok (equal? (minor a 0 0) -12))
-      (ok (equal? (cofactor a 0 0) -12))
-      (ok (equal? (minor a 1 0) 25))
-      (ok (equal? (cofactor a 1 0) -25)))))
-
-(deftest determinant-3x3
-  (testing "Calculating the determinant of a 3x3 matrix"
-    (let ((a (make-matrix 3 '(1 2 6 -5 8 -4 2 6 4))))
-      (ok (equal? (cofactor a 0 0) 56))
-      (ok (equal? (cofactor a 0 1) 12))
-      (ok (equal? (cofactor a 0 2) -46))
-      (ok (equal? (determinant a) -196)))))
-
-(deftest determinant-4x4
-  (testing "Calculating the determinant of a 4x4 matrix"
-    (let ((a (make-matrix 4 '(-2 -8 3 5 -3 1 7 3 1 2 -9 6 -6 7 7 -9))))
-      (ok (equal? (cofactor a 0 0) 690))
-      (ok (equal? (cofactor a 0 1) 447))
-      (ok (equal? (cofactor a 0 2) 210))
-      (ok (equal? (cofactor a 0 3) 51))
-      (ok (equal? (determinant a) -4071)))))
-
-(deftest invertible-matrix
-  (testing "Testing an invertible matrix for invertibility"
-    (let ((a (make-matrix 4 '(6 4 4 4 5 5 7 6 4 -9 3 -7 9 1 7 -6))))
-      (ok (equal? (determinant a) -2120))
-      (ok (invertible? a)))))
-
-(deftest invertible-matrix
-  (testing "Testing an noninvertible matrix for invertibility"
-    (let ((a (make-matrix 4 '(-4 2 -2 -3 9 6 2 6 0 -5 1 -5 0 0 0 0))))
-      (ok (equal? (determinant a) 0))
-      (ng (invertible? a)))))
-
 (deftest invert-matrix
   (testing "Calculating the inverse of a matrix"
     (let* ((a (make-matrix 4 '(-5 2 6 -8 1 -5 1 8 7 7 -6 -7 1 -3 7 4)))
            (b (inverse a)))
-      (ok (equal? (determinant a) 532))
-      (ok (equal? (cofactor a 2 3) -160))
       (ok (equal? (m b 3 2) (div -160 532)))
-      (ok (equal? (cofactor a 3 2) 105))
       (ok (equal? (m b 2 3) (div 105 532)))
       (ok (equal? b (make-matrix 4 '(0.21805 0.45113 0.24060 -0.04511
                                      -0.80827 -1.45677 -0.44361 0.52068
