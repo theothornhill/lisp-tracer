@@ -47,12 +47,28 @@ Shown only by one number, since we only deal with square matrices.")
 (defun transpose (matrix)
   "Flips a MATRIX along its diagonal."
   (declare (matrix matrix))
-  (make-matrix
-   4
-   (iter (for i below 4)
-     (appending
-      (iter (for j below 4)
-        (collect (m matrix j i)))))))
+  (let ((grid (grid matrix)))
+    (make-matrix
+     4
+     `(,(aref grid 0 0)
+       ,(aref grid 1 0)
+       ,(aref grid 2 0)
+       ,(aref grid 3 0)
+       
+       ,(aref grid 0 1)
+       ,(aref grid 1 1)
+       ,(aref grid 2 1)
+       ,(aref grid 3 1)
+       
+       ,(aref grid 0 2)
+       ,(aref grid 1 2)
+       ,(aref grid 2 2)
+       ,(aref grid 3 2)
+       
+       ,(aref grid 0 3)
+       ,(aref grid 1 3)
+       ,(aref grid 2 3)
+       ,(aref grid 3 3)))))
 
 (declaim (inline ab-cd))
 (defun ab-cd (a b c d)
