@@ -181,24 +181,30 @@ Shown only by one number, since we only deal with square matrices.")
 
 (defun rotation-x (r)
   "Rotate a MATRIX along its X-axis by R radians."
-  (make-matrix 4 `(1 0        0            0
-                   0 ,(cos r) ,(- (sin r)) 0
-                   0 ,(sin r) ,(cos r)     0
-                   0 0        0            1)))
+  (let ((cos-r (cos r))
+        (sin-r (sin r)))
+    (make-matrix 4 `(1 0        0        0
+                     0 ,cos-r ,(- sin-r) 0
+                     0 ,sin-r ,cos-r     0
+                     0 0        0        1))))
 
 (defun rotation-y (r)
   "Rotate a MATRIX along its Y-axis by R radians."
-  (make-matrix 4 `(,(cos r) 0            ,(sin r)    0
-                   0        1            0           0
-                   0        ,(- (sin r)) ,(cos r)    0
-                   0        0            0           1)))
+  (let ((cos-r (cos r))
+        (sin-r (sin r)))
+    (make-matrix 4 `(,cos-r 0            ,sin-r 0
+                     0      1            0      0
+                     0      ,(- sin-r) ,cos-r   0
+                     0      0            0      1))))
 
 (defun rotation-z (r)
   "Rotate a MATRIX along its Z-axis by R radians."
-  (make-matrix 4 `(,(cos r) ,(- (sin r)) 0 0
-                   ,(sin r) ,(cos r)     0 0
-                   0        0            1 0
-                   0        0            0 1)))
+  (let ((cos-r (cos r))
+        (sin-r (sin r)))
+    (make-matrix 4 `(,cos-r ,(- sin-r) 0 0
+                     ,sin-r ,cos-r     0 0
+                     0      0          1 0
+                     0      0          0 1))))
 
 (defun shearing (q w e a s d)
   "Shear a MATRIX."
