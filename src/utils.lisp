@@ -1,16 +1,16 @@
 (in-package #:lisp-tracer)
 
 (defun maptuple (op tuple-a tuple-b)
-  (list (funcall op (x tuple-a) (x tuple-b))
-        (funcall op (y tuple-a) (y tuple-b))
-        (funcall op (z tuple-a) (z tuple-b))
-        (funcall op (w tuple-a) (w tuple-b))))
+  (list (funcall op (tuple-x tuple-a) (tuple-x tuple-b))
+        (funcall op (tuple-y tuple-a) (tuple-y tuple-b))
+        (funcall op (tuple-z tuple-a) (tuple-z tuple-b))
+        (funcall op (tuple-w tuple-a) (tuple-w tuple-b))))
 
 (defun mapnumber (op tuple-a number)
-  (list (funcall op (x tuple-a) number)
-        (funcall op (y tuple-a) number)
-        (funcall op (z tuple-a) number)
-        (funcall op (w tuple-a) number)))
+  (list (funcall op (tuple-x tuple-a) number)
+        (funcall op (tuple-y tuple-a) number)
+        (funcall op (tuple-z tuple-a) number)
+        (funcall op (tuple-w tuple-a) number)))
 
 (defun mapcolor (op a b)
   (list (funcall op (red a) (red b))
@@ -18,7 +18,7 @@
         (funcall op (blue a) (blue b))))
 
 (defun tuple-to-list (tuple)
-  (list (x tuple) (y tuple) (z tuple) (w tuple)))
+  (list (tuple-x tuple) (tuple-y tuple) (tuple-z tuple) (tuple-w tuple)))
 
 (defmacro transform-object (&rest transforms)
   `(reduce #'mult (list ,@(reverse transforms))))

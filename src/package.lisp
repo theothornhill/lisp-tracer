@@ -42,7 +42,7 @@
    #:make-point
    #:make-ray
    #:make-sphere
-   #:make-tuple
+   #:create-tuple
    #:make-vec
    #:mapcolor
    #:mapnumber
@@ -89,10 +89,10 @@
    #:tuple-to-list
    #:vec
    #:vec?
-   #:w
    #:width
    #:write-pixel
-   #:x
-   #:y
-   #:z
+   #:tuple-x
+   #:tuple-y
+   #:tuple-z
+   #:tuple-w
    #:zerovec))

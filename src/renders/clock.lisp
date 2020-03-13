@@ -10,8 +10,8 @@
                               (rotation-z radians)
                               (translation 100 50 0))))
     (let* ((pixel (to-pixel r))
-           (i (x pixel))
-           (j (y pixel)))
+           (i (tuple-x pixel))
+           (j (tuple-y pixel)))
       (write-pixel *canvas* i j white))))
 
 (defun clock ()

@@ -32,8 +32,8 @@
       (ok (equal? (mult a b) a*b))))
   (testing "Multiplying matrix by a tuple"
     (let ((a (create-matrix '(1 2 3 4 2 4 4 2 8 6 4 1 0 0 0 1)))
-          (b (make-tuple 1 2 3 1)))
-      (ok (equal? (mult a b) (make-tuple 18 24 33 1)))))
+           (b (create-tuple 1 2 3 1)))
+      (ok (equal? (mult a b) (create-tuple 18 24 33 1)))))
   (testing "Multiplying matrix by identity matrix"
     (let ((a (create-matrix '(0 1 2 4 1 2 4 8 2 4 8 16 4 8 16 32)))
           (id-matrix (identity-matrix)))

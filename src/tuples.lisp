@@ -1,60 +1,55 @@
 (in-package #:lisp-tracer)
 
-(defclass tuple ()
-  ((x
-    :initarg :x
-    :accessor x
-    :documentation "X component of a tuple of X Y Z W.")
-   (y
-    :initarg :y
-    :accessor y
-    :documentation "Y component of a tuple of X Y Z W.")
-   (z
-    :initarg :z
-    :accessor z
-    :documentation "Z component of a tuple of X Y Z W.")
-   (w
-    :initarg :w
-    :accessor w
-    :documentation "W component of a tuple of X Y Z W."))
-  (:documentation "A tuple of length 4 that contains numbers."))
+(defstruct tuple
+  (x 0 :type number)
+  (y 0 :type number)
+  (z 0 :type number)
+  (w 0 :type number))
 
-(defun make-tuple (x y z w)
+(defun create-tuple (x y z w)
   "Create a TUPLE with provided X Y Z W."
-  (make-instance 'tuple :x x :y y :z z :w w))
+  (declare (optimize (speed 3) (safety 0)))
+  (make-tuple :x x :y y :z z :w w))
 
 (defun make-point (x y z)
   "A point is a TUPLE with provided X Y Z and W set to 1.0."
-  (make-instance 'tuple :x x :y y :z z :w 1.0))
+  (declare (optimize (speed 3) (safety 0)))
+  (make-tuple :x x :y y :z z :w 1.0))
 
 (defun make-vec (x y z)
   "A vector is a TUPLE with provided X Y Z and W set to 0.0."
-  (make-instance 'tuple :x x :y y :z z :w 0.0))
+  (declare (optimize (speed 3) (safety 0)))
+  (make-tuple :x x :y y :z z :w 0.0))
 
 (defun zerovec ()
   "A vector with all X Y Z W set to 0."
+  (declare (optimize (speed 3) (safety 1)))
   (make-vec 0 0 0))
 
 (defun point? (tuple)
   "T if W component of TUPLE is 1."
-  (= (w tuple) 1))
+  (= (tuple-w tuple) 1))
 
 (defun vec? (tuple)
   "T if W component of TUPLE is 0."
-  (= (w tuple) 0))
+  (= (tuple-w tuple) 0))
 
 (defun to-pixel (tuple)
   "Create a TUPLE with X Y components modified."
-  (make-tuple (round (x tuple))
-              (round (y tuple))
-              (z tuple)
-              (w tuple)))
+  (make-tuple :x (round (tuple-x tuple))
+              :y (round (tuple-y tuple))
+              :z (tuple-z tuple)
+              :w (tuple-w tuple)))
 
 (defmethod print-object ((obj tuple) stream)
   (print-unreadable-object (obj stream :type t)
-    (with-accessors ((x x)
-                     (y y)
-                     (z z)
-                     (w w))
+    (with-accessors ((tuple-x tuple-x)
+                     (tuple-y tuple-y)
+                     (tuple-z tuple-z)
+                     (tuple-w tuple-w))
         obj
-      (format stream "(~a, ~a, ~a, ~a)" x y z w))))
+      (format stream "(~a, ~a, ~a, ~a)"
+              tuple-x
+              tuple-y
+              tuple-z
+              tuple-w))))

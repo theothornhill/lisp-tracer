@@ -2,38 +2,38 @@
 
 (deftest point-testing
   (testing "A tuple with w=1.0 is a point"
-    (let ((a (make-tuple 4.3 -4.2 3.1 1.0)))
-      (ok (= (x a) 4.3))
-      (ok (= (y a) -4.2))
-      (ok (= (z a) 3.1))
-      (ok (= (w a) 1.0))
+    (let ((a (create-tuple 4.3 -4.2 3.1 1.0)))
+      (ok (= (tuple-x a) 4.3))
+      (ok (= (tuple-y a) -4.2))
+      (ok (= (tuple-z a) 3.1))
+      (ok (= (tuple-w a) 1.0))
       (ok (point? a))
       (ng (vec? a))))
   (testing "point creates tuples with w=1"
     (let ((p (make-point 4 -4 3)))
-      (ok (= (w p) 1))
-      (ok (equal? p (make-tuple 4 -4 3 1))))))
+      (ok (= (tuple-w p) 1))
+      (ok (equal? p (create-tuple 4 -4 3 1))))))
 
 (deftest vec-testing
   (testing "A tuple with w=1.0 is a point"
-    (let ((a (make-tuple 4.3 -4.2 3.1 0.0)))
-      (ok (= (x a) 4.3))
-      (ok (= (y a) -4.2))
-      (ok (= (z a) 3.1))
-      (ok (= (w a) 0.0))
+    (let ((a (create-tuple 4.3 -4.2 3.1 0.0)))
+      (ok (= (tuple-x a) 4.3))
+      (ok (= (tuple-y a) -4.2))
+      (ok (= (tuple-z a) 3.1))
+      (ok (= (tuple-w a) 0.0))
       (ng (point? a))
       (ok (vec? a))))
   (testing "point creates tuples with w=1"
     (let ((v (make-vec 4 -4 3)))
-      (ok (= (w v) 0))
-      (ok (equal? v (make-tuple 4 -4 3 0))))))
+      (ok (= (tuple-w v) 0))
+      (ok (equal? v (create-tuple 4 -4 3 0))))))
 
 
 (deftest tuple-math
   (testing "Adding two tuples"
-    (let ((a1 (make-tuple 3 -2 5 1))
-          (a2 (make-tuple -2 3 1 0)))
-      (ok (equal? (add a1 a2) (make-tuple 1 1 6 1)))))
+    (let ((a1 (create-tuple 3 -2 5 1))
+          (a2 (create-tuple -2 3 1 0)))
+      (ok (equal? (add a1 a2) (create-tuple 1 1 6 1)))))
   (testing "Subtracting two points"
     (let ((p1 (make-point 3 2 1))
           (p2 (make-point 5 6 7)))
@@ -50,22 +50,22 @@
     (let ((zero (zerovec))
           (v (make-vec 1 -2 3)))
       (ok (equal? (sub zero v) (make-vec -1 2 -3)))))
-  (testing "Negating a make-tuple"
-    (let ((a (make-tuple 1 -2 3 -4))
-          (-a (make-tuple -1 2 -3 4)))
+  (testing "Negating a create-tuple"
+    (let ((a (create-tuple 1 -2 3 -4))
+          (-a (create-tuple -1 2 -3 4)))
       (ok (equal? (neg a) -a)))))
 
 
 (deftest scalar-testing
   (testing "Mutltiplying a tuple by a scalar"
-    (let ((a (make-tuple 1 -2 3 -4)))
-      (ok (equal? (mult a 3.5) (make-tuple 3.5 -7 10.5 -14)))))
+    (let ((a (create-tuple 1 -2 3 -4)))
+      (ok (equal? (mult a 3.5) (create-tuple 3.5 -7 10.5 -14)))))
   (testing "Mutltiplying a tuple by a fraction"
-    (let ((a (make-tuple 1 -2 3 -4)))
-      (ok (equal? (mult a 0.5) (make-tuple 0.5 -1 1.5 -2)))))
+    (let ((a (create-tuple 1 -2 3 -4)))
+      (ok (equal? (mult a 0.5) (create-tuple 0.5 -1 1.5 -2)))))
   (testing "Dividing a tuple by a scalar"
-    (let ((a (make-tuple 1 -2 3 -4)))
-      (ok (equal? (div a 2) (make-tuple 0.5 -1 1.5 -2)))))
+    (let ((a (create-tuple 1 -2 3 -4)))
+      (ok (equal? (div a 2) (create-tuple 0.5 -1 1.5 -2)))))
   (testing "Computing the magnitude of (vec 1 0 0)"
     (let ((v (make-vec 1 0 0)))
       (ok (equal? (magnitude v) 1))))
