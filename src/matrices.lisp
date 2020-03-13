@@ -1,17 +1,12 @@
 (in-package #:lisp-tracer)
 
-(defclass matrix ()
-  ((grid
-    :initarg :grid
-    :accessor grid
-    :documentation "The actual matrix."))
-  (:documentation "A square MATRIX of 4x4."))
+(defstruct matrix
+  grid)
 
-(defun make-matrix (list)
+(defun create-matrix (list)
   "Create a matrix of size DIMENSION and items in LIST"
   (declare (list list))
-  (make-instance
-   'matrix
+  (make-matrix
    :grid (make-array
           (list 4 4)
           :initial-contents
@@ -38,11 +33,11 @@
 (defun m (matrix i j)
   "Getter for cell in MATRIX at index I J."
   (declare (matrix matrix) (integer i) (integer j))
-  (aref (grid matrix) i j))
+  (aref (matrix-grid matrix) i j))
 
 (defun identity-matrix ()
   "IDENTITY-MATRIX - 4x4."
-  (make-matrix
+  (create-matrix
    '(1 0 0 0
      0 1 0 0
      0 0 1 0
@@ -51,8 +46,8 @@
 (defun transpose (matrix)
   "Flips a MATRIX along its diagonal."
   (declare (matrix matrix))
-  (let ((grid (grid matrix)))
-    (make-matrix
+  (let ((grid (matrix-grid matrix)))
+    (create-matrix
      `(,(aref grid 0 0)
        ,(aref grid 1 0)
        ,(aref grid 2 0)
@@ -94,7 +89,7 @@
 
 (defun inverse (matrix)
   "Invert MATRIX if it is INVERTIBLE."
-  (let* ((grid (grid matrix))
+  (let* ((grid (matrix-grid matrix))
          (a (aref grid 0 0))
          (b (aref grid 0 1))
          (c (aref grid 0 2))
@@ -145,7 +140,7 @@
               (el-hi (ab-cd e l h i))
               (ek-gi (ab-cd e k g i))
               (ej-fi (ab-cd e j f i)))
-          (make-matrix
+          (create-matrix
            `(,(* a11 inv-det)
              ,(* (-inverted-cell b c d kp-lo jp-ln jo-kn) inv-det)
              ,(* (+inverted-cell b c d gp-ho fp-hn fo-gn) inv-det)
@@ -169,55 +164,61 @@
 
 (defun translation (x y z)
   "Translate a MATRIX using its W component."
-  (make-matrix `(1  0  0 ,x
-                 0  1  0 ,y
-                 0  0  1 ,z
-                 0  0  0  1)))
+  (create-matrix
+   `(1  0  0 ,x
+     0  1  0 ,y
+     0  0  1 ,z
+     0  0  0  1)))
 
 (defun scaling (x y z)
   "Scale a MATRIX."
-  (make-matrix `(,x  0  0  0
-                  0 ,y  0  0
-                  0  0 ,z  0
-                  0  0  0  1)))
+  (create-matrix
+   `(,x  0  0  0
+      0 ,y  0  0
+      0  0 ,z  0
+      0  0  0  1)))
 
 (defun rotation-x (r)
   "Rotate a MATRIX along its X-axis by R radians."
   (let ((cos-r (cos r))
         (sin-r (sin r)))
-    (make-matrix `(1 0        0        0
-                   0 ,cos-r ,(- sin-r) 0
-                   0 ,sin-r ,cos-r     0
-                   0 0        0        1))))
+    (create-matrix
+     `(1 0        0        0
+       0 ,cos-r ,(- sin-r) 0
+       0 ,sin-r ,cos-r     0
+       0 0        0        1))))
 
 (defun rotation-y (r)
   "Rotate a MATRIX along its Y-axis by R radians."
   (let ((cos-r (cos r))
         (sin-r (sin r)))
-    (make-matrix `(,cos-r 0            ,sin-r 0
-                   0      1            0      0
-                   0      ,(- sin-r) ,cos-r   0
-                   0      0            0      1))))
+    (create-matrix
+     `(,cos-r 0            ,sin-r 0
+       0      1            0      0
+       0      ,(- sin-r) ,cos-r   0
+       0      0            0      1))))
 
 (defun rotation-z (r)
   "Rotate a MATRIX along its Z-axis by R radians."
   (let ((cos-r (cos r))
         (sin-r (sin r)))
-    (make-matrix `(,cos-r ,(- sin-r) 0 0
-                   ,sin-r ,cos-r     0 0
-                   0      0          1 0
-                   0      0          0 1))))
+    (create-matrix
+     `(,cos-r ,(- sin-r) 0 0
+       ,sin-r ,cos-r     0 0
+       0      0          1 0
+       0      0          0 1))))
 
 (defun shearing (q w e a s d)
   "Shear a MATRIX."
-  (make-matrix `(1  ,q ,w 0
-                 ,e 1  ,a 0
-                 ,s ,d 1  0
-                 0  0  0  1)))
+  (create-matrix
+   `(1  ,q ,w 0
+     ,e 1  ,a 0
+     ,s ,d 1  0
+     0  0  0  1)))
 
 
 (defmethod print-object ((obj matrix) stream)
   (print-unreadable-object (obj stream :type t)
-    (with-accessors ((grid grid))
+    (with-accessors ((matrix-grid matrix-grid))
         obj
-      (format stream "~a" grid))))
+      (format stream "~a" matrix-grid))))

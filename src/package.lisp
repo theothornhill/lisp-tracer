@@ -20,7 +20,6 @@
    #:epsilon
    #:equal?
    #:green
-   #:grid
    #:height
    #:hit
    #:identity-matrix
@@ -38,6 +37,8 @@
    #:make-intersection
    #:make-material
    #:make-matrix
+   #:create-matrix
+   #:matrix-grid
    #:make-point
    #:make-ray
    #:make-sphere

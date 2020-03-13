@@ -2,7 +2,7 @@
 
 (deftest matrix-testing
   (testing "Constructing and inspecting a 4x4 matrix"
-    (let ((matrix (make-matrix '(1 2 3 4
+    (let ((matrix (create-matrix '(1 2 3 4
                                  5.5 6.5 7.5 8.5
                                  9 10 11 12
                                  13.5 14.5 15.5 16.6))))
@@ -16,33 +16,33 @@
 
 (deftest matrix-equality
   (testing "Matrix equality with identical matrices"
-    (let ((a (make-matrix '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2)))
-          (b (make-matrix '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2))))
+    (let ((a (create-matrix '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2)))
+          (b (create-matrix '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2))))
       (ok (equal? a b))))
   (testing "Matrix equality with different matrices"
-    (let ((a (make-matrix '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2)))
-          (b (make-matrix '(1 2 3 4 5 9 9 8 9 8 7 6 5 4 3 2))))
+    (let ((a (create-matrix '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2)))
+          (b (create-matrix '(1 2 3 4 5 9 9 8 9 8 7 6 5 4 3 2))))
       (ng (equal? a b)))))
 
 (deftest matrix-math
   (testing "Multiplying two matrices"
-    (let ((a (make-matrix '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2)))
-          (b (make-matrix '(-2 1 2 3 3 2 1 -1 4 3 6 5 1 2 7 8)))
-          (a*b (make-matrix '(20 22 50 48 44 54 114 108 40 58 110 102 16 26 46 42))))
+    (let ((a (create-matrix '(1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2)))
+          (b (create-matrix '(-2 1 2 3 3 2 1 -1 4 3 6 5 1 2 7 8)))
+          (a*b (create-matrix '(20 22 50 48 44 54 114 108 40 58 110 102 16 26 46 42))))
       (ok (equal? (mult a b) a*b))))
   (testing "Multiplying matrix by a tuple"
-    (let ((a (make-matrix '(1 2 3 4 2 4 4 2 8 6 4 1 0 0 0 1)))
+    (let ((a (create-matrix '(1 2 3 4 2 4 4 2 8 6 4 1 0 0 0 1)))
           (b (make-tuple 1 2 3 1)))
       (ok (equal? (mult a b) (make-tuple 18 24 33 1)))))
   (testing "Multiplying matrix by identity matrix"
-    (let ((a (make-matrix '(0 1 2 4 1 2 4 8 2 4 8 16 4 8 16 32)))
+    (let ((a (create-matrix '(0 1 2 4 1 2 4 8 2 4 8 16 4 8 16 32)))
           (id-matrix (identity-matrix)))
       (ok (equal? (mult a id-matrix) a)))))
 
 (deftest transposing-matrix
   (testing "Transposing a matrix"
-    (let ((a (make-matrix '(0 9 3 0 9 8 0 8 1 8 5 3 0 0 5 8)))
-          (b (make-matrix '(0 9 1 0 9 8 8 0 3 0 5 5 0 8 3 8))))
+    (let ((a (create-matrix '(0 9 3 0 9 8 0 8 1 8 5 3 0 0 5 8)))
+          (b (create-matrix '(0 9 1 0 9 8 8 0 3 0 5 5 0 8 3 8))))
       (ok (equal? (transpose a) b))))
   (testing "Transposing the identity matrix"
     (let ((a (transpose (identity-matrix))))
@@ -50,20 +50,20 @@
 
 (deftest invert-matrix
   (testing "Calculating the inverse of a matrix"
-    (let* ((a (make-matrix '(-5 2 6 -8 1 -5 1 8 7 7 -6 -7 1 -3 7 4)))
+    (let* ((a (create-matrix '(-5 2 6 -8 1 -5 1 8 7 7 -6 -7 1 -3 7 4)))
            (b (inverse a)))
       (ok (equal? (m b 3 2) (div -160 532)))
       (ok (equal? (m b 2 3) (div 105 532)))
-      (ok (equal? b (make-matrix '(0.21805 0.45113 0.24060 -0.04511
+      (ok (equal? b (create-matrix '(0.21805 0.45113 0.24060 -0.04511
                                      -0.80827 -1.45677 -0.44361 0.52068
                                      -0.07895 -0.22368 -0.05263 0.19737
                                      -0.52256 -0.81391 -0.30075 0.30639)))))))
 
 (deftest calculating-iverses
   (testing "Calculating the inverse of another matrix"
-    (let* ((a (make-matrix '(8 -5 9 2 7 5 6 1 -6 0 9 6 -3 0 -9 -4)))
+    (let* ((a (create-matrix '(8 -5 9 2 7 5 6 1 -6 0 9 6 -3 0 -9 -4)))
            (inverted (inverse a))
-           (result-matrix (make-matrix '(-0.15385 -0.15385 -0.28205 -0.53846
+           (result-matrix (create-matrix '(-0.15385 -0.15385 -0.28205 -0.53846
                                          -0.07692 0.12308 0.02564 0.03077
                                           0.35897 0.35897 0.43590 0.92308
                                          -0.69231 -0.69231 -0.76923 -1.92308))))
@@ -71,9 +71,9 @@
 
 (deftest calculating-iverses-2
   (testing "Calculating the inverse of a third matrix"
-    (let* ((a (make-matrix '(9 3 0 9 -5 -2 -6 -3 -4 9 6 4 -7 6 6 2)))
+    (let* ((a (create-matrix '(9 3 0 9 -5 -2 -6 -3 -4 9 6 4 -7 6 6 2)))
            (inverted (inverse a))
-           (result-matrix (make-matrix '(-0.04074 -0.07778 0.14444 -0.22222
+           (result-matrix (create-matrix '(-0.04074 -0.07778 0.14444 -0.22222
                                          -0.07778 0.03333 0.36667 -0.33333
                                          -0.02901 -0.14630 -0.10926 0.12963
                                          0.17778 0.06667 -0.26667 0.33333))))
@@ -81,8 +81,8 @@
 
 (deftest multiplying-matrices-inversion
   (testing "Multiplying a product by its inverse"
-    (let* ((a (make-matrix '(3 -9 7 3 3 -8 2 -9 -4 4 4 1 -6 5 -1 1)))
-           (b (make-matrix '(8 2 2 2 3 -1 7 0 7 0 5 4 6 -2 0 5)))
+    (let* ((a (create-matrix '(3 -9 7 3 3 -8 2 -9 -4 4 4 1 -6 5 -1 1)))
+           (b (create-matrix '(8 2 2 2 3 -1 7 0 7 0 5 4 6 -2 0 5)))
            (c (mult a b)))
       (ok (equal? a (mult c (inverse b)))))))
 

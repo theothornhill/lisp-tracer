@@ -55,9 +55,9 @@
      (* (green x) (green y))
      (* (blue x) (blue y))))
   (:method ((a matrix) (b matrix))
-    (let ((grid-1 (grid a))
-          (grid-2 (grid b)))
-      (make-matrix
+    (let ((grid-1 (matrix-grid a))
+          (grid-2 (matrix-grid b)))
+      (create-matrix
        `(,(+ (* (aref grid-1 0 0) (aref grid-2 0 0))
              (* (aref grid-1 0 1) (aref grid-2 1 0))
              (* (aref grid-1 0 2) (aref grid-2 2 0))
@@ -130,7 +130,7 @@
           (j (y b))
           (k (z b))
           (l (w b))
-          (grid (grid a)))
+          (grid (matrix-grid a)))
       (make-tuple
        (+ (* (aref grid 0 0) h)
           (* (aref grid 0 1) j)
