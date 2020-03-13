@@ -1,12 +1,5 @@
 (in-package #:lisp-tracer)
 
-(declaim (inline partition))
-(defun partition (size list)
-  "Partition a list in chunks of SIZE size."
-  (labels ((part (list) (nthcdr size list)))
-    (iter (for sublist :on list :by #'part)
-      (collect (subseq sublist 0 size)))))
-
 (defclass matrix ()
   ((dimensions
     :initarg :dimensions
@@ -17,8 +10,7 @@ Shown only by one number, since we only deal with square matrices.")
     :initarg :grid
     :accessor grid
     :documentation "The actual matrix."))
-  (:documentation "A square MATRIX of size 2x2, 3x3 or 4x4."))
-
+  (:documentation "A square MATRIX of 4x4."))
 
 (defun make-matrix (dimensions list)
   "Create a matrix of size DIMENSION and items in LIST"
@@ -28,7 +20,25 @@ Shown only by one number, since we only deal with square matrices.")
    :dimensions dimensions
    :grid (make-array (list dimensions dimensions)
                      :initial-contents
-                     (partition dimensions list))))
+                     `((,(first list)
+                        ,(second list)
+                        ,(third list)
+                        ,(fourth list))
+
+                       (,(fifth list)
+                        ,(sixth list)
+                        ,(seventh list)
+                        ,(eighth list))
+
+                       (,(ninth list)
+                        ,(tenth list)
+                        ,(nth 10 list)
+                        ,(nth 11 list))
+
+                       (,(nth 12 list)
+                        ,(nth 13 list)
+                        ,(nth 14 list)
+                        ,(nth 15 list))))))
 
 (defun m (matrix i j)
   "Getter for cell in MATRIX at index I J."
@@ -54,17 +64,17 @@ Shown only by one number, since we only deal with square matrices.")
        ,(aref grid 1 0)
        ,(aref grid 2 0)
        ,(aref grid 3 0)
-       
+
        ,(aref grid 0 1)
        ,(aref grid 1 1)
        ,(aref grid 2 1)
        ,(aref grid 3 1)
-       
+
        ,(aref grid 0 2)
        ,(aref grid 1 2)
        ,(aref grid 2 2)
        ,(aref grid 3 2)
-       
+
        ,(aref grid 0 3)
        ,(aref grid 1 3)
        ,(aref grid 2 3)
