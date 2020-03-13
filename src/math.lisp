@@ -55,11 +55,9 @@
      (* (green x) (green y))
      (* (blue x) (blue y))))
   (:method ((a matrix) (b matrix))
-    (let ((size (dimensions a))
-          (grid-1 (grid a))
+    (let ((grid-1 (grid a))
           (grid-2 (grid b)))
       (make-matrix
-       size
        `(,(+ (* (aref grid-1 0 0) (aref grid-2 0 0))
              (* (aref grid-1 0 1) (aref grid-2 1 0))
              (* (aref grid-1 0 2) (aref grid-2 2 0))
@@ -172,9 +170,9 @@
          (eq? (green x) (green y))
          (eq? (blue x) (blue y))))
   (:method ((x matrix) (y matrix))
-    (iter (for i below (dimensions x))
+    (iter (for i below 4)
       (always
-       (iter (for j below (dimensions x))
+       (iter (for j below 4)
          (always
           (eq? (m x i j) (m y i j)))))))
   (:method ((x material) (y material))

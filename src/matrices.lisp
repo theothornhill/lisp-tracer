@@ -1,44 +1,39 @@
 (in-package #:lisp-tracer)
 
 (defclass matrix ()
-  ((dimensions
-    :initarg :dimensions
-    :accessor dimensions
-    :documentation "Dimension of a matrix.
-Shown only by one number, since we only deal with square matrices.")
-   (grid
+  ((grid
     :initarg :grid
     :accessor grid
     :documentation "The actual matrix."))
   (:documentation "A square MATRIX of 4x4."))
 
-(defun make-matrix (dimensions list)
+(defun make-matrix (list)
   "Create a matrix of size DIMENSION and items in LIST"
-  (declare (fixnum dimensions) (list list))
+  (declare (list list))
   (make-instance
    'matrix
-   :dimensions dimensions
-   :grid (make-array (list dimensions dimensions)
-                     :initial-contents
-                     `((,(first list)
-                        ,(second list)
-                        ,(third list)
-                        ,(fourth list))
+   :grid (make-array
+          (list 4 4)
+          :initial-contents
+          `((,(first list)
+             ,(second list)
+             ,(third list)
+             ,(fourth list))
 
-                       (,(fifth list)
-                        ,(sixth list)
-                        ,(seventh list)
-                        ,(eighth list))
+            (,(fifth list)
+             ,(sixth list)
+             ,(seventh list)
+             ,(eighth list))
 
-                       (,(ninth list)
-                        ,(tenth list)
-                        ,(nth 10 list)
-                        ,(nth 11 list))
+            (,(ninth list)
+             ,(tenth list)
+             ,(nth 10 list)
+             ,(nth 11 list))
 
-                       (,(nth 12 list)
-                        ,(nth 13 list)
-                        ,(nth 14 list)
-                        ,(nth 15 list))))))
+            (,(nth 12 list)
+             ,(nth 13 list)
+             ,(nth 14 list)
+             ,(nth 15 list))))))
 
 (defun m (matrix i j)
   "Getter for cell in MATRIX at index I J."
@@ -48,7 +43,6 @@ Shown only by one number, since we only deal with square matrices.")
 (defun identity-matrix ()
   "IDENTITY-MATRIX - 4x4."
   (make-matrix
-   4
    '(1 0 0 0
      0 1 0 0
      0 0 1 0
@@ -59,7 +53,6 @@ Shown only by one number, since we only deal with square matrices.")
   (declare (matrix matrix))
   (let ((grid (grid matrix)))
     (make-matrix
-     4
      `(,(aref grid 0 0)
        ,(aref grid 1 0)
        ,(aref grid 2 0)
@@ -153,7 +146,6 @@ Shown only by one number, since we only deal with square matrices.")
               (ek-gi (ab-cd e k g i))
               (ej-fi (ab-cd e j f i)))
           (make-matrix
-           4
            `(,(* a11 inv-det)
              ,(* (-inverted-cell b c d kp-lo jp-ln jo-kn) inv-det)
              ,(* (+inverted-cell b c d gp-ho fp-hn fo-gn) inv-det)
@@ -177,51 +169,51 @@ Shown only by one number, since we only deal with square matrices.")
 
 (defun translation (x y z)
   "Translate a MATRIX using its W component."
-  (make-matrix 4 `(1  0  0 ,x
-                   0  1  0 ,y
-                   0  0  1 ,z
-                   0  0  0  1)))
+  (make-matrix `(1  0  0 ,x
+                 0  1  0 ,y
+                 0  0  1 ,z
+                 0  0  0  1)))
 
 (defun scaling (x y z)
   "Scale a MATRIX."
-  (make-matrix 4 `(,x  0  0  0
-                    0 ,y  0  0
-                    0  0 ,z  0
-                    0  0  0  1)))
+  (make-matrix `(,x  0  0  0
+                  0 ,y  0  0
+                  0  0 ,z  0
+                  0  0  0  1)))
 
 (defun rotation-x (r)
   "Rotate a MATRIX along its X-axis by R radians."
   (let ((cos-r (cos r))
         (sin-r (sin r)))
-    (make-matrix 4 `(1 0        0        0
-                     0 ,cos-r ,(- sin-r) 0
-                     0 ,sin-r ,cos-r     0
-                     0 0        0        1))))
+    (make-matrix `(1 0        0        0
+                   0 ,cos-r ,(- sin-r) 0
+                   0 ,sin-r ,cos-r     0
+                   0 0        0        1))))
 
 (defun rotation-y (r)
   "Rotate a MATRIX along its Y-axis by R radians."
   (let ((cos-r (cos r))
         (sin-r (sin r)))
-    (make-matrix 4 `(,cos-r 0            ,sin-r 0
-                     0      1            0      0
-                     0      ,(- sin-r) ,cos-r   0
-                     0      0            0      1))))
+    (make-matrix `(,cos-r 0            ,sin-r 0
+                   0      1            0      0
+                   0      ,(- sin-r) ,cos-r   0
+                   0      0            0      1))))
 
 (defun rotation-z (r)
   "Rotate a MATRIX along its Z-axis by R radians."
   (let ((cos-r (cos r))
         (sin-r (sin r)))
-    (make-matrix 4 `(,cos-r ,(- sin-r) 0 0
-                     ,sin-r ,cos-r     0 0
-                     0      0          1 0
-                     0      0          0 1))))
+    (make-matrix `(,cos-r ,(- sin-r) 0 0
+                   ,sin-r ,cos-r     0 0
+                   0      0          1 0
+                   0      0          0 1))))
 
 (defun shearing (q w e a s d)
   "Shear a MATRIX."
-  (make-matrix 4 `(1  ,q ,w 0
-                   ,e 1  ,a 0
-                   ,s ,d 1  0
-                   0  0  0  1)))
+  (make-matrix `(1  ,q ,w 0
+                 ,e 1  ,a 0
+                 ,s ,d 1  0
+                 0  0  0  1)))
 
 
 (defmethod print-object ((obj matrix) stream)

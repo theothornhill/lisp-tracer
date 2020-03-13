@@ -14,7 +14,6 @@
    #:cross
    #:determinant
    #:diffuse
-   #:dimensions
    #:direction
    #:div
    #:dot
