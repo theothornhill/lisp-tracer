@@ -23,7 +23,7 @@
     :documentation "Specular component of a MATERIAL.")
    (shininess
     :initarg :shininess
-    :initform 200
+    :initform 200.0
     :accessor shininess
     :documentation "Specular component of a MATERIAL."))
   (:documentation "A MATERIAL with COLOR and AMBIENT, DIFFUSE, SPECULAR and SHININESS."))
@@ -33,24 +33,28 @@
   (make-instance 'material))
 
 (defun lighting (material light point eyev normalv)
+  (declare (optimize (speed 3) (safety 0)))
   (let* ((effective-color (mult (material-color material) (intensity light)))
          (lightv (normalize (sub (posit light) point)))
          (ambient (mult effective-color (ambient material)))
-         (light-dot-normal (dot lightv normalv)))
+         (light-dot-normal (dot lightv normalv))
+         (black (black)))
     (let (diffuse specular)
-      (if (< light-dot-normal 0)
+      (declare (type single-float light-dot-normal))
+      (if (< light-dot-normal 0.0)
           (progn
-            (setf diffuse (black))
-            (setf specular (black)))
+            (setf diffuse black)
+            (setf specular black))
           (progn
-            (setf diffuse (reduce #'mult (list effective-color
-                                               (diffuse material)
-                                               light-dot-normal)))
+            (setf diffuse (mult effective-color
+                                (mult (diffuse material) light-dot-normal)))
             (let ((reflect-dot-eye (dot (reflect (neg lightv) normalv) eyev)))
-              (if (<= reflect-dot-eye 0)
-                  (setf specular (black))
-                  (setf specular (reduce #'mult (list (intensity light)
-                                                      (specular material)
-                                                      (expt reflect-dot-eye
-                                                            (shininess material)))))))))
-      (reduce #'add (list ambient diffuse specular)))))
+              (declare (type single-float reflect-dot-eye))
+              (if (<= reflect-dot-eye 0.0)
+                  (setf specular black)
+                  (setf specular (mult (intensity light)
+                                       (mult
+                                        (specular material)
+                                        (expt reflect-dot-eye
+                                              (shininess material)))))))))
+      (add ambient (add diffuse specular)))))

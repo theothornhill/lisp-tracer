@@ -1,7 +1,6 @@
 (defpackage #:lisp-tracer
   (:use #:cl
-        #:iterate
-        #:arrows)
+        #:iterate)
   (:export
    #:add
    #:ambient

@@ -27,4 +27,4 @@
 (defun reflect (in normal)
   (declare (tuple in) (tuple normal)
            (optimize (speed 3) (safety 0)))
-  (sub in (reduce #'mult (list normal 2 (dot in normal)))))
+  (sub in (mult normal (mult 2.0 (dot in normal)))))

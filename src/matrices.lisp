@@ -1,51 +1,54 @@
 (in-package #:lisp-tracer)
 
 (defstruct matrix
-  (m00 1.0 :type single-float)
-  (m01 0.0 :type single-float)
-  (m02 0.0 :type single-float)
-  (m03 0.0 :type single-float)
-  (m10 0.0 :type single-float)
-  (m11 1.0 :type single-float)
-  (m12 0.0 :type single-float)
-  (m13 0.0 :type single-float)
-  (m20 0.0 :type single-float)
-  (m21 0.0 :type single-float)
-  (m22 1.0 :type single-float)
-  (m23 0.0 :type single-float)
-  (m30 0.0 :type single-float)
-  (m31 0.0 :type single-float)
-  (m32 0.0 :type single-float)
-  (m33 1.0 :type single-float))
+  (m00 1f0 :type single-float)
+  (m01 0f0 :type single-float)
+  (m02 0f0 :type single-float)
+  (m03 0f0 :type single-float)
+  (m10 0f0 :type single-float)
+  (m11 1f0 :type single-float)
+  (m12 0f0 :type single-float)
+  (m13 0f0 :type single-float)
+  (m20 0f0 :type single-float)
+  (m21 0f0 :type single-float)
+  (m22 1f0 :type single-float)
+  (m23 0f0 :type single-float)
+  (m30 0f0 :type single-float)
+  (m31 0f0 :type single-float)
+  (m32 0f0 :type single-float)
+  (m33 1f0 :type single-float))
 
-(defun create-matrix (list)
+(defun create-matrix (a b c d
+                      e f g h
+                      i j k l
+                      m n o p)
   "Create a matrix of size DIMENSION and items in LIST"
-  (declare (list list) (optimize (speed 3) (safety 0)))
+  (declare (optimize (speed 3) (safety 0)))
   (make-matrix
-   :m00 (float (first list))
-   :m01 (float (second list))
-   :m02 (float (third list))
-   :m03 (float (fourth list))
-   :m10 (float (fifth list))
-   :m11 (float (sixth list))
-   :m12 (float (seventh list))
-   :m13 (float (eighth list))
-   :m20 (float (ninth list))
-   :m21 (float (tenth list))
-   :m22 (float (nth 10 list))
-   :m23 (float (nth 11 list))
-   :m30 (float (nth 12 list))
-   :m31 (float (nth 13 list))
-   :m32 (float (nth 14 list))
-   :m33 (float (nth 15 list))))
+   :m00 a
+   :m01 b
+   :m02 c
+   :m03 d
+   :m10 e
+   :m11 f
+   :m12 g
+   :m13 h
+   :m20 i
+   :m21 j
+   :m22 k
+   :m23 l
+   :m30 m
+   :m31 n
+   :m32 o
+   :m33 p))
 
 (defun identity-matrix ()
   "IDENTITY-MATRIX - 4x4."
   (create-matrix
-   '(1.0 0.0 0.0 0.0
-     0.0 1.0 0.0 0.0
-     0.0 0.0 1.0 0.0
-     0.0 0.0 0.0 1.0)))
+   1f0 0f0 0f0 0f0
+   0f0 1f0 0f0 0f0
+   0f0 0f0 1f0 0f0
+   0f0 0f0 0f0 1f0))
 
 (defun transpose (matrix)
   "Flips a MATRIX along its diagonal."
@@ -131,7 +134,7 @@
     (declare (type single-float epsilon))
     (if (< (abs det) epsilon)
         (error "This matrix is not invertible")
-        (let ((inv-det (/ 1.0 det))
+        (let ((inv-det (/ 1f0 det))
               (gp-ho (ab-cd g p h o))
               (fp-hn (ab-cd f p h n))
               (fo-gn (ab-cd f o g n))
@@ -166,54 +169,60 @@
 
 (defun translation (x y z)
   "Translate a MATRIX using its W component."
+  (declare (optimize (speed 3) (safety 0)))
   (create-matrix
-   `(1  0  0 ,x
-     0  1  0 ,y
-     0  0  1 ,z
-     0  0  0  1)))
+   1f0 0f0 0f0 x
+   0f0 1f0 0f0 y
+   0f0 0f0 1f0 z
+   0f0 0f0 0f0 1f0))
 
 (defun scaling (x y z)
   "Scale a MATRIX."
+  (declare (optimize (speed 3) (safety 0)))
   (create-matrix
-   `(,x  0  0  0
-      0 ,y  0  0
-      0  0 ,z  0
-      0  0  0  1)))
+   x 0f0 0f0 0f0
+   0f0 y 0f0 0f0
+   0f0 0f0 z 0f0
+   0f0 0f0 0f0 1f0))
 
 (defun rotation-x (r)
   "Rotate a MATRIX along its X-axis by R radians."
+  (declare (optimize (speed 3) (safety 0)))
   (let ((cos-r (coerce (cos r) 'single-float))
         (sin-r (coerce (sin r) 'single-float)))
     (create-matrix
-     `(1 0        0        0
-       0 ,cos-r ,(- sin-r) 0
-       0 ,sin-r ,cos-r     0
-       0 0        0        1))))
+     1f0 0f0 0f0 0f0
+     0f0 cos-r (- sin-r) 0f0
+     0f0 sin-r cos-r 0f0
+     0f0 0f0 0f0 1f0)))
 
 (defun rotation-y (r)
   "Rotate a MATRIX along its Y-axis by R radians."
+  (declare (optimize (speed 3) (safety 0)))
   (let ((cos-r (coerce (cos r) 'single-float))
         (sin-r (coerce (sin r) 'single-float)))
     (create-matrix
-     `(,cos-r 0            ,sin-r 0
-       0      1            0      0
-       0      ,(- sin-r) ,cos-r   0
-       0      0            0      1))))
+     cos-r 0f0 sin-r 0f0
+     0f0 1f0 0f0 0f0
+     0f0 (- sin-r) cos-r 0f0
+     0f0 0f0 0f0 1f0)))
 
 (defun rotation-z (r)
   "Rotate a MATRIX along its Z-axis by R radians."
+  (declare (optimize (speed 3) (safety 0)))
   (let ((cos-r (coerce (cos r) 'single-float))
         (sin-r (coerce (sin r) 'single-float)))
     (create-matrix
-     `(,cos-r ,(- sin-r) 0 0
-       ,sin-r ,cos-r     0 0
-       0      0          1 0
-       0      0          0 1))))
+     cos-r (- sin-r) 0f0 0f0
+     sin-r cos-r 0f0 0f0
+     0f0 0f0 1f0 0f0
+     0f0 0f0 0f0 1f0)))
 
 (defun shearing (q w e a s d)
   "Shear a MATRIX."
+  (declare (optimize (speed 3) (safety 0)))
   (create-matrix
-   `(1  ,q ,w 0
-     ,e 1  ,a 0
-     ,s ,d 1  0
-     0  0  0  1)))
+   1f0 q w 0f0
+   e 1f0 a 0f0
+   s d 1f0 0f0
+   0f0 0f0 0f0 1f0))

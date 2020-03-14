@@ -5,7 +5,6 @@
   :version "0.0.1"
   :depends-on (#:rove
                #:iterate
-               #:arrows
                #:lisp-tracer)
   :components ((:module "src/tests"
                 :components ((:file "package")

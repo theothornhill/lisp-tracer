@@ -18,7 +18,7 @@
       (ok (equal? (sub c1 c2) (make-color 0.2 0.5 0.5)))))
   (testing "Multiplying a color by a scalar"
     (let ((c (make-color 0.2 0.3 0.4)))
-      (ok (equal? (mult c 2) (make-color 0.4 0.6 0.8)))))
+      (ok (equal? (mult c 2.0) (make-color 0.4 0.6 0.8)))))
   (testing "Multiplying colors"
     (let ((c1 (make-color 1 0.2 0.4))
           (c2 (make-color 0.9 1 0.1)))

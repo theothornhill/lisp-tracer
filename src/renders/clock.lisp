@@ -5,7 +5,7 @@
 (defun create-pixel (x)
   (let* ((white (make-color 1 1 1))
          (radians (mult x (div pi 6)))
-         (r (transform-object (make-point 0 0 0)
+         (r (transform-object (make-point 0f0 0f0 0f0)
                               (translation 0 30 0)
                               (rotation-z radians)
                               (translation 100 50 0))))

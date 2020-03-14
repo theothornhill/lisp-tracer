@@ -22,12 +22,12 @@
   (setf (transform-matrix sphere) transform))
 
 (defun normal-at (s world-point)
-  (declare (sphere s) (tuple world-point))
+  (declare (sphere s) (tuple world-point)
+           (optimize (speed 3) (safety 0)))
   (let* ((inverse-matrix (inverse (transform-matrix s)))
          (object-point (mult inverse-matrix world-point))
          (world-normal
-           (-> object-point
-               (sub (make-point 0 0 0))
-               (transform-object (transpose inverse-matrix)))))
-    (setf (tuple-w world-normal) 0.0)
+           (mult (transpose inverse-matrix)
+                 (sub object-point (make-point 0f0 0f0 0f0)))))
+    (setf (tuple-w world-normal) 0f0)
     (normalize world-normal)))
