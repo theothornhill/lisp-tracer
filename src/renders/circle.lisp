@@ -9,7 +9,7 @@
 
 (require :sb-sprof)
 (sb-sprof:with-profiling
-    (:mode :alloc :show-progress t :max-samples 500)
+    (:mode :alloc :show-progress t :max-samples 1000)
   (let* ((canv (make-canvas canvas-pixels canvas-pixels))
          (shape (make-sphere))
          (light-position (make-point -100 -100 -100))

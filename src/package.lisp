@@ -33,11 +33,11 @@
    #:make-intersection
    #:make-material
    #:make-matrix
+   #:make-tuple
    #:create-matrix
    #:make-point
    #:make-ray
    #:make-sphere
-   #:create-tuple
    #:make-vec
    #:mapcolor
    #:mapnumber

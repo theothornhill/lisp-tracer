@@ -3,10 +3,10 @@
 (defstruct tuple
   x y z w)
 
-(defun create-tuple (x y z w)
-  "Create a TUPLE with provided X Y Z W."
-  (declare (optimize (speed 3) (safety 0)))
-  (make-tuple :x x :y y :z z :w w))
+;; (defun create-tuple (x y z w)
+;;   "Create a TUPLE with provided X Y Z W."
+;;   (declare (optimize (speed 3) (safety 0)))
+;;   (make-tuple :x x :y y :z z :w w))
 
 (defun make-point (x y z)
   "A point is a TUPLE with provided X Y Z and W set to 1.0."
