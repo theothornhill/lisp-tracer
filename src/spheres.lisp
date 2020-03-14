@@ -29,5 +29,5 @@
            (-> object-point
                (sub (make-point 0 0 0))
                (transform-object (transpose inverse-matrix)))))
-    (setf (tuple-w world-normal) 0)
+    (setf (tuple-w world-normal) 0.0)
     (normalize world-normal)))

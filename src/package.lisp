@@ -9,10 +9,8 @@
    #:blue
    #:canvas
    #:canvas-to-ppm
-   #:cofactor
    #:color
    #:cross
-   #:determinant
    #:diffuse
    #:direction
    #:div
@@ -28,9 +26,7 @@
    #:intersection
    #:intersections
    #:inverse
-   #:invertible?
    #:lighting
-   #:m
    #:magnitude
    #:make-canvas
    #:make-color
@@ -38,7 +34,6 @@
    #:make-material
    #:make-matrix
    #:create-matrix
-   #:matrix-grid
    #:make-point
    #:make-ray
    #:make-sphere
@@ -50,7 +45,6 @@
    #:material
    #:material-color
    #:matrix
-   #:minor
    #:mult
    #:neg
    #:normal-at
@@ -77,7 +71,6 @@
    #:sphere
    #:sphere-material
    #:sub
-   #:submatrix
    #:to-pixel
    #:transform
    #:transform-matrix
@@ -95,4 +88,21 @@
    #:tuple-y
    #:tuple-z
    #:tuple-w
-   #:zerovec))
+   #:zerovec
+   #:matrix-m00
+   #:matrix-m01
+   #:matrix-m02
+   #:matrix-m03
+   #:matrix-m10
+   #:matrix-m11
+   #:matrix-m12
+   #:matrix-m13
+   #:matrix-m20
+   #:matrix-m21
+   #:matrix-m22
+   #:matrix-m23
+   #:matrix-m30
+   #:matrix-m31
+   #:matrix-m32
+   #:matrix-m33
+   ))

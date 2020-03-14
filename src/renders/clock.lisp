@@ -19,7 +19,7 @@
        (iter (for i from 1 to 12)
          (collect i))))
 
-(clock)
+;(clock)
 
 
 (canvas-to-ppm *canvas*)

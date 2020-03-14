@@ -1,10 +1,7 @@
 (in-package #:lisp-tracer)
 
 (defstruct tuple
-  (x 0 :type number)
-  (y 0 :type number)
-  (z 0 :type number)
-  (w 0 :type number))
+  x y z w)
 
 (defun create-tuple (x y z w)
   "Create a TUPLE with provided X Y Z W."

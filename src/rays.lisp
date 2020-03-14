@@ -21,6 +21,7 @@
   (add (origin ray) (mult (direction ray) time)))
 
 (defun transform (ray matrix)
-  (declare (ray ray) (matrix matrix))
-  (make-ray (transform-object (origin ray) matrix)
-            (transform-object (direction ray) matrix)))
+  (declare (type ray ray) (type matrix matrix)
+           (optimize (speed 3)))
+  (make-ray (mult matrix (origin ray))
+            (mult matrix (direction ray))))

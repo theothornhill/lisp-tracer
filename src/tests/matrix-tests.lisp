@@ -6,13 +6,13 @@
                                  5.5 6.5 7.5 8.5
                                  9 10 11 12
                                  13.5 14.5 15.5 16.6))))
-      (ok (= (m matrix 0 0) 1))
-      (ok (= (m matrix 0 3) 4))
-      (ok (= (m matrix 1 0) 5.5))
-      (ok (= (m matrix 1 2) 7.5))
-      (ok (= (m matrix 2 2) 11))
-      (ok (= (m matrix 3 0) 13.5))
-      (ok (= (m matrix 3 2) 15.5)))))
+      (ok (= (matrix-m00 matrix) 1))
+      (ok (= (matrix-m03 matrix) 4))
+      (ok (= (matrix-m10 matrix) 5.5))
+      (ok (= (matrix-m12 matrix) 7.5))
+      (ok (= (matrix-m22 matrix) 11))
+      (ok (= (matrix-m30 matrix) 13.5))
+      (ok (= (matrix-m32 matrix) 15.5)))))
 
 (deftest matrix-equality
   (testing "Matrix equality with identical matrices"
@@ -52,8 +52,8 @@
   (testing "Calculating the inverse of a matrix"
     (let* ((a (create-matrix '(-5 2 6 -8 1 -5 1 8 7 7 -6 -7 1 -3 7 4)))
            (b (inverse a)))
-      (ok (equal? (m b 3 2) (div -160 532)))
-      (ok (equal? (m b 2 3) (div 105 532)))
+      (ok (equal? (matrix-m32 b) (div -160 532)))
+      (ok (equal? (matrix-m23 b) (div 105 532)))
       (ok (equal? b (create-matrix '(0.21805 0.45113 0.24060 -0.04511
                                      -0.80827 -1.45677 -0.44361 0.52068
                                      -0.07895 -0.22368 -0.05263 0.19737
