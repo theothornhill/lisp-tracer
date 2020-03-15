@@ -9,6 +9,7 @@
    #:canvas
    #:canvas-to-ppm
    #:color
+   #:create-matrix
    #:cross
    #:diffuse
    #:direction
@@ -32,15 +33,30 @@
    #:make-intersection
    #:make-material
    #:make-matrix
-   #:make-tuple
-   #:create-matrix
    #:make-point
    #:make-ray
    #:make-sphere
+   #:make-tuple
    #:make-vec
    #:material
    #:material-color
    #:matrix
+   #:matrix-m00
+   #:matrix-m01
+   #:matrix-m02
+   #:matrix-m03
+   #:matrix-m10
+   #:matrix-m11
+   #:matrix-m12
+   #:matrix-m13
+   #:matrix-m20
+   #:matrix-m21
+   #:matrix-m22
+   #:matrix-m23
+   #:matrix-m30
+   #:matrix-m31
+   #:matrix-m32
+   #:matrix-m33
    #:mult
    #:neg
    #:normal-at
@@ -67,7 +83,6 @@
    #:sphere
    #:sphere-material
    #:sub
-   #:to-pixel
    #:transform
    #:transform-matrix
    #:transform-object
@@ -75,29 +90,13 @@
    #:transpose
    #:tt
    #:tuple
+   #:tuple-w
+   #:tuple-x
+   #:tuple-y
+   #:tuple-z
    #:vec
    #:vec?
    #:width
    #:write-pixel
-   #:tuple-x
-   #:tuple-y
-   #:tuple-z
-   #:tuple-w
    #:zerovec
-   #:matrix-m00
-   #:matrix-m01
-   #:matrix-m02
-   #:matrix-m03
-   #:matrix-m10
-   #:matrix-m11
-   #:matrix-m12
-   #:matrix-m13
-   #:matrix-m20
-   #:matrix-m21
-   #:matrix-m22
-   #:matrix-m23
-   #:matrix-m30
-   #:matrix-m31
-   #:matrix-m32
-   #:matrix-m33
    ))
