@@ -38,9 +38,6 @@
    #:make-ray
    #:make-sphere
    #:make-vec
-   #:mapcolor
-   #:mapnumber
-   #:maptuple
    #:material
    #:material-color
    #:matrix
@@ -78,7 +75,6 @@
    #:transpose
    #:tt
    #:tuple
-   #:tuple-to-list
    #:vec
    #:vec?
    #:width
