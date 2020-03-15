@@ -18,6 +18,8 @@
   (m32 0f0 :type single-float)
   (m33 1f0 :type single-float))
 
+(declaim (inline create-matrix))
+(declaim (inline make-matrix))
 (defun create-matrix (a b c d
                       e f g h
                       i j k l
@@ -93,6 +95,7 @@
            (* y two))
         (* z three))))
 
+(declaim (inline inverse))
 (defun inverse (matrix)
   "Invert MATRIX if it is INVERTIBLE."
   (declare (optimize (speed 3) (safety 0)))

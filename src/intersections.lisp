@@ -23,6 +23,22 @@
              (< (tt a) (tt b))))
     (if xs (sort xs #'tt<))))
 
+
+;; TODO: This is an attempt to memoize the actual transform matrix
+;; so that we don't have to run inverse all the time. This optimization
+;; yields quite a bit of a performance increase, but I'm still unsure
+;; whether it is safe to only store one matrix. What if we have more
+;; spheres etc.
+;; (defvar inverted-matrix nil)
+;; (declaim (inline store-inverted-matrix))
+;; (defun store-inverted-matrix (sphere)
+;;   (declare (optimize (speed 3) (safety 0)))
+;;   (if inverted-matrix
+;;       inverted-matrix
+;;       (let ((inv (inverse (transform-matrix sphere))))
+;;         (setf inverted-matrix inv)
+;;         inv)))
+
 (defun intersect (sphere ray)
   "Intersect SPHERE with RAY"
   (declare (sphere sphere) (ray ray)

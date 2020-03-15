@@ -2,14 +2,14 @@
 
 (defparameter ray-origin (make-point 0.0 0.0 -50.0))
 (defparameter wall-z 100.0)
-(defparameter wall-size 70.00)
+(defparameter wall-size 70.0)
 (defparameter canvas-pixels 1000)
 (defparameter pixel-size (float (/ wall-size canvas-pixels)))
 (defparameter half (float (/ wall-size 2)))
 
 (require :sb-sprof)
 (sb-sprof:with-profiling
-    (:mode :time :show-progress t :max-samples 1000)
+    (:mode :alloc :show-progress t :max-samples 1000)
   (let* ((canv (make-canvas canvas-pixels canvas-pixels))
          (shape (make-sphere))
          (light-position (make-point -100.0 -100.0 -100.0))

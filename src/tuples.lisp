@@ -6,6 +6,9 @@
   (z 0f0 :type single-float)
   (w 0f0 :type single-float))
 
+(declaim (inline make-point))
+(declaim (inline make-tuple))
+(declaim (inline make-vec))
 (defun make-point (x y z)
   "A point is a TUPLE with provided X Y Z and W set to 1.0."
   (declare (optimize (speed 3) (safety 0)))
@@ -28,13 +31,6 @@
 (defun vec? (tuple)
   "T if W component of TUPLE is 0."
   (= (tuple-w tuple) 0f0))
-
-(defun to-pixel (tuple)
-  "Create a TUPLE with X Y components modified."
-  (make-tuple :x (round (tuple-x tuple))
-              :y (round (tuple-y tuple))
-              :z (tuple-z tuple)
-              :w (tuple-w tuple)))
 
 (defmethod print-object ((obj tuple) stream)
   (print-unreadable-object (obj stream :type t)
