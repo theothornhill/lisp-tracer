@@ -9,8 +9,8 @@
 
 (defun lighting (material light point eyev normalv)
   (declare (optimize (speed 3) (safety 0)))
-  (let* ((effective-color (mult (material-col material) (intensity light)))
-         (lightv (normalize (sub (posit light) point)))
+  (let* ((effective-color (mult (material-col material) (light-intensity light)))
+         (lightv (normalize (sub (light-position light) point)))
          (material-ambient (mult effective-color (material-ambient material)))
          (light-dot-normal (dot lightv normalv))
          (black (make-color)))
@@ -27,7 +27,7 @@
               (declare (type single-float reflect-dot-eye))
               (if (<= reflect-dot-eye 0.0)
                   (setf material-specular black)
-                  (setf material-specular (mult (intensity light)
+                  (setf material-specular (mult (light-intensity light)
                                        (mult
                                         (material-specular material)
                                         (expt reflect-dot-eye

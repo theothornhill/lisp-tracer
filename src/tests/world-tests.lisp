@@ -15,6 +15,6 @@
       (setf (material-diffuse (sphere-material s1)) 0.7)
       (setf (material-specular (sphere-material s1)) 0.2)
       (setf (sphere-matrix s2) (scaling 0.5 0.5 0.5))
-      (ok (equal? (intensity (world-light w)) (intensity l)))
+      (ok (equal? (light-intensity (world-light w)) (light-intensity l)))
       (ok (equalp (car (world-objects w)) s1))
       (ok (equalp (cadr (world-objects w)) s2)))))

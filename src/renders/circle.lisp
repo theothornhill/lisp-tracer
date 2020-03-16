@@ -10,7 +10,7 @@
 (require :sb-sprof)
 (sb-sprof:with-profiling
     (:mode :alloc :show-progress t :max-samples 1000)
-  (let* ((canv (make-canvas canvas-pixels canvas-pixels))
+  (let* ((canv (create-canvas canvas-pixels canvas-pixels))
          (shape (make-sphere))
          (light-position (make-point -100.0 -100.0 -100.0))
          (light-color (make-color :red 1 :green 1 :blue 1))
@@ -22,14 +22,15 @@
         (iter (for x from 0 below canvas-pixels)
           (let* ((world-x (float (+ (- half) (* pixel-size x))))
                  (pos (make-point world-x world-y wall-z))
-                 (r (make-ray ray-origin (normalize (sub pos ray-origin))))
+                 (r (make-ray :origin ray-origin
+                              :direction (normalize (sub pos ray-origin))))
                  (xs (intersect shape r)))
             (when (hit xs)
               (let* ((hit (hit xs))
-                     (hit-object (object hit))
-                     (point (pos r (tt hit)))
+                     (hit-object (rt-intersection-object hit))
+                     (point (pos r (rt-intersection-tt hit)))
                      (normal (normal-at hit-object point))
-                     (eyev (neg (direction r)))
+                     (eyev (neg (ray-direction r)))
                      (color (lighting (sphere-material hit-object)
                                       light
                                       point

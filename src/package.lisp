@@ -4,42 +4,38 @@
   (:export
    #:add
    #:canvas
+   #:canvas-height
    #:canvas-to-ppm
+   #:canvas-width
    #:color
    #:color-blue
    #:color-green
    #:color-red
+   #:create-canvas
    #:create-matrix
    #:cross
    #:default-world
-   #:direction
    #:div
    #:dot
    #:epsilon
    #:equal?
-   #:height
    #:hit
    #:identity-matrix
-   #:intensity
    #:intersect
    #:intersection
    #:intersections
    #:inverse
+   #:light-intensity
+   #:light-position
    #:lighting
    #:magnitude
    #:make-canvas
    #:make-color
-   #:make-color
-   #:make-diffuse
    #:make-intersection
    #:make-material
-   #:make-ambient
    #:make-matrix
    #:make-point
    #:make-ray
-   #:make-shininess
-   #:make-specular
-   #:make-specular
    #:make-sphere
    #:make-tuple
    #:make-vec
@@ -71,19 +67,20 @@
    #:neg
    #:normal-at
    #:normalize
-   #:object
-   #:origin
    #:pixel-at
    #:point
    #:point-light
    #:point?
    #:pos
-   #:posit
    #:ray
+   #:ray-direction
+   #:ray-origin
    #:reflect
    #:rotation-x
    #:rotation-y
    #:rotation-z
+   #:rt-intersection-object
+   #:rt-intersection-tt
    #:scaling
    #:set-transform
    #:shearing
@@ -95,7 +92,6 @@
    #:transform-object
    #:translation
    #:transpose
-   #:tt
    #:tuple
    #:tuple-w
    #:tuple-x
@@ -103,7 +99,6 @@
    #:tuple-z
    #:vec
    #:vec?
-   #:width
    #:world-light
    #:world-objects
    #:write-pixel

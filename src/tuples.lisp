@@ -31,16 +31,3 @@
 (defun vec? (tuple)
   "T if W component of TUPLE is 0."
   (= (tuple-w tuple) 0f0))
-
-(defmethod print-object ((obj tuple) stream)
-  (print-unreadable-object (obj stream :type t)
-    (with-accessors ((tuple-x tuple-x)
-                     (tuple-y tuple-y)
-                     (tuple-z tuple-z)
-                     (tuple-w tuple-w))
-        obj
-      (format stream "(~a, ~a, ~a, ~a)"
-              tuple-x
-              tuple-y
-              tuple-z
-              tuple-w))))

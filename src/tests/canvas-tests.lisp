@@ -9,20 +9,20 @@
 
 (deftest canvas-test
   (testing "Creating a canvas"
-    (let ((c (make-canvas 10 20)))
-      (ok (equal? (width c) 10))
-      (ok (equal? (height c) 20)))))
+    (let ((c (create-canvas 10 20)))
+      (ok (equal? (canvas-width c) 10))
+      (ok (equal? (canvas-height c) 20)))))
 
 (deftest writing-to-canvas
   (testing "Writing pixels to a canvas"
-    (let ((c (make-canvas 10 20))
+    (let ((c (create-canvas 10 20))
           (color-red (make-color :red 1 :green 0 :blue 0)))
       (write-pixel c 2 3 color-red)
       (ok (equal? (pixel-at c 2 3) color-red)))))
 
 (deftest ppm
   (testing "Constructing PPM header"
-    (let ((c (make-canvas 5 3)))
+    (let ((c (create-canvas 5 3)))
       (canvas-to-ppm c)
       (let ((lines (read-file-as-lines "/home/theodor/quicklisp/local-projects/lisp-tracer/picture.ppm")))
         (ok (string= (car lines) "P3"))
@@ -31,7 +31,7 @@
 
 (deftest ppm-pixel-data
   (testing "Constructing the PPM pixel data"
-    (let* ((c (make-canvas 5 3))
+    (let* ((c (create-canvas 5 3))
           (c1 (make-color :red 1.5 :green 0 :blue 0))
           (c2 (make-color :red 0 :green 0.5 :blue 0))
           (c3 (make-color :red -0.5 :green 0 :blue 1)))

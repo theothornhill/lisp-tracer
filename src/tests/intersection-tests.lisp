@@ -4,8 +4,8 @@
   (testing "An intersection encapsulates time and object"
     (let* ((s (make-sphere))
            (i (make-intersection 3.5 s)))
-      (ok (equal? (tt i) 3.5))
-      (ok (eq (object i) s)))))
+      (ok (equal? (rt-intersection-tt i) 3.5))
+      (ok (eq (rt-intersection-object i) s)))))
 
 (deftest aggregating-intersections
   (testing "Aggregating intersections"
@@ -14,8 +14,8 @@
            (i2 (make-intersection 2 s))
            (xs (intersections i1 i2)))
       (ok (equal? (length xs) 2))
-      (ok (equal? (tt (first xs)) 1))
-      (ok (equal? (tt (second xs)) 2)))))
+      (ok (equal? (rt-intersection-tt (first xs)) 1))
+      (ok (equal? (rt-intersection-tt (second xs)) 2)))))
 
 (deftest hit-testing
   (testing "The hit, when all intersections have positive t"
