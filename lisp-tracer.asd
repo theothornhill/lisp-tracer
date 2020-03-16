@@ -18,9 +18,9 @@
                              (:file "spheres")
                              (:file "intersections")
                              (:file "canvas")
-                             (:file "lights")))
+                             (:file "lights")
+                             (:file "world")))
                (:module "src/renders"
                 :serial t
                 :components ((:file "package")
-                             (:file "clock")
                              (:file "circle")))))
