@@ -3,21 +3,20 @@
         #:iterate)
   (:export
    #:add
-   #:ambient
-   #:black
-   #:blue
    #:canvas
    #:canvas-to-ppm
    #:color
+   #:color-blue
+   #:color-green
+   #:color-red
    #:create-matrix
    #:cross
-   #:diffuse
+   #:default-world
    #:direction
    #:div
    #:dot
    #:epsilon
    #:equal?
-   #:green
    #:height
    #:hit
    #:identity-matrix
@@ -30,16 +29,27 @@
    #:magnitude
    #:make-canvas
    #:make-color
+   #:make-color
+   #:make-diffuse
    #:make-intersection
    #:make-material
+   #:make-ambient
    #:make-matrix
    #:make-point
    #:make-ray
+   #:make-shininess
+   #:make-specular
+   #:make-specular
    #:make-sphere
    #:make-tuple
    #:make-vec
+   #:make-world
    #:material
-   #:material-color
+   #:material-ambient
+   #:material-col
+   #:material-diffuse
+   #:material-shininess
+   #:material-specular
    #:matrix
    #:matrix-m00
    #:matrix-m01
@@ -70,7 +80,6 @@
    #:pos
    #:posit
    #:ray
-   #:red
    #:reflect
    #:rotation-x
    #:rotation-y
@@ -78,13 +87,11 @@
    #:scaling
    #:set-transform
    #:shearing
-   #:shininess
-   #:specular
    #:sphere
    #:sphere-material
+   #:sphere-matrix
    #:sub
    #:transform
-   #:transform-matrix
    #:transform-object
    #:translation
    #:transpose
@@ -97,6 +104,8 @@
    #:vec
    #:vec?
    #:width
+   #:world-light
+   #:world-objects
    #:write-pixel
    #:zerovec
    ))

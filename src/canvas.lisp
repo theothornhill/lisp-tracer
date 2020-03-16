@@ -19,7 +19,7 @@
   "Array of WIDTH and HEIGHT size filled with BLACK."
   (make-array (list width height)
               :element-type 'color
-              :initial-element (black)))
+              :initial-element (make-color)))
 
 
 (defun make-canvas (width height)
@@ -60,7 +60,7 @@ values than 255 or smaller values than 0."
           (let ((pixel (pixel-at canvas i j)))
             (format str
                     "~a ~a ~a "
-                    (color-as-255 (red pixel))
-                    (color-as-255 (green pixel))
-                    (color-as-255 (blue pixel))))))
+                    (color-as-255 (color-red pixel))
+                    (color-as-255 (color-green pixel))
+                    (color-as-255 (color-blue pixel))))))
       (format str "~%"))))

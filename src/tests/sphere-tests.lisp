@@ -55,12 +55,12 @@
 (deftest sphere-transformations
   (testing "A sphere's default transformation"
     (let ((s (make-sphere)))
-      (ok (equal? (transform-matrix s) (identity-matrix)))))
+      (ok (equal? (sphere-matrix s) (identity-matrix)))))
   (testing "Changing a sphere's transformation"
     (let ((s (make-sphere))
           (trans (translation 2.0 3.0 4.0)))
       (set-transform s trans)
-      (ok (equal? (transform-matrix s) trans)))))
+      (ok (equal? (sphere-matrix s) trans)))))
 
 (deftest intersecting-spheres
   (testing "Intersecting a scaled sphere with a ray"
@@ -125,6 +125,6 @@
   (testing "A sphere may be assigned a material"
     (let ((s (make-sphere))
           (m (make-material)))
-      (setf (ambient m) 1)
+      (setf (material-ambient m) 1)
       (setf (sphere-material s) m)
       (ok (equal? (sphere-material s) m)))))

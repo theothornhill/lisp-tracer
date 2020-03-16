@@ -1,60 +1,35 @@
 (in-package #:lisp-tracer)
 
-(defclass material ()
-  ((material-color
-    :initarg :material-color
-    :initform (make-color 1 1 1)
-    :accessor material-color
-    :documentation "The MATERIAL has a COLOR.")
-   (ambient
-    :initarg :ambient
-    :initform 0.1
-    :accessor ambient
-    :documentation "Ambience component of a MATERIAL.")
-   (diffuse
-    :initarg :diffuse
-    :initform 0.9
-    :accessor diffuse
-    :documentation "Diffuse component of a MATERIAL.")
-   (specular
-    :initarg :specular
-    :initform 0.9
-    :accessor specular
-    :documentation "Specular component of a MATERIAL.")
-   (shininess
-    :initarg :shininess
-    :initform 200.0
-    :accessor shininess
-    :documentation "Specular component of a MATERIAL."))
-  (:documentation "A MATERIAL with COLOR and AMBIENT, DIFFUSE, SPECULAR and SHININESS."))
-
-(defun make-material ()
-  "Create a MATERIAL with defaults set."
-  (make-instance 'material))
+(defstruct material
+  (col (make-color :red 1.0 :green 1.0 :blue 1.0))
+  (ambient 0.1)
+  (diffuse 0.9)
+  (specular 0.9)
+  (shininess 200.0))
 
 (defun lighting (material light point eyev normalv)
   (declare (optimize (speed 3) (safety 0)))
-  (let* ((effective-color (mult (material-color material) (intensity light)))
+  (let* ((effective-color (mult (material-col material) (intensity light)))
          (lightv (normalize (sub (posit light) point)))
-         (ambient (mult effective-color (ambient material)))
+         (material-ambient (mult effective-color (material-ambient material)))
          (light-dot-normal (dot lightv normalv))
-         (black (black)))
-    (let (diffuse specular)
+         (black (make-color)))
+    (let (material-diffuse material-specular)
       (declare (type single-float light-dot-normal))
       (if (< light-dot-normal 0.0)
           (progn
-            (setf diffuse black)
-            (setf specular black))
+            (setf material-diffuse black)
+            (setf material-specular black))
           (progn
-            (setf diffuse (mult effective-color
-                                (mult (diffuse material) light-dot-normal)))
+            (setf material-diffuse (mult effective-color
+                                (mult (material-diffuse material) light-dot-normal)))
             (let ((reflect-dot-eye (dot (reflect (neg lightv) normalv) eyev)))
               (declare (type single-float reflect-dot-eye))
               (if (<= reflect-dot-eye 0.0)
-                  (setf specular black)
-                  (setf specular (mult (intensity light)
+                  (setf material-specular black)
+                  (setf material-specular (mult (intensity light)
                                        (mult
-                                        (specular material)
+                                        (material-specular material)
                                         (expt reflect-dot-eye
-                                              (shininess material)))))))))
-      (add ambient (add diffuse specular)))))
+                                              (material-shininess material)))))))))
+      (add material-ambient (add material-diffuse material-specular)))))
