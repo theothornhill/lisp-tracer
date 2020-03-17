@@ -9,13 +9,14 @@
   "Creates an intersection with an OBJECT at a given time TT."
   (make-rt-intersection :tt tt :object obj))
 
+(defun tt< (a b)
+  (declare (optimize (speed 3) (safety 0)))
+  (< (rt-intersection-tt a) (rt-intersection-tt b)))
+
 (defun intersections (&rest xs)
   "Sorted list of intersections. Compares by TT from smallest to largest."
   (declare (optimize (speed 3) (safety 0)))
-  (labels ((tt< (a b)
-             (declare (optimize (speed 3) (safety 0)))
-             (< (rt-intersection-tt a) (rt-intersection-tt b))))
-    (if xs (sort xs #'tt<))))
+  (if xs (sort xs #'tt<)))
 
 
 ;; TODO: This is an attempt to memoize the actual transform matrix
@@ -60,3 +61,8 @@
   (cond ((null xs) nil)
         ((> (rt-intersection-tt (car xs)) 0) (car xs))
         (t (hit (cdr xs)))))
+
+(defun intersect-world (world ray)
+  (sort (mapcan #'(lambda (s) (intersect s ray))
+                (world-objects world))
+        #'tt<))

@@ -22,6 +22,7 @@
    #:hit
    #:identity-matrix
    #:intersect
+   #:intersect-world
    #:intersection
    #:intersections
    #:inverse
