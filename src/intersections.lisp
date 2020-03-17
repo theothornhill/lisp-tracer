@@ -1,14 +1,15 @@
 (in-package #:lisp-tracer)
 
 (defstruct rt-intersection
-  tt
-  object)
+  (tt nil :type single-float)
+  (object nil :type sphere))
 
 (declaim (inline make-intersection))
 (defun make-intersection (tt obj)
   "Creates an intersection with an OBJECT at a given time TT."
   (make-rt-intersection :tt tt :object obj))
 
+(declaim (inline tt<))
 (defun tt< (a b)
   (declare (optimize (speed 3) (safety 0)))
   (< (rt-intersection-tt a) (rt-intersection-tt b)))
