@@ -48,3 +48,35 @@
            (xs (intersections i1 i2 i3 i4))
            (i (hit xs)))
       (ok (eq i i4)))))
+
+(deftest precomputing
+  (testing "Precomputing the state of an intersection"
+    (let* ((r (make-ray :origin (make-point 0.0 0.0 -5.0)
+                        :direction (make-vec 0.0 0.0 1.0)))
+           (shape (make-sphere))
+           (i (make-intersection 4.0 shape))
+           (computations (prepare-computations i r)))
+      (ok (equal? (computations-tt computations) (rt-intersection-tt i)))
+      (ok (equalp (computations-object computations) (rt-intersection-object i)))
+      (ok (equal? (computations-point computations) (make-point 0.0 0.0 -1.0)))
+      (ok (equal? (computations-eyev computations) (make-vec 0.0 0.0 -1.0)))
+      (ok (equal? (computations-normalv computations) (make-vec 0.0 0.0 -1.0))))))
+
+(deftest hit-intersection-inside-outside
+  (testing "The hit, when an intersection occurs on the outside"
+    (let* ((r (make-ray :origin (make-point 0.0 0.0 -5.0)
+                        :direction (make-vec 0.0 0.0 1.0)))
+           (shape (make-sphere))
+           (i (make-intersection 4.0 shape))
+           (comps (prepare-computations i r)))
+      (ng (computations-inside comps))))
+  (testing "The hit, when an intersection occurs on the inside"
+    (let* ((r (make-ray :origin (make-point 0.0 0.0 0.0)
+                        :direction (make-vec 0.0 0.0 1.0)))
+           (shape (make-sphere))
+           (i (make-intersection 1.0 shape))
+           (comps (prepare-computations i r)))
+      (ok (equal? (computations-point comps) (make-point 0.0 0.0 1.0)))
+      (ok (equal? (computations-eyev comps) (make-vec 0.0 0.0 -1.0)))
+      (ok (computations-inside comps))
+      (ok (equal? (computations-normalv comps) (make-vec 0.0 0.0 -1.0))))))

@@ -11,6 +11,12 @@
    #:color-blue
    #:color-green
    #:color-red
+   #:computations-eyev
+   #:computations-inside
+   #:computations-normalv
+   #:computations-object
+   #:computations-point
+   #:computations-tt
    #:create-canvas
    #:create-matrix
    #:cross
@@ -73,6 +79,7 @@
    #:point-light
    #:point?
    #:pos
+   #:prepare-computations
    #:ray
    #:ray-direction
    #:ray-origin

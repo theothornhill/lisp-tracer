@@ -4,11 +4,36 @@
   (tt nil :type single-float)
   (object nil :type sphere))
 
+(defstruct computations
+  (tt 0.0 :type single-float)
+  (object nil :type sphere)
+  (inside nil :type t)
+  (point (make-point 0.0 0.0 0.0) :type tuple)
+  (eyev (make-vec 0.0 0.0 0.0) :type tuple)
+  (normalv (make-vec 0.0 0.0 0.0) :type tuple))
+
 (declaim (inline make-intersection))
 (defun make-intersection (tt obj)
   "Creates an intersection with an OBJECT at a given time TT."
   (declare (optimize (speed 3) (safety 0)))
   (make-rt-intersection :tt tt :object obj))
+
+(defun prepare-computations (i r)
+  (declare (type rt-intersection i) (type ray r))
+  (let* ((comps-object (rt-intersection-object i))
+         (comps-point (pos r (rt-intersection-tt i)))
+         (comps-eyev (neg (ray-direction r)))
+         (comps-normalv (normal-at comps-object comps-point))
+         (inside? (< (dot comps-normalv comps-eyev) 0.0)))
+    (make-computations
+     :tt (rt-intersection-tt i)
+     :object comps-object
+     :inside (if inside? t)
+     :point comps-point
+     :eyev comps-eyev
+     :normalv (if inside?
+                  (neg comps-normalv)
+                  comps-normalv))))
 
 (declaim (inline tt<))
 (defun tt< (a b)
