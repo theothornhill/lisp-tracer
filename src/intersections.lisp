@@ -41,7 +41,7 @@
   (declare (sphere sphere) (ray ray)
            (optimize (speed 3) (safety 0)))
   (let* ((ray2 (transform ray (inverse (sphere-matrix sphere))))
-         (sphere-to-ray (sub (ray-origin ray2) (make-point 0f0 0f0 0f0)))
+         (sphere-to-ray (sub (ray-origin ray2) (make-point 0.0 0.0 0.0)))
          (ray2-direction (ray-direction ray2))
          (a (dot ray2-direction ray2-direction))
          (b (mult 2.0 (dot ray2-direction sphere-to-ray)))
