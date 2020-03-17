@@ -25,3 +25,11 @@
             (computations-point comps)
             (computations-eyev comps)
             (computations-normalv comps)))
+
+(defun color-at (w r)
+  (declare (type world w) (type ray r)
+           (optimize (speed 3) (safety 0)))
+  (let ((hit (hit (intersect-world w r))))
+    (if hit
+        (shade-hit w (prepare-computations hit r))
+        (make-color :red 0.0 :green 0.0 :blue 0.0))))

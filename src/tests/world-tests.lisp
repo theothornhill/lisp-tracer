@@ -57,3 +57,33 @@
         (ok (equal? c (make-color :red 0.90498
                                   :green 0.90498
                                   :blue 0.90498)))))))
+
+(deftest color-at-world
+  (testing "The color when a ray misses"
+    (let* ((w (default-world))
+           (r (make-ray :origin (make-point 0.0 0.0 -5.0)
+                        :direction (make-vec 0.0 1.0 0.0)))
+           (c (color-at w r)))
+      (ok (equal? c (make-color :red 0.0 :green 0.0 :blue 0.0)))))
+  (testing "The color when a ray hits"
+    (let* ((w (default-world))
+           (r (make-ray :origin (make-point 0.0 0.0 -5.0)
+                        :direction (make-vec 0.0 0.0 1.0)))
+           (c (color-at w r)))
+      (ok (equal? c (make-color :red 0.38066 :green 0.47583 :blue 0.2855)))))
+  (testing "The color with an intersection behind the ray"
+    (let* ((w (default-world)))
+      (setf (material-ambient
+             (sphere-material
+              (car (world-objects w))))
+            1)
+      (setf (material-ambient
+             (sphere-material
+              (cadr (world-objects w))))
+            1)
+      (let* ((r (make-ray :origin (make-point 0.0 0.0 0.75)
+                          :direction (make-vec 0.0 0.0 -1.0)))
+             (c (color-at w r)))
+        (ok (equal? c (material-col
+                       (sphere-material
+                        (cadr (world-objects w))))))))))

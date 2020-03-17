@@ -8,6 +8,7 @@
    #:canvas-to-ppm
    #:canvas-width
    #:color
+   #:color-at
    #:color-blue
    #:color-green
    #:color-red
