@@ -7,6 +7,7 @@
 (declaim (inline make-intersection))
 (defun make-intersection (tt obj)
   "Creates an intersection with an OBJECT at a given time TT."
+  (declare (optimize (speed 3) (safety 0)))
   (make-rt-intersection :tt tt :object obj))
 
 (declaim (inline tt<))

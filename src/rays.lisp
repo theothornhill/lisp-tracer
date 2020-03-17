@@ -5,7 +5,8 @@
   (direction nil :type tuple))
 
 (defun pos (ray time)
-  (declare (ray ray) (number time))
+  (declare (ray ray) (number time)
+           (optimize (speed 3) (safety 0)))
   (add (ray-origin ray) (mult (ray-direction ray) time)))
 
 (defun transform (ray matrix)
