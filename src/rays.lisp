@@ -1,8 +1,8 @@
 (in-package #:lisp-tracer)
 
 (defstruct ray
-  origin
-  direction)
+  (origin nil :type tuple)
+  (direction nil :type tuple))
 
 (defun pos (ray time)
   (declare (ray ray) (number time))
