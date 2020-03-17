@@ -91,6 +91,7 @@
    #:rt-intersection-tt
    #:scaling
    #:set-transform
+   #:shade-hit
    #:shearing
    #:sphere
    #:sphere-material

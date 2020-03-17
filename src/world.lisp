@@ -16,3 +16,12 @@
     (make-world
      :objects (list s1 s2)
      :light l)))
+
+(defun shade-hit (w comps)
+  (declare (type world w) (type computations comps))
+  (lighting (sphere-material
+             (computations-object comps))
+            (world-light w)
+            (computations-point comps)
+            (computations-eyev comps)
+            (computations-normalv comps)))
