@@ -2,10 +2,10 @@
 
 (defstruct material
   (col (make-color :red 1.0 :green 1.0 :blue 1.0))
-  (ambient 0.1)
-  (diffuse 0.9)
-  (specular 0.9)
-  (shininess 200.0))
+  (ambient 0.1 :type single-float)
+  (diffuse 0.9 :type single-float)
+  (specular 0.9 :type single-float)
+  (shininess 200.0 :type single-float))
 
 (defun lighting (material light point eyev normalv)
   (declare (optimize (speed 3) (safety 0)))
@@ -25,7 +25,7 @@
                                 (mult (material-diffuse material) light-dot-normal)))
             (let ((reflect-dot-eye (dot (reflect (neg lightv) normalv) eyev)))
               (declare (type single-float reflect-dot-eye))
-              (if (<= reflect-dot-eye 0.0)
+              (if (<= reflect-dot-eye 0)
                   (setf material-specular black)
                   (setf material-specular (mult (light-intensity light)
                                        (mult

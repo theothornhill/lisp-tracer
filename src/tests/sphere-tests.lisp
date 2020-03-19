@@ -133,6 +133,6 @@
   (testing "A sphere may be assigned a material"
     (let ((s (make-sphere))
           (m (make-material)))
-      (setf (material-ambient m) 1)
+      (setf (material-ambient m) 1.0)
       (setf (sphere-material s) m)
       (ok (equal? (sphere-material s) m)))))

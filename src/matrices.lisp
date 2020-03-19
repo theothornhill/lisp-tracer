@@ -190,7 +190,8 @@
 
 (defun rotation-x (r)
   "Rotate a MATRIX along its X-axis by R radians."
-  (declare (optimize (speed 3) (safety 0)))
+  (declare (optimize (speed 3) (safety 0))
+           (type single-float r))
   (let ((cos-r (coerce (cos r) 'single-float))
         (sin-r (coerce (sin r) 'single-float)))
     (create-matrix
@@ -201,7 +202,8 @@
 
 (defun rotation-y (r)
   "Rotate a MATRIX along its Y-axis by R radians."
-  (declare (optimize (speed 3) (safety 0)))
+  (declare (optimize (speed 3) (safety 0))
+           (type single-float r))
   (let ((cos-r (coerce (cos r) 'single-float))
         (sin-r (coerce (sin r) 'single-float)))
     (create-matrix
@@ -212,7 +214,8 @@
 
 (defun rotation-z (r)
   "Rotate a MATRIX along its Z-axis by R radians."
-  (declare (optimize (speed 3) (safety 0)))
+  (declare (optimize (speed 3) (safety 0))
+           (type single-float r))
   (let ((cos-r (coerce (cos r) 'single-float))
         (sin-r (coerce (sin r) 'single-float)))
     (create-matrix

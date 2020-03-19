@@ -76,11 +76,11 @@
       (setf (material-ambient
              (sphere-material
               (car (world-objects w))))
-            1)
+            1.0)
       (setf (material-ambient
              (sphere-material
               (cadr (world-objects w))))
-            1)
+            1.0)
       (let* ((r (make-ray :origin (make-point 0.0 0.0 0.75)
                           :direction (make-vec 0.0 0.0 -1.0)))
              (c (color-at w r)))
