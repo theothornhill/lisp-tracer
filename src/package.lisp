@@ -29,13 +29,13 @@
    #:hit
    #:identity-matrix
    #:intersect
-   #:intersect-world
    #:intersection
    #:intersections
+   #:intersect-world
    #:inverse
+   #:lighting
    #:light-intensity
    #:light-position
-   #:lighting
    #:magnitude
    #:make-canvas
    #:make-color
@@ -77,8 +77,8 @@
    #:normalize
    #:pixel-at
    #:point
-   #:point-light
    #:point?
+   #:point-light
    #:pos
    #:prepare-computations
    #:ray
@@ -109,6 +109,7 @@
    #:tuple-z
    #:vec
    #:vec?
+   #:view-transform
    #:world-light
    #:world-objects
    #:write-pixel
