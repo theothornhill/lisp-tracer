@@ -94,6 +94,7 @@
    #:ray-for-pixel
    #:ray-origin
    #:reflect
+   #:render
    #:rotation-x
    #:rotation-y
    #:rotation-z

@@ -1,8 +1,8 @@
 (in-package #:lisp-tracer)
 
 (defstruct camera
-  (hsize 0.0 :type single-float)
-  (vsize 0.0 :type single-float )
+  (hsize 0 :type integer)
+  (vsize 0 :type integer)
   (half-width 0.0 :type single-float)
   (half-height 0.0 :type single-float)
   (field-of-view 0.0 :type single-float)
@@ -11,8 +11,8 @@
 
 
 (defun compute-pixel-size (camera)
-  (let ((half-view (tan (div (camera-field-of-view camera) 2.0)))
-        (aspect (div (camera-hsize camera) (camera-vsize camera))))
+  (let ((half-view (tan (float (/ (camera-field-of-view camera) 2.0))))
+        (aspect (float (/ (camera-hsize camera) (camera-vsize camera)))))
     (if (>= aspect 1.0)
         (progn
           (setf (camera-half-width camera) half-view)
@@ -21,8 +21,8 @@
           (setf (camera-half-width camera) (mult half-view aspect))
           (setf (camera-half-height camera) half-view)))
     (setf (camera-pixel-size camera)
-          (div (mult (camera-half-width camera) 2.0)
-               (camera-hsize camera)))))
+          (float (/ (mult (camera-half-width camera) 2.0)
+                    (camera-hsize camera))))))
 
 
 (defun create-camera (hsize vsize field-of-view)
@@ -33,15 +33,29 @@
     c))
 
 (defun ray-for-pixel (camera px py)
-  (let* ((x-offset (mult (add px 0.5) (camera-pixel-size camera)))
-         (y-offset (mult (add py 0.5) (camera-pixel-size camera)))
+  (let* ((x-offset (mult (+ px 0.5) (camera-pixel-size camera)))
+         (y-offset (mult (+ py 0.5) (camera-pixel-size camera)))
          (world-x (sub (camera-half-width camera) x-offset))
          (world-y (sub (camera-half-height camera) y-offset))
          (pixel (mult
                  (inverse (camera-transform camera))
-                 (make-point world-x world-y -1.0)))
+                 ;; TODO: I need to make sure what kind of orientation
+                 ;; we have. Right now this code differs from pseudo-code
+                 ;; in the book, and I think it may be related to the
+                 ;; matrix math inspired by .NET
+                 (make-point world-x world-y 1.0)))
          (origin (mult
                   (inverse (camera-transform camera))
                   (make-point 0.0 0.0 0.0)))
          (direction (normalize (sub pixel origin))))
     (make-ray :origin origin :direction direction)))
+
+(defun render (camera world)
+  (let ((image (create-canvas (camera-hsize camera)
+                              (camera-vsize camera))))
+    (iter (for y from 0 below (camera-vsize camera))
+      (iter (for x from 0 below (camera-hsize camera))
+        (write-pixel
+         image x y
+         (color-at world (ray-for-pixel camera x y)))))
+    image))
