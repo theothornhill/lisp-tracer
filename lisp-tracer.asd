@@ -19,7 +19,8 @@
                              (:file "intersection")
                              (:file "canvas")
                              (:file "light")
-                             (:file "world")))
+                             (:file "world")
+                             (:file "camera")))
                (:module "src/renders"
                 :serial t
                 :components ((:file "package")

@@ -3,6 +3,12 @@
         #:iterate)
   (:export
    #:add
+   #:camera
+   #:camera-field-of-view
+   #:camera-hsize
+   #:camera-pixel-size
+   #:camera-transform
+   #:camera-vsize
    #:canvas
    #:canvas-height
    #:canvas-to-ppm
@@ -18,6 +24,7 @@
    #:computations-object
    #:computations-point
    #:computations-tt
+   #:create-camera
    #:create-canvas
    #:create-matrix
    #:cross
@@ -29,14 +36,15 @@
    #:hit
    #:identity-matrix
    #:intersect
+   #:intersect-world
    #:intersection
    #:intersections
-   #:intersect-world
    #:inverse
-   #:lighting
    #:light-intensity
    #:light-position
+   #:lighting
    #:magnitude
+   #:make-camera
    #:make-canvas
    #:make-color
    #:make-intersection
@@ -77,12 +85,13 @@
    #:normalize
    #:pixel-at
    #:point
-   #:point?
    #:point-light
+   #:point?
    #:pos
    #:prepare-computations
    #:ray
    #:ray-direction
+   #:ray-for-pixel
    #:ray-origin
    #:reflect
    #:rotation-x
