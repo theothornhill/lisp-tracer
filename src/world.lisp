@@ -5,7 +5,7 @@
   (light nil))
 
 (defun default-world ()
-  (let* ((l (point-light (make-point -10.0 -10.0 -10.0)
+  (let* ((l (point-light (make-point -10.0 10.0 -10.0)
                          (make-color :red 1.0 :green 1.0 :blue 1.0)))
          (s1 (make-sphere))
          (s2 (make-sphere)))

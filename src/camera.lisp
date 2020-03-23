@@ -39,11 +39,7 @@
          (world-y (sub (camera-half-height camera) y-offset))
          (pixel (mult
                  (inverse (camera-transform camera))
-                 ;; TODO: I need to make sure what kind of orientation
-                 ;; we have. Right now this code differs from pseudo-code
-                 ;; in the book, and I think it may be related to the
-                 ;; matrix math inspired by .NET
-                 (make-point world-x world-y 1.0)))
+                 (make-point world-x world-y -1.0)))
          (origin (mult
                   (inverse (camera-transform camera))
                   (make-point 0.0 0.0 0.0)))
@@ -51,11 +47,9 @@
     (make-ray :origin origin :direction direction)))
 
 (defun render (camera world)
-  (let ((image (create-canvas (camera-hsize camera)
-                              (camera-vsize camera))))
+  (let ((image (create-canvas (camera-hsize camera) (camera-vsize camera))))
     (iter (for y from 0 below (camera-vsize camera))
       (iter (for x from 0 below (camera-hsize camera))
-        (write-pixel
-         image x y
+        (write-pixel image x y
          (color-at world (ray-for-pixel camera x y)))))
     image))

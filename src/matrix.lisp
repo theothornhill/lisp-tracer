@@ -209,7 +209,7 @@
     (create-matrix
      cos-r 0f0 sin-r 0f0
      0f0 1f0 0f0 0f0
-     0f0 (- sin-r) cos-r 0f0
+     (- sin-r) 0f0 cos-r 0f0
      0f0 0f0 0f0 1f0)))
 
 (defun rotation-z (r)
@@ -236,9 +236,10 @@
 (defun view-transform (from to up)
   (declare (type tuple from to up))
   (let* ((forward (normalize (sub to from)))
-         (left (cross forward (normalize up)))
+         (upn (normalize up))
+         (left (cross forward upn))
          (true-up (cross left forward))
-         (negated-forward (normalize (sub to from)))
+         (negated-forward (neg forward))
          (negated-from (neg from))
          (orientation (create-matrix
                        (tuple-x left)
