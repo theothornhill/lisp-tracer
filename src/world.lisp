@@ -19,12 +19,14 @@
 
 (defun shade-hit (w comps)
   (declare (type world w) (type computations comps))
-  (lighting (sphere-material
-             (computations-object comps))
-            (world-light w)
-            (computations-point comps)
-            (computations-eyev comps)
-            (computations-normalv comps)))
+  (let ((material (sphere-material
+                   (computations-object comps))))
+    (lighting material
+              (world-light w)
+              (computations-point comps)
+              (computations-eyev comps)
+              (computations-normalv comps)
+              (material-shadowed? material))))
 
 (defun color-at (w r)
   (declare (type world w) (type ray r)

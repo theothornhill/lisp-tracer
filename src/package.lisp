@@ -60,6 +60,7 @@
    #:material-ambient
    #:material-col
    #:material-diffuse
+   #:material-shadowed?
    #:material-shininess
    #:material-specular
    #:matrix
