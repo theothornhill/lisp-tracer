@@ -25,10 +25,13 @@
                     (camera-hsize camera))))))
 
 
-(defun create-camera (hsize vsize field-of-view)
+(defun create-camera (hsize vsize field-of-view &optional transform)
   (let ((c (make-camera :hsize hsize
                         :vsize vsize
-                        :field-of-view field-of-view)))
+                        :field-of-view field-of-view
+                        :transform (if transform
+                                       transform
+                                       (identity-matrix)))))
     (compute-pixel-size c)
     c))
 

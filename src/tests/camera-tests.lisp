@@ -42,12 +42,14 @@
 
 (deftest render-camera-world
   (testing "Rendering a world with a camera"
-    (let ((w (default-world))
-          (c (create-camera 11 11 (div (coerce pi 'single-float) 2.0)))
-          (from (make-point 0.0 0.0 -5.0))
-          (to (make-vec 0.0 0.0 0.0))
-          (up (make-point 0.0 1.0 0.0)))
-      (setf (camera-transform c) (view-transform from to up))
+    (let* ((w (default-world))
+           (from (make-point 0.0 0.0 -5.0))
+           (to (make-vec 0.0 0.0 0.0))
+           (up (make-point 0.0 1.0 0.0))
+           (c (create-camera
+               11 11
+               (div (coerce pi 'single-float) 2.0)
+               (view-transform from to up))))
       (let ((image (render c w)))
         (ok (equal? (pixel-at image 5 5)
                     (make-color :red 0.38066
