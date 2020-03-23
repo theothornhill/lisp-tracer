@@ -28,7 +28,11 @@
          (inside? (< (dot comps-normalv comps-eyev) 0.0))
          (normalv (if inside? (neg comps-normalv) comps-normalv))
          (comps-over-point (add comps-point
-                                (mult normalv epsilon))))
+                                ;; This 0.003 value is completely
+                                ;; arbitrary and should be changed.
+                                ;; I need to find a better way to
+                                ;; avoid acne...
+                                (mult normalv 0.003))))
     (make-computations
      :tt (rt-intersection-tt i)
      :object comps-object
