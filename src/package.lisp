@@ -106,7 +106,7 @@
    #:shearing
    #:sphere
    #:sphere-material
-   #:sphere-matrix
+   #:sphere-transform
    #:sub
    #:transform
    #:transform-object

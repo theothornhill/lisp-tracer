@@ -16,7 +16,7 @@
          (light-color (make-color :red 1 :green 1 :blue 1))
          (light (point-light light-position light-color)))
     (setf (material-col (sphere-material shape)) (make-color :red 1 :green 0.2 :blue 1))
-    (setf (sphere-matrix shape) (scaling 10.0 10.0 10.0))
+    (setf (sphere-transform shape) (scaling 10.0 10.0 10.0))
     (iter (for y from 0 below canvas-pixels)
       (let ((world-y (float (- (* pixel-size y) half))))
         (iter (for x from 0 below canvas-pixels)

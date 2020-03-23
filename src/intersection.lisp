@@ -57,7 +57,7 @@
 ;;   (declare (optimize (speed 3) (safety 0)))
 ;;   (if inverted-matrix
 ;;       inverted-matrix
-;;       (let ((inv (inverse (sphere-matrix sphere))))
+;;       (let ((inv (inverse (sphere-transform sphere))))
 ;;         (setf inverted-matrix inv)
 ;;         inv)))
 
@@ -65,7 +65,7 @@
   "Intersect SPHERE with RAY"
   (declare (sphere sphere) (ray ray)
            (optimize (speed 3) (safety 0)))
-  (let* ((ray2 (transform ray (inverse (sphere-matrix sphere))))
+  (let* ((ray2 (transform ray (inverse (sphere-transform sphere))))
          (sphere-to-ray (sub (ray-origin ray2) (make-point 0.0 0.0 0.0)))
          (ray2-direction (ray-direction ray2))
          (a (dot ray2-direction ray2-direction))
