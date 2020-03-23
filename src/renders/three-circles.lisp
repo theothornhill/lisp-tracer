@@ -1,7 +1,5 @@
 (in-package #:lisp-tracer-renders)
 
-(defparameter *pi* (coerce pi 'single-float))
-
 (defparameter *scene-floor*
   (make-sphere
    :transform (scaling 10.0 0.01 10.0)
@@ -12,26 +10,26 @@
 (defparameter *scene-left-wall*
   (make-sphere
    :transform (transform-object
-            (scaling 10.0 0.01 10.0)
-            (rotation-x (div *pi* 2.0))
-            (rotation-y (neg (div *pi* 4.0)))
-            (translation 0.0 0.0 5.0))))
+               (scaling 10.0 0.01 10.0)
+               (rotation-x (coerce (/ pi 2.0) 'single-float))
+               (rotation-y (coerce (- (/ pi 4.0)) 'single-float))
+               (translation 0.0 0.0 5.0))))
 
 (defparameter *scene-right-wall*
   (make-sphere
    :transform (transform-object
-            (scaling 10.0 0.01 10.0)
-            (rotation-x (div *pi* 2.0))
-            (rotation-y (div *pi* 4.0))
-            (translation 0.0 0.0 5.0))))
+               (scaling 10.0 0.01 10.0)
+               (rotation-x (coerce (/ pi 2.0) 'single-float))
+               (rotation-y (coerce (/ pi 4.0) 'single-float))
+               (translation 0.0 0.0 5.0))))
 
 (defparameter *middle*
   (make-sphere
    :transform (translation -0.5 1.0 0.5)
    :material (make-material
               :col (make-color :red 0.1 :green 1.0 :blue 0.5)
-              :specular 0.7
-              :diffuse 0.3)))
+              :specular 0.3
+              :diffuse 0.7)))
 
 (defparameter *right*
   (make-sphere
@@ -39,8 +37,8 @@
                     (translation 2.5 1.0 -0.5))
    :material (make-material
               :col (make-color :red 0.5 :green 1.0 :blue 0.1)
-              :specular 0.7
-              :diffuse 0.3)))
+              :specular 0.3
+              :diffuse 0.7)))
 
 (defparameter *left*
   (make-sphere
@@ -48,8 +46,8 @@
                     (scaling 0.33 0.33 0.33))
    :material (make-material
               :col (make-color :red 1.0 :green 0.8 :blue 0.1)
-              :specular 0.7
-              :diffuse 0.3)))
+              :specular 0.3
+              :diffuse 0.7)))
 
 (defparameter *world*
   (make-world
