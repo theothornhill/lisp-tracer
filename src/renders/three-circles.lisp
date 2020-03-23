@@ -1,5 +1,7 @@
 (in-package #:lisp-tracer-renders)
 
+(defparameter *pi* 3.141592)
+
 (defparameter *scene-floor*
   (make-sphere
    :transform (scaling 10.0 0.01 10.0)
@@ -9,18 +11,24 @@
 
 (defparameter *scene-left-wall*
   (make-sphere
+   :material (make-material
+              :col (make-color :red 1.0 :green 0.9 :blue 0.9)
+              :specular 0.0)
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
-               (rotation-x (coerce (/ pi 2.0) 'single-float))
-               (rotation-y (coerce (- (/ pi 4.0)) 'single-float))
+               (rotation-x (/ *pi* 2.0))
+               (rotation-y (- (/ *pi* 4.0)))
                (translation 0.0 0.0 5.0))))
 
 (defparameter *scene-right-wall*
   (make-sphere
+   :material (make-material
+              :col (make-color :red 1.0 :green 0.9 :blue 0.9)
+              :specular 0.0)
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
-               (rotation-x (coerce (/ pi 2.0) 'single-float))
-               (rotation-y (coerce (/ pi 4.0) 'single-float))
+               (rotation-x (/ *pi* 2.0))
+               (rotation-y (/ *pi* 4.0))
                (translation 0.0 0.0 5.0))))
 
 (defparameter *middle*
@@ -58,7 +66,7 @@
                   *right*
                   *left*)
    :light (point-light
-           (make-point -1000.0 1000.0 -1000.0)
+           (make-point -300.0 300.0 -500.0)
            (make-color :red 1.0
                        :green 1.0
                        :blue 1.0))))
@@ -67,7 +75,7 @@
   (create-camera
    1000
    500
-   (div *pi* 3.0)
+   (/ *pi* 3)
    (view-transform (make-point 0.0 1.5 -5.0)
                    (make-point 0.0 1.0 0.0)
                    (make-vec 0.0 1.0 0.0))))
