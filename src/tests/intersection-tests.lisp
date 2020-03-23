@@ -69,7 +69,7 @@
            (shape (make-sphere))
            (i (make-intersection 4.0 shape))
            (comps (prepare-computations i r)))
-      (ng (computations-inside comps))))
+      (ng (computations-inside? comps))))
   (testing "The hit, when an intersection occurs on the inside"
     (let* ((r (make-ray :origin (make-point 0.0 0.0 0.0)
                         :direction (make-vec 0.0 0.0 1.0)))
@@ -78,5 +78,17 @@
            (comps (prepare-computations i r)))
       (ok (equal? (computations-point comps) (make-point 0.0 0.0 1.0)))
       (ok (equal? (computations-eyev comps) (make-vec 0.0 0.0 -1.0)))
-      (ok (computations-inside comps))
+      (ok (computations-inside? comps))
       (ok (equal? (computations-normalv comps) (make-vec 0.0 0.0 -1.0))))))
+
+(deftest hit-offset-over-point
+  (testing "The hit should offset the point"
+    (let* ((r (make-ray :origin (make-point 0.0 0.0 -5.0)
+                        :direction (make-vec 0.0 0.0 1.0)))
+           (shape (make-sphere :transform (translation 0.0 0.0 1.0)))
+           (i (make-intersection 5.0 shape))
+           (comps (prepare-computations i r)))
+      (ok (< (tuple-z (computations-over-point comps))
+             (float (/ (neg epsilon) 2))))
+      (ok (> (tuple-z (computations-point comps))
+             (tuple-z (computations-over-point comps)))))))

@@ -35,6 +35,7 @@
                                       light
                                       point
                                       eyev
-                                      normal)))
+                                      normal
+                                      nil)))
                 (write-pixel canv x y color)))))))
     (canvas-to-ppm canv)))

@@ -19,14 +19,14 @@
 
 (defun shade-hit (w comps)
   (declare (type world w) (type computations comps))
-  (let ((material (sphere-material
-                   (computations-object comps))))
+  (let ((shadowed? (is-shadowed? w (computations-over-point comps)))
+        (material (sphere-material (computations-object comps))))
     (lighting material
               (world-light w)
               (computations-point comps)
               (computations-eyev comps)
               (computations-normalv comps)
-              (material-shadowed? material))))
+              shadowed?)))
 
 (defun color-at (w r)
   (declare (type world w) (type ray r)
@@ -35,3 +35,13 @@
     (if hit
         (shade-hit w (prepare-computations hit r))
         (make-color :red 0.0 :green 0.0 :blue 0.0))))
+
+(defun is-shadowed? (world point)
+  (declare (world world) (tuple point))
+  (let* ((v (sub (light-position (world-light world)) point))
+         (distance (magnitude v))
+         (direction (normalize v))
+         (ray (make-ray :origin point :direction direction))
+         (xs (intersect-world world ray))
+         (hit (hit xs)))
+    (and hit (< (rt-intersection-tt hit) distance))))

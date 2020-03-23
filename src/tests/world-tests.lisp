@@ -87,3 +87,38 @@
         (ok (equal? c (material-col
                        (sphere-material
                         (cadr (world-objects w))))))))))
+
+(deftest shadow-testing
+  (testing "There is no shadow when nothing is collinear with point and light"
+    (let ((w (default-world))
+          (p (make-point 0.0 10.0 0.0)))
+      (ng (is-shadowed? w p))))
+  (testing "The shadow when an object is between the point and the light"
+    (let ((w (default-world))
+          (p (make-point 10.0 -10.0 10.0)))
+      (ok (is-shadowed? w p))))
+  (testing "There is no shadow when an object is behind the light"
+    (let ((w (default-world))
+          (p (make-point -20.0 20.0 -20.0)))
+      (ng (is-shadowed? w p))))
+  (testing "There is no shadow when an object is behind the point"
+    (let ((w (default-world))
+          (p (make-point -2.0 2.0 -2.0)))
+      (ng (is-shadowed? w p)))))
+
+(deftest shade-hit-shadowed
+  (testing "shade-hit is given an intersection in shadow"
+    (let* ((s1 (make-sphere))
+           (s2 (make-sphere
+                :transform (translation 0.0 0.0 10.0)))
+           (w (make-world
+               :objects (list s1 s2)
+               :light (point-light
+                       (make-point 0.0 0.0 -10.0)
+                       (make-color :red 1.0 :green 1.0 :blue 1.0))))
+           (r (make-ray :origin (make-point 0.0 0.0 5.0)
+                        :direction (make-vec 0.0 0.0 1.0)))
+           (i (make-intersection 4.0 s2))
+           (comps (prepare-computations i r))
+           (c (shade-hit w comps)))
+      (ok (equal? (make-color :red 0.1 :green 0.1 :blue 0.1) c)))))

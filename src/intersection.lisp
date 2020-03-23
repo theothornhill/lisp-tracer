@@ -7,8 +7,9 @@
 (defstruct computations
   (tt 0.0 :type single-float)
   (object nil :type sphere)
-  (inside nil :type t)
+  (inside? nil :type t)
   (point (make-point 0.0 0.0 0.0) :type tuple)
+  (over-point (make-point 0.0 0.0 0.0) :type tuple)
   (eyev (make-vec 0.0 0.0 0.0) :type tuple)
   (normalv (make-vec 0.0 0.0 0.0) :type tuple))
 
@@ -24,16 +25,18 @@
          (comps-point (pos r (rt-intersection-tt i)))
          (comps-eyev (neg (ray-direction r)))
          (comps-normalv (normal-at comps-object comps-point))
-         (inside? (< (dot comps-normalv comps-eyev) 0.0)))
+         (inside? (< (dot comps-normalv comps-eyev) 0.0))
+         (normalv (if inside? (neg comps-normalv) comps-normalv))
+         (comps-over-point (add comps-point
+                                (mult normalv epsilon))))
     (make-computations
      :tt (rt-intersection-tt i)
      :object comps-object
-     :inside (if inside? t)
+     :inside? inside?
      :point comps-point
+     :over-point comps-over-point 
      :eyev comps-eyev
-     :normalv (if inside?
-                  (neg comps-normalv)
-                  comps-normalv))))
+     :normalv normalv)))
 
 (declaim (inline tt<))
 (defun tt< (a b)

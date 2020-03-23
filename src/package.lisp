@@ -19,9 +19,10 @@
    #:color-green
    #:color-red
    #:computations-eyev
-   #:computations-inside
+   #:computations-inside?
    #:computations-normalv
    #:computations-object
+   #:computations-over-point
    #:computations-point
    #:computations-tt
    #:create-camera
@@ -40,6 +41,7 @@
    #:intersection
    #:intersections
    #:inverse
+   #:is-shadowed?
    #:light-intensity
    #:light-position
    #:lighting
