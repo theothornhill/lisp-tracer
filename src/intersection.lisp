@@ -32,20 +32,6 @@
   "Sorted list of intersections. Compares by TT from smallest to largest."
   (if xs (sort xs #'tt<)))
 
-
-;; TODO: This is an attempt to memoize the actual transform matrix
-;; so that we don't have to run inverse all the time. This optimization
-;; yields quite a bit of a performance increase, but I'm still unsure
-;; whether it is safe to only store one matrix. What if we have more
-;; spheres etc.
-;; (defvar inverted-matrix nil)
-;; (declaim (inline store-inverted-matrix))
-;; (defun store-inverted-matrix (sphere)
-;;       inverted-matrix
-;;       (let ((inv (inverse (sphere-transform sphere))))
-;;         (setf inverted-matrix inv)
-;;         inv)))
-
 (defun intersect (sphere ray)
   "Intersect SPHERE with RAY"
   (declare (sphere sphere) (ray ray))
