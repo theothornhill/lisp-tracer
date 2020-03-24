@@ -16,7 +16,7 @@
                              (:file "material")
                              (:file "math")
                              (:file "ray")
-                             (:file "sphere")
+                             (:file "shape")
                              (:file "world")
                              (:file "intersection")
                              (:file "canvas")

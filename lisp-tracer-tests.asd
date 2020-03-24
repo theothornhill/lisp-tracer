@@ -19,6 +19,6 @@
                              (:file "light-tests")
                              (:file "material-tests")
                              (:file "intersection-tests")
-                             (:file "sphere-tests")
+                             (:file "shape-tests")
                              (:file "world-tests")
                              (:file "camera-tests")))))

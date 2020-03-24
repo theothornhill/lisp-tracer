@@ -127,12 +127,12 @@
         (ok (equal? n (make-vec 0.0 0.97014 -0.24254)))))))
 
 (deftest sphere-materials
-  (testing "A sphere has a default material"
-    (let ((s (make-sphere)))
-      (ok (equal? (sphere-material s) (make-material)))))
-  (testing "A sphere may be assigned a material"
-    (let ((s (make-sphere))
+  (testing "The default material"
+    (let ((s (make-shape)))
+      (ok (equal? (shape-material s) (make-material)))))
+  (testing "Assigning a material"
+    (let ((s (make-shape))
           (m (make-material)))
       (setf (material-ambient m) 1.0)
-      (setf (sphere-material s) m)
-      (ok (equal? (sphere-material s) m)))))
+      (setf (shape-material s) m)
+      (ok (equal? (shape-material s) m)))))
