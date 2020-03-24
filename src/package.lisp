@@ -104,7 +104,6 @@
    #:rt-intersection-object
    #:rt-intersection-tt
    #:scaling
-   #:set-transform
    #:shade-hit
    #:shearing
    #:sphere
