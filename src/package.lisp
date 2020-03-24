@@ -60,7 +60,7 @@
    #:make-world
    #:material
    #:material-ambient
-   #:material-col
+   #:material-color
    #:material-diffuse
    #:material-shadowed?
    #:material-shininess

@@ -3,8 +3,10 @@
 (deftest material-test
   (testing "The default material"
     (let ((m (make-material)))
-      (ok (equal? (material-col m) (make-color :red 1 :green 1 :blue 1)))
-      (ok (equal? (material-col m) (make-color :red 1 :green 1 :blue 1)))
+      (ok (equal? (material-color m)
+                  (make-color :red 1.0 :green 1.0 :blue 1.0)))
+      (ok (equal? (material-color m)
+                  (make-color :red 1.0 :green 1.0 :blue 1.0)))
       (ok (equal? (material-ambient m) 0.1))
       (ok (equal? (material-diffuse m) 0.9))
       (ok (equal? (material-specular m) 0.9))

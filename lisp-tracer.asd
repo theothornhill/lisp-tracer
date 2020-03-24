@@ -12,7 +12,6 @@
                              (:file "structs")
                              (:file "tuple")
                              (:file "matrix")
-                             (:file "color")
                              (:file "util")
                              (:file "material")
                              (:file "math")

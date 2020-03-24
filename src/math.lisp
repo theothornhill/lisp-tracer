@@ -195,7 +195,7 @@
      (eq? (matrix-m32 x) (matrix-m32 y))
      (eq? (matrix-m33 x) (matrix-m33 y))))
   (:method ((x material) (y material))
-    (and (equal? (material-col x) (material-col y))
+    (and (equal? (material-color x) (material-color y))
          (eq? (material-ambient x) (material-ambient y))
          (eq? (material-diffuse x) (material-diffuse y))
          (eq? (material-specular x) (material-specular y))

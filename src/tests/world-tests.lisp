@@ -11,7 +11,7 @@
            (s1 (make-sphere))
            (s2 (make-sphere))
            (w (default-world)))
-      (setf (material-col (sphere-material s1)) (make-color :red 0.8 :green 1.0 :blue 0.6))
+      (setf (material-color (sphere-material s1)) (make-color :red 0.8 :green 1.0 :blue 0.6))
       (setf (material-diffuse (sphere-material s1)) 0.7)
       (setf (material-specular (sphere-material s1)) 0.2)
       (setf (sphere-transform s2) (scaling 0.5 0.5 0.5))
@@ -84,7 +84,7 @@
       (let* ((r (make-ray :origin (make-point 0.0 0.0 0.75)
                           :direction (make-vec 0.0 0.0 -1.0)))
              (c (color-at w r)))
-        (ok (equal? c (material-col
+        (ok (equal? c (material-color
                        (sphere-material
                         (cadr (world-objects w))))))))))
 

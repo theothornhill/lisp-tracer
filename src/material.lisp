@@ -1,7 +1,7 @@
 (in-package #:lisp-tracer)
 
 (defun lighting (material light point eyev normalv shadowed?)
-  (let* ((effective-color (mult (material-col material) (light-intensity light)))
+  (let* ((effective-color (mult (material-color material) (light-intensity light)))
          (lightv (normalize (sub (light-position light) point)))
          (ambient (mult effective-color (material-ambient material)))
          (light-dot-normal (dot lightv normalv)))
