@@ -59,14 +59,14 @@
       (ok (eq (rt-intersection-object (second xs)) s)))))
 
 (deftest sphere-transformations
-  (testing "A sphere's default transformation"
-    (let ((s (make-sphere)))
-      (ok (equal? (sphere-transform s) (identity-matrix)))))
-  (testing "Changing a sphere's transformation"
-    (let ((s (make-sphere))
+  (testing "The default transformation"
+    (let ((s (make-shape)))
+      (ok (equal? (shape-transform s) (identity-matrix)))))
+  (testing "Assigning a transformation"
+    (let ((s (make-shape))
           (trans (translation 2.0 3.0 4.0)))
-      (ok (equal? (sphere-transform s) trans)))))
       (setf (shape-transform s) trans)
+      (ok (equal? (shape-transform s) trans)))))
 
 (deftest intersecting-spheres
   (testing "Intersecting a scaled sphere with a ray"

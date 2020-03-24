@@ -54,6 +54,7 @@
    #:make-matrix
    #:make-point
    #:make-ray
+   #:make-shape
    #:make-sphere
    #:make-tuple
    #:make-vec
@@ -109,6 +110,8 @@
    #:sphere
    #:sphere-material
    #:sphere-transform
+   #:shape-material
+   #:shape-transform
    #:sub
    #:transform
    #:transform-object
