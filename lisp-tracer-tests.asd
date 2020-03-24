@@ -1,3 +1,5 @@
+(setf *read-default-float-format* 'double-float)
+
 (asdf:defsystem #:lisp-tracer-tests
   :description "Tests for ray tracer"
   :author "Theodor Thornhill <theothornhill@pm.me>"

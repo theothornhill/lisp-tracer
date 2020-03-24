@@ -1,10 +1,5 @@
 (in-package #:lisp-tracer)
 
-(defstruct canvas
-  width
-  height
-  grid)
-
 (defun make-grid (width height)
   "Array of WIDTH and HEIGHT size filled with BLACK."
   (make-array (list width height)

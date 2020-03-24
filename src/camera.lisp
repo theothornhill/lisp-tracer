@@ -1,27 +1,17 @@
 (in-package #:lisp-tracer)
 
-(defstruct camera
-  (hsize 0 :type integer)
-  (vsize 0 :type integer)
-  (half-width 0.0 :type single-float)
-  (half-height 0.0 :type single-float)
-  (field-of-view 0.0 :type single-float)
-  (transform (identity-matrix) :type matrix)
-  (pixel-size 0.0 :type single-float))
-
-
 (defun compute-pixel-size (camera)
   (let ((half-view (tan (float (/ (camera-field-of-view camera) 2.0))))
         (aspect (float (/ (camera-hsize camera) (camera-vsize camera)))))
     (if (>= aspect 1.0)
         (progn
           (setf (camera-half-width camera) half-view)
-          (setf (camera-half-height camera) (div half-view aspect)))
+          (setf (camera-half-height camera) (/ half-view aspect)))
         (progn
-          (setf (camera-half-width camera) (mult half-view aspect))
+          (setf (camera-half-width camera) (* half-view aspect))
           (setf (camera-half-height camera) half-view)))
     (setf (camera-pixel-size camera)
-          (float (/ (mult (camera-half-width camera) 2.0)
+          (float (/ (* (camera-half-width camera) 2.0)
                     (camera-hsize camera))))))
 
 

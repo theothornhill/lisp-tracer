@@ -1,23 +1,5 @@
 (in-package #:lisp-tracer)
 
-(defstruct matrix
-  (m00 1f0 :type single-float)
-  (m01 0f0 :type single-float)
-  (m02 0f0 :type single-float)
-  (m03 0f0 :type single-float)
-  (m10 0f0 :type single-float)
-  (m11 1f0 :type single-float)
-  (m12 0f0 :type single-float)
-  (m13 0f0 :type single-float)
-  (m20 0f0 :type single-float)
-  (m21 0f0 :type single-float)
-  (m22 1f0 :type single-float)
-  (m23 0f0 :type single-float)
-  (m30 0f0 :type single-float)
-  (m31 0f0 :type single-float)
-  (m32 0f0 :type single-float)
-  (m33 1f0 :type single-float))
-
 (declaim (inline create-matrix))
 (declaim (inline make-matrix))
 (defun create-matrix (a b c d
@@ -25,7 +7,6 @@
                       i j k l
                       m n o p)
   "Create a matrix of size DIMENSION and items in LIST"
-  (declare (optimize (speed 3) (safety 0)))
   (make-matrix
    :m00 a
    :m01 b
@@ -47,10 +28,10 @@
 (defun identity-matrix ()
   "IDENTITY-MATRIX - 4x4."
   (create-matrix
-   1f0 0f0 0f0 0f0
-   0f0 1f0 0f0 0f0
-   0f0 0f0 1f0 0f0
-   0f0 0f0 0f0 1f0))
+   1.0 0.0 0.0 0.0
+   0.0 1.0 0.0 0.0
+   0.0 0.0 1.0 0.0
+   0.0 0.0 0.0 1.0))
 
 (defun transpose (matrix)
   "Flips a MATRIX along its diagonal."
@@ -76,13 +57,13 @@
 (declaim (inline ab-cd))
 (defun ab-cd (a b c d)
   "Helper function for inversion of matrix."
-  (declare (type single-float a b c d))
+  (declare (type double-float a b c d))
   (- (* a b) (* c d)))
 
 (declaim (inline +inverted-cell))
 (defun +inverted-cell (x y z one two three)
   "Helper function for inversion of matrix."
-  (declare (type single-float x y z one two three))
+  (declare (type double-float x y z one two three))
   (+ (+ (- (* x one)
            (* y two))
         (* z three))))
@@ -90,7 +71,7 @@
 (declaim (inline -inverted-cell))
 (defun -inverted-cell (x y z one two three)
   "Helper function for inversion of matrix."
-  (declare (type single-float x y z one two three))
+  (declare (type double-float x y z one two three))
   (- (+ (- (* x one)
            (* y two))
         (* z three))))
@@ -98,7 +79,6 @@
 (declaim (inline inverse))
 (defun inverse (matrix)
   "Invert MATRIX if it is INVERTIBLE."
-  (declare (optimize (speed 3) (safety 0)))
   (let* ((a (matrix-m00 matrix))
          (b (matrix-m01 matrix))
          (c (matrix-m02 matrix))
@@ -134,10 +114,9 @@
                  (* b a12)
                  (* c a13)
                  (* d a14))))
-    (declare (type single-float epsilon))
     (if (< (abs det) epsilon)
         (error "This matrix is not invertible")
-        (let ((inv-det (/ 1f0 det))
+        (let ((inv-det (/ 1.0 det))
               (gp-ho (ab-cd g p h o))
               (fp-hn (ab-cd f p h n))
               (fo-gn (ab-cd f o g n))
@@ -150,7 +129,7 @@
               (el-hi (ab-cd e l h i))
               (ek-gi (ab-cd e k g i))
               (ej-fi (ab-cd e j f i)))
-          (declare (type single-float inv-det))
+          (declare (type double-float inv-det))
           (make-matrix
            :m00 (* a11 inv-det)
            :m01 (* (-inverted-cell b c d kp-lo jp-ln jo-kn) inv-det)
@@ -172,66 +151,60 @@
 
 (defun translation (x y z)
   "Translate a MATRIX using its W component."
-  (declare (optimize (speed 3) (safety 0)))
   (create-matrix
-   1f0 0f0 0f0 x
-   0f0 1f0 0f0 y
-   0f0 0f0 1f0 z
-   0f0 0f0 0f0 1f0))
+   1.0 0.0 0.0 x
+   0.0 1.0 0.0 y
+   0.0 0.0 1.0 z
+   0.0 0.0 0.0 1.0))
 
 (defun scaling (x y z)
   "Scale a MATRIX."
-  (declare (optimize (speed 3) (safety 0)))
   (create-matrix
-   x 0f0 0f0 0f0
-   0f0 y 0f0 0f0
-   0f0 0f0 z 0f0
-   0f0 0f0 0f0 1f0))
+   x 0.0 0.0 0.0
+   0.0 y 0.0 0.0
+   0.0 0.0 z 0.0
+   0.0 0.0 0.0 1.0))
 
 (defun rotation-x (r)
   "Rotate a MATRIX along its X-axis by R radians."
-  (declare (optimize (speed 3) (safety 0))
-           (type single-float r))
-  (let ((cos-r (coerce (cos r) 'single-float))
-        (sin-r (coerce (sin r) 'single-float)))
+  (declare (type double-float r))
+  (let ((cos-r (coerce (cos r) 'double-float))
+        (sin-r (coerce (sin r) 'double-float)))
     (create-matrix
-     1f0 0f0 0f0 0f0
-     0f0 cos-r (- sin-r) 0f0
-     0f0 sin-r cos-r 0f0
-     0f0 0f0 0f0 1f0)))
+     1.0 0.0 0.0 0.0
+     0.0 cos-r (- sin-r) 0.0
+     0.0 sin-r cos-r 0.0
+     0.0 0.0 0.0 1.0)))
 
 (defun rotation-y (r)
   "Rotate a MATRIX along its Y-axis by R radians."
-  (declare (optimize (speed 3) (safety 0))
-           (type single-float r))
-  (let ((cos-r (coerce (cos r) 'single-float))
-        (sin-r (coerce (sin r) 'single-float)))
+  (declare (type double-float r))
+  (let ((cos-r (coerce (cos r) 'double-float))
+        (sin-r (coerce (sin r) 'double-float)))
     (create-matrix
-     cos-r 0f0 sin-r 0f0
-     0f0 1f0 0f0 0f0
-     (- sin-r) 0f0 cos-r 0f0
-     0f0 0f0 0f0 1f0)))
+     cos-r 0.0 sin-r 0.0
+     0.0 1.0 0.0 0.0
+     (- sin-r) 0.0 cos-r 0.0
+     0.0 0.0 0.0 1.0)))
 
 (defun rotation-z (r)
   "Rotate a MATRIX along its Z-axis by R radians."
-  (declare (optimize (speed 3) (safety 0))
-           (type single-float r))
-  (let ((cos-r (coerce (cos r) 'single-float))
-        (sin-r (coerce (sin r) 'single-float)))
+  (declare (type double-float r))
+  (let ((cos-r (coerce (cos r) 'double-float))
+        (sin-r (coerce (sin r) 'double-float)))
     (create-matrix
-     cos-r (- sin-r) 0f0 0f0
-     sin-r cos-r 0f0 0f0
-     0f0 0f0 1f0 0f0
-     0f0 0f0 0f0 1f0)))
+     cos-r (- sin-r) 0.0 0.0
+     sin-r cos-r 0.0 0.0
+     0.0 0.0 1.0 0.0
+     0.0 0.0 0.0 1.0)))
 
 (defun shearing (q w e a s d)
   "Shear a MATRIX."
-  (declare (optimize (speed 3) (safety 0)))
   (create-matrix
-   1f0 q w 0f0
-   e 1f0 a 0f0
-   s d 1f0 0f0
-   0f0 0f0 0f0 1f0))
+   1.0 q w 0.0
+   e 1.0 a 0.0
+   s d 1.0 0.0
+   0.0 0.0 0.0 1.0))
 
 (defun view-transform (from to up)
   (declare (type tuple from to up))

@@ -123,6 +123,7 @@
    #:vec
    #:vec?
    #:view-transform
+   #:world
    #:world-light
    #:world-objects
    #:write-pixel

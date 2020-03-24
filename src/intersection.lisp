@@ -1,22 +1,8 @@
 (in-package #:lisp-tracer)
 
-(defstruct rt-intersection
-  (tt nil :type single-float)
-  (object nil :type sphere))
-
-(defstruct computations
-  (tt 0.0 :type single-float)
-  (object nil :type sphere)
-  (inside? nil :type t)
-  (point (make-point 0.0 0.0 0.0) :type tuple)
-  (over-point (make-point 0.0 0.0 0.0) :type tuple)
-  (eyev (make-vec 0.0 0.0 0.0) :type tuple)
-  (normalv (make-vec 0.0 0.0 0.0) :type tuple))
-
 (declaim (inline make-intersection))
 (defun make-intersection (tt obj)
   "Creates an intersection with an OBJECT at a given time TT."
-  (declare (optimize (speed 3) (safety 0)))
   (make-rt-intersection :tt tt :object obj))
 
 (defun prepare-computations (i r)
@@ -28,28 +14,22 @@
          (inside? (< (dot comps-normalv comps-eyev) 0.0))
          (normalv (if inside? (neg comps-normalv) comps-normalv))
          (comps-over-point (add comps-point
-                                ;; This 0.003 value is completely
-                                ;; arbitrary and should be changed.
-                                ;; I need to find a better way to
-                                ;; avoid acne...
-                                (mult normalv 0.003))))
+                                (mult normalv epsilon))))
     (make-computations
      :tt (rt-intersection-tt i)
      :object comps-object
      :inside? inside?
      :point comps-point
-     :over-point comps-over-point 
+     :over-point comps-over-point
      :eyev comps-eyev
      :normalv normalv)))
 
 (declaim (inline tt<))
 (defun tt< (a b)
-  (declare (optimize (speed 3) (safety 0)))
   (< (rt-intersection-tt a) (rt-intersection-tt b)))
 
 (defun intersections (&rest xs)
   "Sorted list of intersections. Compares by TT from smallest to largest."
-  (declare (optimize (speed 3) (safety 0)))
   (if xs (sort xs #'tt<)))
 
 
@@ -61,8 +41,6 @@
 ;; (defvar inverted-matrix nil)
 ;; (declaim (inline store-inverted-matrix))
 ;; (defun store-inverted-matrix (sphere)
-;;   (declare (optimize (speed 3) (safety 0)))
-;;   (if inverted-matrix
 ;;       inverted-matrix
 ;;       (let ((inv (inverse (sphere-transform sphere))))
 ;;         (setf inverted-matrix inv)
@@ -70,8 +48,7 @@
 
 (defun intersect (sphere ray)
   "Intersect SPHERE with RAY"
-  (declare (sphere sphere) (ray ray)
-           (optimize (speed 3) (safety 0)))
+  (declare (sphere sphere) (ray ray))
   (let* ((ray2 (transform ray (inverse (sphere-transform sphere))))
          (sphere-to-ray (sub (ray-origin ray2) (make-point 0.0 0.0 0.0)))
          (ray2-direction (ray-direction ray2))
@@ -80,13 +57,13 @@
          (c (sub (dot sphere-to-ray sphere-to-ray) 1.0))
          (discriminant (sub (mult b b)
                             (mult 4.0 (mult a c)))))
-    (declare (type single-float discriminant a b c))
-    (unless (< discriminant 0f0)
-      (intersections (make-intersection (div (sub (- b) (sqrt discriminant))
-                                             (mult 2.0 a))
+    (declare (type double-float discriminant a b c))
+    (unless (< discriminant 0.0)
+      (intersections (make-intersection (/ (- (- b) (sqrt discriminant))
+                                           (* 2.0 a))
                                         sphere)
-                     (make-intersection (div (add (- b) (sqrt discriminant))
-                                             (mult 2.0 a))
+                     (make-intersection (/ (+ (- b) (sqrt discriminant))
+                                           (* 2.0 a))
                                         sphere)))))
 
 (defun hit (xs)

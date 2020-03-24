@@ -1,7 +1,5 @@
 (in-package #:lisp-tracer-renders)
 
-(defparameter *pi* 3.141592)
-
 (defparameter *scene-floor*
   (make-sphere
    :transform (scaling 10.0 0.01 10.0)
@@ -16,8 +14,8 @@
               :specular 0.0)
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
-               (rotation-x (/ *pi* 2.0))
-               (rotation-y (- (/ *pi* 4.0)))
+               (rotation-x (/ pi 2.0))
+               (rotation-y (- (/ pi 4.0)))
                (translation 0.0 0.0 5.0))))
 
 (defparameter *scene-right-wall*
@@ -27,8 +25,8 @@
               :specular 0.0)
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
-               (rotation-x (/ *pi* 2.0))
-               (rotation-y (/ *pi* 4.0))
+               (rotation-x (/ pi 2.0))
+               (rotation-y (/ pi 4.0))
                (translation 0.0 0.0 5.0))))
 
 (defparameter *middle*
@@ -75,7 +73,7 @@
   (create-camera
    1000
    500
-   (/ *pi* 3)
+   (/ pi 1.5)
    (view-transform (make-point 0.0 1.5 -5.0)
                    (make-point 0.0 1.0 0.0)
                    (make-vec 0.0 1.0 0.0))))

@@ -16,7 +16,7 @@
 (deftest writing-to-canvas
   (testing "Writing pixels to a canvas"
     (let ((c (create-canvas 10 20))
-          (color-red (make-color :red 1 :green 0 :blue 0)))
+          (color-red (make-color :red 1.0 :green 0.0 :blue 0.0)))
       (write-pixel c 2 3 color-red)
       (ok (equal? (pixel-at c 2 3) color-red)))))
 
@@ -32,9 +32,9 @@
 (deftest ppm-pixel-data
   (testing "Constructing the PPM pixel data"
     (let* ((c (create-canvas 5 3))
-          (c1 (make-color :red 1.5 :green 0 :blue 0))
-          (c2 (make-color :red 0 :green 0.5 :blue 0))
-          (c3 (make-color :red -0.5 :green 0 :blue 1)))
+          (c1 (make-color :red 1.5 :green 0.0 :blue 0.0))
+          (c2 (make-color :red 0.0 :green 0.5 :blue 0.0))
+          (c3 (make-color :red -0.5 :green 0.0 :blue 1.0)))
       (write-pixel c 0 0 c1)
       (write-pixel c 2 1 c2)
       (write-pixel c 4 2 c3)

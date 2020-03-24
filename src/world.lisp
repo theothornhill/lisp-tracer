@@ -1,9 +1,5 @@
 (in-package #:lisp-tracer)
 
-(defstruct world
-  (objects nil)
-  (light nil))
-
 (defun default-world ()
   (let* ((l (point-light (make-point -10.0 10.0 -10.0)
                          (make-color :red 1.0 :green 1.0 :blue 1.0)))
@@ -29,8 +25,7 @@
               shadowed?)))
 
 (defun color-at (w r)
-  (declare (type world w) (type ray r)
-           (optimize (speed 3) (safety 0)))
+  (declare (type world w) (type ray r))
   (let ((hit (hit (intersect-world w r))))
     (if hit
         (shade-hit w (prepare-computations hit r))

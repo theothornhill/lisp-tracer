@@ -1,18 +1,15 @@
 (in-package #:lisp-tracer)
 
-(defparameter epsilon 0.0001)
+(defparameter epsilon 0.00001)
 
 (defun eq? (a b)
   (< (abs (- a b)) epsilon))
 
 (defgeneric add (term1 term2)
-  (declare (optimize (speed 3) (safety 0)))
   (:documentation "Adding datastructures together")
-  (:method ((x single-float) (y single-float))
-    (declare (optimize (speed 3) (safety 0)))
+  (:method ((x double-float) (y double-float))
     (+ x y))
   (:method ((x tuple) (y tuple))
-    (declare (optimize (speed 3) (safety 0)))
     (make-tuple
      :x (+ (tuple-x x) (tuple-x y))
      :y (+ (tuple-y x) (tuple-y y))
@@ -24,14 +21,12 @@
      :green (+ (color-green x) (color-green y))
      :blue (+ (color-blue x) (color-blue y)))))
 
+
 (defgeneric sub (term1 term2)
-  (declare (optimize (speed 3) (safety 0)))
   (:documentation "Subtracting datastructures")
-  (:method ((x single-float) (y single-float))
-    (declare (optimize (speed 3) (safety 0)))
+  (:method ((x double-float) (y double-float))
     (- x y))
   (:method ((x tuple) (y tuple))
-    (declare (optimize (speed 3) (safety 0)))
     (make-tuple
      :x (- (tuple-x x) (tuple-x y))
      :y (- (tuple-y x) (tuple-y y))
@@ -45,11 +40,9 @@
 
 (defgeneric mult (term1 term2)
   (:documentation "Multiplying datastructures with scalar")
-  (:method ((x single-float) (y single-float))
-    (declare (optimize (speed 3) (safety 0)))
+  (:method ((x double-float) (y double-float))
     (* x y))
-  (:method ((x tuple) (y single-float))
-    (declare (optimize (speed 3) (safety 0)))
+  (:method ((x tuple) (y double-float))
     (make-tuple
      :x (* (tuple-x x) y)
      :y (* (tuple-y x) y)
@@ -66,7 +59,6 @@
      :green (* (color-green x) (color-green y))
      :blue (* (color-blue x) (color-blue y))))
   (:method ((a matrix) (b matrix))
-    (declare (optimize (speed 3) (safety 0)))
     (create-matrix
      (+ (* (matrix-m00 a) (matrix-m00 b))
         (* (matrix-m01 a) (matrix-m10 b))
@@ -160,11 +152,9 @@
 
 (defgeneric div (term1 term2)
   (:documentation "Dividing datastructures with scalar")
-  (:method ((x single-float) (y single-float))
-    (declare (optimize (speed 3) (safety 0)))
+  (:method ((x double-float) (y double-float))
     (float (/ x y)))
-  (:method ((x tuple) (y single-float))
-    (declare (optimize (speed 3) (safety 0)))
+  (:method ((x tuple) (y double-float))
     (make-tuple
      :x (float (/ (tuple-x x) y))
      :y (float (/ (tuple-y x) y))
@@ -213,11 +203,9 @@
 
 (defgeneric neg (element)
   (:documentation "Negates provided value")
-  (:method ((x single-float))
-    (declare (optimize (speed 3) (safety 0)))
+  (:method ((x double-float))
     (- x))
   (:method ((tup tuple))
-    (declare (optimize (speed 3) (safety 0)))
     (make-tuple
      :x (- (tuple-x tup))
      :y (- (tuple-y tup))
@@ -225,7 +213,6 @@
      :w (- (tuple-w tup)))))
 
 (defun magnitude (vec)
-  (declare (optimize (speed 3) (safety 0)))
   (let ((a (tuple-x vec))
         (b (tuple-y vec))
         (c (tuple-z vec))
@@ -237,7 +224,6 @@
         (* d d)))))
 
 (defun normalize (vec)
-  (declare (optimize (speed 3) (safety 0)))
   (make-tuple
    :x (float (/ (tuple-x vec) (magnitude vec)))
    :y (float (/ (tuple-y vec) (magnitude vec)))
@@ -245,7 +231,6 @@
    :w (float (/ (tuple-w vec) (magnitude vec)))))
 
 (defun dot (a b)
-  (declare (optimize (speed 3) (safety 0)))
   (float
    (+ (* (tuple-x a) (tuple-x b))
       (* (tuple-y a) (tuple-y b))
@@ -253,7 +238,6 @@
       (* (tuple-w a) (tuple-w b)))))
 
 (defun cross (tuple-a tuple-b)
-  (declare (optimize (speed 3) (safety 0)))
   (let ((a (tuple-x tuple-a))
         (b (tuple-y tuple-a))
         (c (tuple-z tuple-a))
