@@ -1,4 +1,21 @@
 * Lisp tracer
-A ray tracer made in Common Lisp.
+A ray tracer made in Common Lisp following [[https://pragprog.com/book/jbtracer/the-ray-tracer-challenge][The Ray Tracer Challenge]] by
+Jamis Buck
 
-It has a fairly fast implementation, inspired by .NET System.Numerics
+** How to run
+You need to enable double floats. We need the higher precision to avoid
+acne.
+#+begin_src lisp
+  (setf *read-default-float-format* 'double-float)
+#+end_src
+
+Then evaluate =lisp-tracer.asd= and go to the corresponding =lisp-tracer=
+package in the REPL. The renders can be found in =src/renders=, and will create
+a =picture.ppm= in root.
+
+** Tests
+You can run tests by evaluating =lisp-tracer-tests.asd=, then running
+#+begin_src lisp
+  (run :lisp-tracer-tests :style :spec)
+#+end_src
+from  =lisp-tracer-tests= package.
