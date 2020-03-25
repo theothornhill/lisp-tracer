@@ -32,25 +32,9 @@
   "Sorted list of intersections. Compares by TT from smallest to largest."
   (if xs (sort xs #'tt<)))
 
-(defun intersect (sphere ray)
-  "Intersect SPHERE with RAY"
-  (declare (sphere sphere) (ray ray))
-  (let* ((ray2 (transform ray (inverse (sphere-transform sphere))))
-         (sphere-to-ray (sub (ray-origin ray2) (make-point 0.0 0.0 0.0)))
-         (ray2-direction (ray-direction ray2))
-         (a (dot ray2-direction ray2-direction))
-         (b (mult 2.0 (dot ray2-direction sphere-to-ray)))
-         (c (sub (dot sphere-to-ray sphere-to-ray) 1.0))
-         (discriminant (sub (mult b b)
-                            (mult 4.0 (mult a c)))))
-    (declare (type double-float discriminant a b c))
-    (unless (< discriminant 0.0)
-      (intersections (make-intersection (/ (- (- b) (sqrt discriminant))
-                                           (* 2.0 a))
-                                        sphere)
-                     (make-intersection (/ (+ (- b) (sqrt discriminant))
-                                           (* 2.0 a))
-                                        sphere)))))
+(defun intersect (shape ray)
+  (let ((local-ray (transform ray (inverse (shape-transform shape)))))
+    (local-intersect shape local-ray)))
 
 (defun hit (xs)
   "If HIT is found with TT > 0, return the HIT"

@@ -45,6 +45,7 @@
    #:light-intensity
    #:light-position
    #:lighting
+   #:local-intersect
    #:magnitude
    #:make-camera
    #:make-canvas
@@ -106,12 +107,12 @@
    #:rt-intersection-tt
    #:scaling
    #:shade-hit
+   #:shape-material
+   #:shape-transform
    #:shearing
    #:sphere
    #:sphere-material
    #:sphere-transform
-   #:shape-material
-   #:shape-transform
    #:sub
    #:transform
    #:transform-object
