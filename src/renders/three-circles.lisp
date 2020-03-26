@@ -5,13 +5,20 @@
    :transform (scaling 10.0 0.01 10.0)
    :material (make-material
               :color (make-color :red 1.0 :green 0.9 :blue 0.9)
-              :specular 0.0)))
+              :specular 0.0
+              :pattern (make-pattern :a (make-color :red 0.4 :green 0.9 :blue 0.9)
+                                     :b (make-color :red 0.6 :green 0.5 :blue 0.2)
+                                     :transform (scaling 0.1 0.1 0.1)))))
 
 (defparameter *scene-left-wall*
   (make-sphere
    :material (make-material
               :color (make-color :red 1.0 :green 0.9 :blue 0.9)
-              :specular 0.0)
+              :specular 0.0
+              :pattern (make-pattern :a (make-color :red 0.4 :green 0.9 :blue 0.9)
+                                     :b (make-color :red 0.6 :green 0.5 :blue 0.2)
+                                     :transform (mult (scaling 0.1 0.1 0.1)
+                                                      (rotation-z (/ pi 1.5)))))
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
                (rotation-x (/ pi 2.0))
@@ -22,7 +29,11 @@
   (make-sphere
    :material (make-material
               :color (make-color :red 1.0 :green 0.9 :blue 0.9)
-              :specular 0.0)
+              :specular 0.0
+              :pattern (make-pattern :a (make-color :red 0.4 :green 0.9 :blue 0.9)
+                                     :b (make-color :red 0.6 :green 0.5 :blue 0.2)
+                                     :transform (mult (scaling 0.1 0.1 0.1)
+                                                      (rotation-z (/ pi 1.5)))))
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
                (rotation-x (/ pi 2.0))
