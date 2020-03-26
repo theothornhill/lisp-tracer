@@ -11,10 +11,10 @@
            (s1 (make-sphere))
            (s2 (make-sphere))
            (w (default-world)))
-      (setf (material-color (sphere-material s1)) (make-color :red 0.8 :green 1.0 :blue 0.6))
-      (setf (material-diffuse (sphere-material s1)) 0.7)
-      (setf (material-specular (sphere-material s1)) 0.2)
-      (setf (sphere-transform s2) (scaling 0.5 0.5 0.5))
+      (setf (material-color (shape-material s1)) (make-color :red 0.8 :green 1.0 :blue 0.6))
+      (setf (material-diffuse (shape-material s1)) 0.7)
+      (setf (material-specular (shape-material s1)) 0.2)
+      (setf (shape-transform s2) (scaling 0.5 0.5 0.5))
       (ok (equal? (light-intensity (world-light w)) (light-intensity l)))
       (ok (equalp (car (world-objects w)) s1))
       (ok (equalp (cadr (world-objects w)) s2)))))
@@ -74,18 +74,18 @@
   (testing "The color with an intersection behind the ray"
     (let* ((w (default-world)))
       (setf (material-ambient
-             (sphere-material
+             (shape-material
               (car (world-objects w))))
             1.0)
       (setf (material-ambient
-             (sphere-material
+             (shape-material
               (cadr (world-objects w))))
             1.0)
       (let* ((r (make-ray :origin (make-point 0.0 0.0 0.75)
                           :direction (make-vec 0.0 0.0 -1.0)))
              (c (color-at w r)))
         (ok (equal? c (material-color
-                       (sphere-material
+                       (shape-material
                         (cadr (world-objects w))))))))))
 
 (deftest shadow-testing

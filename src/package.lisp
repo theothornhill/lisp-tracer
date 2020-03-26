@@ -46,6 +46,7 @@
    #:light-position
    #:lighting
    #:local-intersect
+   #:local-normal-at
    #:magnitude
    #:make-camera
    #:make-canvas
@@ -53,6 +54,7 @@
    #:make-intersection
    #:make-material
    #:make-matrix
+   #:make-plane
    #:make-point
    #:make-ray
    #:make-shape
@@ -111,8 +113,6 @@
    #:shape-transform
    #:shearing
    #:sphere
-   #:sphere-material
-   #:sphere-transform
    #:sub
    #:transform
    #:transform-object

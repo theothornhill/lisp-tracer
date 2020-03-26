@@ -73,7 +73,7 @@
     (let* ((r (make-ray :origin (make-point 0.0 0.0 -5.0)
                         :direction (make-vec 0.0 0.0 1.0)))
            (s (make-sphere)))
-      (setf (sphere-transform s) (scaling 2.0 2.0 2.0))
+      (setf (shape-transform s) (scaling 2.0 2.0 2.0))
       (let ((xs (intersect s r)))
         (ok (= (length xs) 2))
         (ok (= (rt-intersection-tt (car xs)) 3.0))
@@ -82,7 +82,7 @@
     (let* ((r (make-ray :origin (make-point 0.0 0.0 -5.0)
                         :direction (make-vec 0.0 0.0 1.0)))
            (s (make-sphere)))
-      (setf (sphere-transform s) (translation 5.0 0.0 0.0))
+      (setf (shape-transform s) (translation 5.0 0.0 0.0))
       (let ((xs (intersect s r)))
         (ok (= (length xs) 0))))))
 
@@ -113,7 +113,7 @@
 (deftest normalizing-transformed-sphere
   (testing "Computing the normal on a translated sphere"
     (let* ((s (make-sphere)))
-      (setf (sphere-transform s) (translation 0.0 1.0 0.0))
+      (setf (shape-transform s) (translation 0.0 1.0 0.0))
       (let ((n (normal-at s (make-point 0.0 1.70711 -0.70711))))
         (ok (equal? n (make-vec 0.0 0.70711 -0.70711))))))
   (testing "Computing the normal on a transformed sphere"
@@ -122,7 +122,7 @@
            (m (transform-object
                (rotation-z (div (coerce pi 'double-float) 5.0))
                (scaling 1.0 0.5 1.0))))
-      (setf (sphere-transform s) m)
+      (setf (shape-transform s) m)
       (let ((n (normal-at s (make-point 0.0 sqrt2/2 (neg sqrt2/2)))))
         (ok (equal? n (make-vec 0.0 0.97014 -0.24254)))))))
 

@@ -72,11 +72,11 @@
 
 (defstruct rt-intersection
   (tt nil :type double-float)
-  (object nil :type sphere))
+  (object nil :type shape))
 
 (defstruct computations
   (tt 0.0 :type double-float)
-  (object nil :type sphere)
+  (object nil :type shape)
   (inside? nil :type t)
   (point (make-point 0.0 0.0 0.0) :type tuple)
   (over-point (make-point 0.0 0.0 0.0) :type tuple)

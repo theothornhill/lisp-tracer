@@ -20,5 +20,6 @@
                              (:file "material-tests")
                              (:file "intersection-tests")
                              (:file "shape-tests")
+                             (:file "plane-tests")
                              (:file "world-tests")
                              (:file "camera-tests")))))

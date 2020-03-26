@@ -5,10 +5,10 @@
                          (make-color :red 1.0 :green 1.0 :blue 1.0)))
          (s1 (make-sphere))
          (s2 (make-sphere)))
-    (setf (material-color (sphere-material s1)) (make-color :red 0.8 :green 1.0 :blue 0.6))
-    (setf (material-diffuse (sphere-material s1)) 0.7)
-    (setf (material-specular (sphere-material s1)) 0.2)
-    (setf (sphere-transform s2) (scaling 0.5 0.5 0.5))
+    (setf (material-color (shape-material s1)) (make-color :red 0.8 :green 1.0 :blue 0.6))
+    (setf (material-diffuse (shape-material s1)) 0.7)
+    (setf (material-specular (shape-material s1)) 0.2)
+    (setf (shape-transform s2) (scaling 0.5 0.5 0.5))
     (make-world
      :objects (list s1 s2)
      :light l)))
@@ -16,7 +16,7 @@
 (defun shade-hit (w comps)
   (declare (type world w) (type computations comps))
   (let ((shadowed? (is-shadowed? w (computations-over-point comps)))
-        (material (sphere-material (computations-object comps))))
+        (material (shape-material (computations-object comps))))
     (lighting material
               (world-light w)
               (computations-point comps)

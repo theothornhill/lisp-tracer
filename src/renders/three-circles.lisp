@@ -4,13 +4,13 @@
   (make-sphere
    :transform (scaling 10.0 0.01 10.0)
    :material (make-material
-              :col (make-color :red 1.0 :green 0.9 :blue 0.9)
+              :color (make-color :red 1.0 :green 0.9 :blue 0.9)
               :specular 0.0)))
 
 (defparameter *scene-left-wall*
   (make-sphere
    :material (make-material
-              :col (make-color :red 1.0 :green 0.9 :blue 0.9)
+              :color (make-color :red 1.0 :green 0.9 :blue 0.9)
               :specular 0.0)
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
@@ -21,7 +21,7 @@
 (defparameter *scene-right-wall*
   (make-sphere
    :material (make-material
-              :col (make-color :red 1.0 :green 0.9 :blue 0.9)
+              :color (make-color :red 1.0 :green 0.9 :blue 0.9)
               :specular 0.0)
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
@@ -33,7 +33,7 @@
   (make-sphere
    :transform (translation -0.5 1.0 0.5)
    :material (make-material
-              :col (make-color :red 0.1 :green 1.0 :blue 0.5)
+              :color (make-color :red 0.1 :green 1.0 :blue 0.5)
               :specular 0.3
               :diffuse 0.7)))
 
@@ -42,7 +42,7 @@
    :transform (mult (scaling 0.5 0.5 0.5)
                     (translation 2.5 1.0 -0.5))
    :material (make-material
-              :col (make-color :red 0.5 :green 1.0 :blue 0.1)
+              :color (make-color :red 0.5 :green 1.0 :blue 0.1)
               :specular 0.3
               :diffuse 0.7)))
 
@@ -51,7 +51,7 @@
    :transform (mult (translation -1.5 0.33 -0.75)
                     (scaling 0.33 0.33 0.33))
    :material (make-material
-              :col (make-color :red 1.0 :green 0.8 :blue 0.1)
+              :color (make-color :red 1.0 :green 0.8 :blue 0.1)
               :specular 0.3
               :diffuse 0.7)))
 

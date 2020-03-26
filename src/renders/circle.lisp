@@ -15,8 +15,8 @@
          (light-position (make-point -100.0 -100.0 -100.0))
          (light-color (make-color :red 1.0 :green 1.0 :blue 1.0))
          (light (point-light light-position light-color)))
-    (setf (material-color (sphere-material shape)) (make-color :red 1.0 :green 0.2 :blue 1.0))
-    (setf (sphere-transform shape) (scaling 10.0 10.0 10.0))
+    (setf (material-color (shape-material shape)) (make-color :red 1.0 :green 0.2 :blue 1.0))
+    (setf (shape-transform shape) (scaling 10.0 10.0 10.0))
     (iter (for y from 0 below canvas-pixels)
       (let ((world-y (float (- (* pixel-size y) half))))
         (iter (for x from 0 below canvas-pixels)
@@ -31,7 +31,7 @@
                      (point (pos r (rt-intersection-tt hit)))
                      (normal (normal-at hit-object point))
                      (eyev (neg (ray-direction r)))
-                     (color (lighting (sphere-material hit-object)
+                     (color (lighting (shape-material hit-object)
                                       light
                                       point
                                       eyev
