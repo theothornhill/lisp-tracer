@@ -1,7 +1,21 @@
 (in-package #:lisp-tracer)
 
+(defstruct material
+  (color (make-color :red 1.0 :green 1.0 :blue 1.0))
+  (pattern nil :type (or pattern null))
+  (ambient 0.1 :type double-float)
+  (diffuse 0.9 :type double-float)
+  (specular 0.9 :type double-float)
+  (shininess 200.0 :type double-float)
+  (shadowed? nil :type t))
+
 (defun lighting (material light point eyev normalv shadowed?)
-  (let* ((effective-color (mult (material-color material) (light-intensity light)))
+  (let* ((material-pattern (material-pattern material))
+         (effective-color
+           (mult (if material-pattern
+                     (stripe-at material-pattern point)
+                     (material-color material))
+                 (light-intensity light)))
          (lightv (normalize (sub (light-position light) point)))
          (ambient (mult effective-color (material-ambient material)))
          (light-dot-normal (dot lightv normalv)))

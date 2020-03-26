@@ -59,4 +59,23 @@
                                  (make-color :red 1.0 :green 1.0 :blue 1.0)))
              (shadowed? t)
              (result (lighting m light p eyev normalv shadowed?)))
-        (ok (equal? result (make-color :red 0.1 :green 0.1 :blue 0.1)))))))
+        (ok (equal? result (make-color :red 0.1 :green 0.1 :blue 0.1)))))
+    (testing "Lighting with a pattern applied"
+      (let* ((m (make-material
+                 :ambient 1.0
+                 :diffuse 0.0
+                 :specular 0.0
+                 :pattern (stripe-pattern (make-color :red 1.0 :green 1.0 :blue 1.0)
+                                          (make-color :red 0.0 :green 0.0 :blue 0.0))))
+             (eyev (make-vec 0.0 0.0 -1.0))
+             (normalv (make-vec 0.0 0.0 -1.0))
+             (light (point-light (make-point 0.0 0.0 -10.0)
+                                 (make-color :red 1.0 :green 1.0 :blue 1.0)))
+             (c1 (lighting m light
+                           (make-point 0.9 0.0 0.0)
+                           eyev normalv nil))
+             (c2 (lighting m light
+                           (make-point 1.1 0.0 0.0)
+                           eyev normalv nil)))
+        (ok (equal? c1 (make-color :red 1.0 :green 1.0 :blue 1.0)))
+        (ok (equal? c2 (make-color :red 0.0 :green 0.0 :blue 0.0)))))))

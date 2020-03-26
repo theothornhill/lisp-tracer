@@ -67,6 +67,7 @@
    #:material-ambient
    #:material-color
    #:material-diffuse
+   #:material-pattern
    #:material-shadowed?
    #:material-shininess
    #:material-specular
@@ -91,6 +92,7 @@
    #:neg
    #:normal-at
    #:normalize
+   #:pattern
    #:pattern-a
    #:pattern-b
    #:pixel-at

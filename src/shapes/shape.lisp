@@ -2,7 +2,7 @@
 
 (defstruct shape
   (transform (identity-matrix))
-  (material (make-material)))
+  (material (make-material) :type (or material null)))
 
 (defgeneric local-intersect (shape ray)
   (:documentation "Generic intersections for different shapes."))

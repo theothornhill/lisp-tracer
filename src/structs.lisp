@@ -23,14 +23,6 @@
   position
   intensity)
 
-(defstruct material
-  (color (make-color :red 1.0 :green 1.0 :blue 1.0))
-  (ambient 0.1 :type double-float)
-  (diffuse 0.9 :type double-float)
-  (specular 0.9 :type double-float)
-  (shininess 200.0 :type double-float)
-  (shadowed? nil :type t))
-
 (defstruct matrix
   (m00 1.0 :type double-float)
   (m01 0.0 :type double-float)
@@ -52,13 +44,6 @@
 (defstruct ray
   (origin nil :type tuple)
   (direction nil :type tuple))
-
-(defstruct shape
-  (transform (identity-matrix))
-  (material (make-material)))
-
-(defstruct (sphere (:include shape))
-  (id 1))
 
 (defstruct tuple
   (x 0.0 :type double-float)

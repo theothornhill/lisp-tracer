@@ -1,8 +1,8 @@
 (in-package #:lisp-tracer)
 
 (defstruct pattern
-  (a nil :type color)
-  (b nil :type color))
+  (a nil :type (or color null))
+  (b nil :type (or color null)))
 
 (defun stripe-pattern (a b)
   (declare (type color a b))
