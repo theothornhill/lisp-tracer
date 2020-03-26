@@ -18,6 +18,7 @@
   (let ((shadowed? (is-shadowed? w (computations-over-point comps)))
         (material (shape-material (computations-object comps))))
     (lighting material
+              (computations-object comps)
               (world-light w)
               (computations-point comps)
               (computations-eyev comps)

@@ -9,11 +9,11 @@
   (shininess 200.0 :type double-float)
   (shadowed? nil :type t))
 
-(defun lighting (material light point eyev normalv shadowed?)
+(defun lighting (material object light point eyev normalv shadowed?)
   (let* ((material-pattern (material-pattern material))
          (effective-color
            (mult (if material-pattern
-                     (stripe-at material-pattern point)
+                     (stripe-at-object material-pattern object point)
                      (material-color material))
                  (light-intensity light)))
          (lightv (normalize (sub (light-position light) point)))

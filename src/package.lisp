@@ -95,6 +95,7 @@
    #:pattern
    #:pattern-a
    #:pattern-b
+   #:pattern-transform
    #:pixel-at
    #:point
    #:point-light
@@ -119,6 +120,7 @@
    #:shearing
    #:sphere
    #:stripe-at
+   #:stripe-at-object
    #:stripe-pattern
    #:sub
    #:transform

@@ -1,7 +1,7 @@
 (in-package #:lisp-tracer)
 
 (defstruct shape
-  (transform (identity-matrix))
+  (transform (identity-matrix) :type matrix)
   (material (make-material) :type (or material null)))
 
 (defgeneric local-intersect (shape ray)
