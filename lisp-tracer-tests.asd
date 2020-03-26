@@ -22,4 +22,5 @@
                              (:file "shape-tests")
                              (:file "plane-tests")
                              (:file "world-tests")
-                             (:file "camera-tests")))))
+                             (:file "camera-tests")
+                             (:file "pattern-tests")))))

@@ -20,7 +20,8 @@
                              (:file "intersection")
                              (:file "canvas")
                              (:file "light")
-                             (:file "camera")))
+                             (:file "camera")
+                             (:file "pattern")))
                (:module "src/shapes"
                 :serial t
                 :components ((:file "shape")

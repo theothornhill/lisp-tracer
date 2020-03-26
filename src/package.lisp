@@ -54,6 +54,7 @@
    #:make-intersection
    #:make-material
    #:make-matrix
+   #:make-pattern
    #:make-plane
    #:make-point
    #:make-ray
@@ -90,6 +91,8 @@
    #:neg
    #:normal-at
    #:normalize
+   #:pattern-a
+   #:pattern-b
    #:pixel-at
    #:point
    #:point-light
@@ -113,6 +116,8 @@
    #:shape-transform
    #:shearing
    #:sphere
+   #:stripe-at
+   #:stripe-pattern
    #:sub
    #:transform
    #:transform-object
