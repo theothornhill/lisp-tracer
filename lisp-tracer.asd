@@ -16,12 +16,15 @@
                              (:file "material")
                              (:file "math")
                              (:file "ray")
-                             (:file "shape")
                              (:file "world")
                              (:file "intersection")
                              (:file "canvas")
                              (:file "light")
                              (:file "camera")))
+               (:module "src/shapes"
+                :serial t
+                :components ((:file "shape")
+                             (:file "sphere")))
                (:module "src/renders"
                 :serial t
                 :components ((:file "package")
