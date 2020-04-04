@@ -48,7 +48,7 @@
      :y (* (tuple-y x) y)
      :z (* (tuple-z x) y)
      :w (* (tuple-w x) y)))
-  (:method ((x color) (y number))
+  (:method ((x color) (y double-float))
     (make-color
      :red (* (color-red x) y)
      :green (* (color-green x) y)
