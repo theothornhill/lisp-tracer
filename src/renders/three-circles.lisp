@@ -8,8 +8,8 @@
               :specular 0.0
               :pattern (gradient-pattern (make-color :red 0.4 :green 0.9 :blue 0.9)
                                          (make-color :red 0.6 :green 0.5 :blue 0.2)
-                                         (mult (translation -1.0 1.0 1.0)
-                                               (scaling 2.0 1.0 1.0))))))
+                                         (mult (translation-x -1.0)
+                                               (scaling-x 2.0))))))
 
 (defparameter *scene-left-wall*
   (make-sphere

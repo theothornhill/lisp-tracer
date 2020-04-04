@@ -150,12 +150,21 @@
 
 
 (defun translation (x y z)
-  "Translate a MATRIX using its W component."
+  "Translate a MATRIX."
   (create-matrix
    1.0 0.0 0.0 x
    0.0 1.0 0.0 y
    0.0 0.0 1.0 z
    0.0 0.0 0.0 1.0))
+
+(defun translation-x (x)
+  (translation x 1.0 1.0))
+
+(defun translation-y (y)
+  (translation 1.0 y 1.0))
+
+(defun translation-z (z)
+  (translation 1.0 1.0 z))
 
 (defun scaling (x y z)
   "Scale a MATRIX."
@@ -164,6 +173,16 @@
    0.0 y 0.0 0.0
    0.0 0.0 z 0.0
    0.0 0.0 0.0 1.0))
+
+(defun scaling-x (x)
+  (scaling x 1.0 1.0))
+
+(defun scaling-y (y)
+  (scaling 1.0 y 1.0))
+
+(defun scaling-z (z)
+  (translation 1.0 1.0 z))
+
 
 (defun rotation-x (r)
   "Rotate a MATRIX along its X-axis by R radians."

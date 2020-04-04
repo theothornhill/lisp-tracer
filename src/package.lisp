@@ -119,6 +119,9 @@
    #:rt-intersection-object
    #:rt-intersection-tt
    #:scaling
+   #:scaling-x
+   #:scaling-y
+   #:scaling-z
    #:shade-hit
    #:shape-material
    #:shape-transform
@@ -129,6 +132,9 @@
    #:transform
    #:transform-object
    #:translation
+   #:translation-x
+   #:translation-y
+   #:translation-z
    #:transpose
    #:tuple
    #:tuple-w
