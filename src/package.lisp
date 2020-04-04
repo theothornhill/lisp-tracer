@@ -13,6 +13,7 @@
    #:canvas-height
    #:canvas-to-ppm
    #:canvas-width
+   #:checkers-pattern
    #:color
    #:color-at
    #:color-blue
@@ -142,4 +143,4 @@
    #:world-objects
    #:write-pixel
    #:zerovec
-))
+   ))

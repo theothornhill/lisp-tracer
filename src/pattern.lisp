@@ -8,6 +8,7 @@
 (defstruct (stripes (:include pattern)))
 (defstruct (gradient (:include pattern)))
 (defstruct (rings (:include pattern)))
+(defstruct (checkers (:include pattern)))
 
 (defun stripe-pattern (a b)
   (declare (type color a b))
@@ -20,6 +21,10 @@
 (defun ring-pattern (a b)
   (declare (type color a b))
   (make-rings :a a :b b))
+
+(defun checkers-pattern (a b)
+  (declare (type color a b))
+  (make-checkers :a a :b b))
 
 (defgeneric pattern-at (pattern point)
   (:documentation "Return pattern at a given point."))
@@ -44,6 +49,17 @@
        0)
       (pattern-a rings)
       (pattern-b rings)))
+
+(defmethod pattern-at ((checkers checkers) point)
+  "Calculates p_x + p_y + p_z mod 2 = 0"
+  (if (=
+       (mod (+ (floor (tuple-x point))
+               (floor (tuple-y point))
+               (floor (tuple-z point)))
+            2)
+       0)
+      (pattern-a checkers)
+      (pattern-b checkers)))
 
 (defun pattern-at-object (pattern object point)
   (let* ((object-point

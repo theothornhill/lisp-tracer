@@ -68,3 +68,18 @@
       (equal? (pattern-at pattern (make-point 1.0 0.0 0.0)) black)
       (equal? (pattern-at pattern (make-point 0.0 0.0 1.0)) black)
       (equal? (pattern-at pattern (make-point 0.708 0.0 0.708)) black))))
+
+(deftest checkers-pattern-tests
+  (let ((pattern (checkers-pattern white black)))
+    (testing "Checkers should repeat in x"
+      (equal? (pattern-at pattern (make-point 0.0 0.0 0.0)) white)
+      (equal? (pattern-at pattern (make-point 0.99 0.0 0.0)) white)
+      (equal? (pattern-at pattern (make-point 1.01 0.0 0.0)) black))
+    (testing "Checkers should repeat in y"
+      (equal? (pattern-at pattern (make-point 0.0 0.0 0.0)) white)
+      (equal? (pattern-at pattern (make-point 0.0 0.99 0.0)) white)
+      (equal? (pattern-at pattern (make-point 0.0 1.01 0.0)) black))
+    (testing "Checkers should repeat in z"
+      (equal? (pattern-at pattern (make-point 0.0 0.0 0.0)) white)
+      (equal? (pattern-at pattern (make-point 0.0 0.0 0.99)) white)
+      (equal? (pattern-at pattern (make-point 0.0 0.0 1.01)) black))))
