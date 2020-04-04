@@ -13,7 +13,7 @@
   (let* ((material-pattern (material-pattern material))
          (effective-color
            (mult (if material-pattern
-                     (stripe-at-object material-pattern object point)
+                     (pattern-at-object material-pattern object point)
                      (material-color material))
                  (light-intensity light)))
          (lightv (normalize (sub (light-position light) point)))

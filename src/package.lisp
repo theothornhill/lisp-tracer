@@ -34,6 +34,7 @@
    #:dot
    #:epsilon
    #:equal?
+   #:gradient-pattern
    #:hit
    #:identity-matrix
    #:intersect
@@ -94,6 +95,8 @@
    #:normalize
    #:pattern
    #:pattern-a
+   #:pattern-at
+   #:pattern-at-object
    #:pattern-b
    #:pattern-transform
    #:pixel-at
@@ -119,8 +122,6 @@
    #:shape-transform
    #:shearing
    #:sphere
-   #:stripe-at
-   #:stripe-at-object
    #:stripe-pattern
    #:sub
    #:transform
