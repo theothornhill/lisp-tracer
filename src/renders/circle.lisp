@@ -32,6 +32,7 @@
                      (normal (normal-at hit-object point))
                      (eyev (neg (ray-direction r)))
                      (color (lighting (shape-material hit-object)
+                                      hit-object
                                       light
                                       point
                                       eyev
