@@ -60,3 +60,11 @@
               (make-color :red 0.5 :green  0.5 :blue  0.5))
       (equal? (pattern-at pattern (make-point 0.75 0.0 0.0))
               (make-color :red 0.25 :green  0.25 :blue  0.25)))))
+
+(deftest ring-pattern-tests
+  (testing "A ring should extend in both x and z"
+    (let ((pattern (ring-pattern white black)))
+      (equal? (pattern-at pattern (make-point 0.0 0.0 0.0)) white)
+      (equal? (pattern-at pattern (make-point 1.0 0.0 0.0)) black)
+      (equal? (pattern-at pattern (make-point 0.0 0.0 1.0)) black)
+      (equal? (pattern-at pattern (make-point 0.708 0.0 0.708)) black))))

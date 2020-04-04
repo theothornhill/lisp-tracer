@@ -111,6 +111,7 @@
    #:ray-origin
    #:reflect
    #:render
+   #:ring-pattern
    #:rotation-x
    #:rotation-y
    #:rotation-z
@@ -141,4 +142,4 @@
    #:world-objects
    #:write-pixel
    #:zerovec
-   ))
+))

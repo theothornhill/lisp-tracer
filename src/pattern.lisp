@@ -7,6 +7,7 @@
 
 (defstruct (stripes (:include pattern)))
 (defstruct (gradient (:include pattern)))
+(defstruct (rings (:include pattern)))
 
 (defun stripe-pattern (a b)
   (declare (type color a b))
@@ -15,6 +16,10 @@
 (defun gradient-pattern (a b)
   (declare (type color a b))
   (make-gradient :a a :b b))
+
+(defun ring-pattern (a b)
+  (declare (type color a b))
+  (make-rings :a a :b b))
 
 (defgeneric pattern-at (pattern point)
   (:documentation "Return pattern at a given point."))
@@ -29,6 +34,16 @@
         (fraction (float (- (tuple-x point)
                             (floor (tuple-x point))))))
     (add (pattern-a gradient) (mult distance fraction))))
+
+(defmethod pattern-at ((rings rings) point)
+  "Calculates floor(sqrt(p_x^2 + p_z^2) mod 2 = 0"
+  (if (=
+       (mod (floor (sqrt (add (expt (tuple-x point) 2)
+                              (expt (tuple-z point) 2))))
+            2)
+       0)
+      (pattern-a rings)
+      (pattern-b rings)))
 
 (defun pattern-at-object (pattern object point)
   (let* ((object-point
