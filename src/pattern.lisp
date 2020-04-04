@@ -10,21 +10,21 @@
 (defstruct (rings (:include pattern)))
 (defstruct (checkers (:include pattern)))
 
-(defun stripe-pattern (a b)
-  (declare (type color a b))
-  (make-stripes :a a :b b))
+(defun stripe-pattern (a b &optional (transform (identity-matrix)))
+  (declare (type color a b) (type matrix transform))
+  (make-stripes :a a :b b :transform transform))
 
-(defun gradient-pattern (a b)
-  (declare (type color a b))
-  (make-gradient :a a :b b))
+(defun gradient-pattern (a b &optional (transform (identity-matrix)))
+  (declare (type color a b) (type matrix transform))
+  (make-gradient :a a :b b :transform transform))
 
-(defun ring-pattern (a b)
-  (declare (type color a b))
-  (make-rings :a a :b b))
+(defun ring-pattern (a b &optional (transform (identity-matrix)))
+  (declare (type color a b) (type matrix transform))
+  (make-rings :a a :b b :transform transform))
 
-(defun checkers-pattern (a b)
-  (declare (type color a b))
-  (make-checkers :a a :b b))
+(defun checkers-pattern (a b &optional (transform (identity-matrix)))
+  (declare (type color a b) (type matrix transform))
+  (make-checkers :a a :b b :transform transform))
 
 (defgeneric pattern-at (pattern point)
   (:documentation "Return pattern at a given point."))
