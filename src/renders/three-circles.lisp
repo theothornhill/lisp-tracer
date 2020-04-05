@@ -6,6 +6,7 @@
    :material (make-material
               :color (make-color :red 1.0 :green 0.9 :blue 0.9)
               :specular 0.0
+              :reflective 0.5
               :pattern (gradient-pattern (make-color :red 0.4 :green 0.9 :blue 0.9)
                                          (make-color :red 0.6 :green 0.5 :blue 0.2)
                                          (mult (translation -1.0 1.0 1.0)
@@ -15,11 +16,7 @@
   (make-sphere
    :material (make-material
               :color (make-color :red 1.0 :green 0.9 :blue 0.9)
-              :specular 0.0
-              :pattern (gradient-pattern (make-color :red 0.4 :green 0.9 :blue 0.9)
-                                         (make-color :red 0.6 :green 0.5 :blue 0.2)
-                                         (mult (scaling 0.1 0.1 0.1)
-                                               (rotation-z (/ pi 1.5)))))
+              :specular 0.0)
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
                (rotation-x (/ pi 2.0))
@@ -30,11 +27,7 @@
   (make-sphere
    :material (make-material
               :color (make-color :red 1.0 :green 0.9 :blue 0.9)
-              :specular 0.0
-              :pattern (gradient-pattern (make-color :red 0.4 :green 0.9 :blue 0.9)
-                                         (make-color :red 0.6 :green 0.5 :blue 0.2)
-                                         (mult (scaling 0.1 0.1 0.1)
-                                               (rotation-z (/ pi 1.5)))))
+              :specular 0.0)
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
                (rotation-x (/ pi 2.0))
@@ -47,6 +40,7 @@
    :material (make-material
               :color (make-color :red 0.1 :green 1.0 :blue 0.5)
               :specular 0.3
+              :reflective 0.8
               :diffuse 0.7)))
 
 (defparameter *right*
