@@ -170,3 +170,9 @@
              (comps (prepare-computations i r))
              (color (reflected-color w comps 0)))
         (ok (equal? color (make-color :red 0.0 :green 0.0 :blue 0.0)))))))
+
+(deftest refracting-transparency
+  (testing "Transparency and Refractive Index for the default material"
+    (let ((m (make-material)))
+      (ok (equal? (material-transparency m) 0.0))
+      (ok (equal? (material-refractive-index m) 1.0)))))

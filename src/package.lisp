@@ -36,6 +36,7 @@
    #:dot
    #:epsilon
    #:equal?
+   #:glass-sphere
    #:gradient-pattern
    #:hit
    #:identity-matrix
@@ -72,9 +73,11 @@
    #:material-diffuse
    #:material-pattern
    #:material-reflective
+   #:material-refractive-index
    #:material-shadowed?
    #:material-shininess
    #:material-specular
+   #:material-transparency
    #:matrix
    #:matrix-m00
    #:matrix-m01

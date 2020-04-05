@@ -3,6 +3,12 @@
 (defstruct (sphere (:include shape))
   (id 1))
 
+(defun glass-sphere ()
+  (make-sphere
+   :material (make-material
+              :transparency 1.0
+              :refractive-index 1.5)))
+
 (defmethod local-intersect ((sphere sphere) (ray ray))
   (let* ((sphere-to-ray (sub (ray-origin ray) (make-point 0.0 0.0 0.0)))
          (ray-direction (ray-direction ray))

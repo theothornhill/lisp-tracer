@@ -7,6 +7,8 @@
   (diffuse 0.9 :type double-float)
   (specular 0.9 :type double-float)
   (shininess 200.0 :type double-float)
+  (transparency 0.0 :type double-float)
+  (refractive-index 1.0 :type double-float)
   (reflective 0.0 :type double-float)
   (shadowed? nil :type t))
 

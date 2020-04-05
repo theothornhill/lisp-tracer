@@ -135,4 +135,10 @@
           (m (make-material)))
       (setf (material-ambient m) 1.0)
       (setf (shape-material s) m)
-      (ok (equal? (shape-material s) m)))))
+      (ok (equal? (shape-material s) m))))
+  (testing "A helper for producing a sphere with a glassy material"
+    (let ((s (glass-sphere)))
+      (ok (equal? (shape-transform s) (identity-matrix)))
+      (ok (equal? (material-transparency (shape-material s)) 1.0))
+      (ok (equal? (material-refractive-index (shape-material s)) 1.5)))))
+
