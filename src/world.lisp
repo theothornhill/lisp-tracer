@@ -13,23 +13,25 @@
      :objects (list s1 s2)
      :light l)))
 
-(defun shade-hit (w comps)
+(defun shade-hit (w comps &optional (remaining 5))
   (declare (type world w) (type computations comps))
-  (let ((shadowed? (is-shadowed? w (computations-over-point comps)))
-        (material (shape-material (computations-object comps))))
-    (lighting material
-              (computations-object comps)
-              (world-light w)
-              (computations-point comps)
-              (computations-eyev comps)
-              (computations-normalv comps)
-              shadowed?)))
+  (let* ((shadowed? (is-shadowed? w (computations-over-point comps)))
+         (material (shape-material (computations-object comps)))
+         (surface (lighting material
+                            (computations-object comps)
+                            (world-light w)
+                            (computations-point comps)
+                            (computations-eyev comps)
+                            (computations-normalv comps)
+                            shadowed?))
+         (reflected (reflected-color w comps remaining)))
+    (add surface reflected)))
 
-(defun color-at (w r)
+(defun color-at (w r &optional (remaining 5))
   (declare (type world w) (type ray r))
   (let ((hit (hit (intersect-world w r))))
     (if hit
-        (shade-hit w (prepare-computations hit r))
+        (shade-hit w (prepare-computations hit r) remaining)
         (make-color :red 0.0 :green 0.0 :blue 0.0))))
 
 (defun is-shadowed? (world point)
@@ -41,3 +43,15 @@
          (xs (intersect-world world ray))
          (hit (hit xs)))
     (and hit (< (rt-intersection-tt hit) distance))))
+
+(defun reflected-color (world comps &optional (remaining 5))
+  (let ((reflective (material-reflective
+                     (shape-material
+                      (computations-object comps)))))
+    (if (or (equal? reflective 0.0) (<= remaining 0))
+        (make-color :red 0.0 :green 0.0 :blue 0.0)
+        (let* ((reflect-ray
+                 (make-ray :origin (computations-over-point comps)
+                           :direction (computations-reflectv comps)))
+               (color (color-at world reflect-ray (1- remaining))))
+          (mult color reflective)))))

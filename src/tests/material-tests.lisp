@@ -80,3 +80,93 @@
                            eyev normalv nil)))
         (ok (equal? c1 (make-color :red 1.0 :green 1.0 :blue 1.0)))
         (ok (equal? c2 (make-color :red 0.0 :green 0.0 :blue 0.0)))))))
+
+(deftest reflecting
+  (testing "Reflectivity for the default material"
+    (let ((material (make-material)))
+      (ok (equal? (material-reflective material) 0.0))))
+  (testing "Precomputing the reflection vector"
+    (let* ((shape (make-plane))
+           (r (make-ray :origin (make-point 0.0 1.0 -1.0)
+                        :direction (make-vec 0.0
+                                             (- (div (sqrt 2.0) 2.0))
+                                             (div (sqrt 2.0) 2.0))))
+           (i (make-intersection (sqrt 2.0) shape))
+           (comps (prepare-computations i r)))
+      (ok (equal? (computations-reflectv comps)
+                  (make-vec 0.0
+                            (div (sqrt 2.0) 2.0)
+                            (div (sqrt 2.0) 2.0))))))
+  (testing "The reflected color for a nonreflective material"
+    (let* ((w (default-world))
+           (r (make-ray :origin (make-point 0.0 0.0 0.0)
+                        :direction (make-vec 0.0 0.0 1.0)))
+           (shape (cadr (world-objects w))))
+      (setf (material-ambient (shape-material shape)) 1.0)
+      (let* ((i (make-intersection 1.0 shape))
+             (comps (prepare-computations i r))
+             (color (reflected-color w comps)))
+        (ok (equal? color (make-color :red 0.0 :green 0.0 :blue 0.0))))))
+  (testing "The reflected color for a reflective material"
+    (let ((w (default-world))
+          (shape (make-plane
+                  :material (make-material :reflective 0.5)
+                  :transform (translation 0.0 -1.0 0.0))))
+      (setf (world-objects w) (append (world-objects w) (list shape)))
+      (let* ((r (make-ray :origin (make-point 0.0 0.0 -3.0)
+                          :direction (make-vec 0.0
+                                               (- (div (sqrt 2.0) 2.0))
+                                               (div (sqrt 2.0) 2.0))))
+             (i (make-intersection (sqrt 2.0) shape))
+             (comps (prepare-computations i r))
+             (color (reflected-color w comps)))
+        (ok (equal? color (make-color :red 0.1903323203
+                                      :green 0.23791540
+                                      :blue 0.142749240))))))
+  (testing "shade-hit with a reflective material"
+    (let ((w (default-world))
+          (shape (make-plane
+                  :material (make-material :reflective 0.5)
+                  :transform (translation 0.0 -1.0 0.0))))
+      (setf (world-objects w) (append (world-objects w) (list shape)))
+      (let* ((r (make-ray :origin (make-point 0.0 0.0 -3.0)
+                          :direction (make-vec 0.0
+                                               (- (div (sqrt 2.0) 2.0))
+                                               (div (sqrt 2.0) 2.0))))
+             (i (make-intersection (sqrt 2.0) shape))
+             (comps (prepare-computations i r))
+             (color (shade-hit w comps)))
+        (ok (equal? color (make-color :red 0.8767577
+                                      :green 0.92434
+                                      :blue 0.829174))))))
+  (testing "color-at with mutually reflective surfaces"
+    (let* ((light (point-light (make-point 0.0 0.0 0.0)
+                               (make-color :red 1.0 :green 1.0 :blue 1.0)))
+           (lower (make-plane
+                   :material (make-material
+                              :reflective 1.0)
+                   :transform (translation 0.0 -1.0 0.0)))
+           (upper (make-plane
+                   :material (make-material
+                              :reflective 1.0)
+                   :transform (translation 0.0 1.0 0.0)))
+           (w (make-world
+               :objects (list lower upper)
+               :light light))
+           (r (make-ray :origin (make-point 0.0 0.0 0.0)
+                        :direction (make-vec 0.0 1.0 0.0))))
+      (ok (color-at w r))))
+  (testing "shade-hit with a reflective material"
+    (let ((w (default-world))
+          (shape (make-plane
+                  :material (make-material :reflective 0.5)
+                  :transform (translation 0.0 -1.0 0.0))))
+      (setf (world-objects w) (append (world-objects w) (list shape)))
+      (let* ((r (make-ray :origin (make-point 0.0 0.0 -3.0)
+                          :direction (make-vec 0.0
+                                               (- (div (sqrt 2.0) 2.0))
+                                               (div (sqrt 2.0) 2.0))))
+             (i (make-intersection (sqrt 2.0) shape))
+             (comps (prepare-computations i r))
+             (color (reflected-color w comps 0)))
+        (ok (equal? color (make-color :red 0.0 :green 0.0 :blue 0.0)))))))

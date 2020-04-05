@@ -7,6 +7,7 @@
   (diffuse 0.9 :type double-float)
   (specular 0.9 :type double-float)
   (shininess 200.0 :type double-float)
+  (reflective 0.0 :type double-float)
   (shadowed? nil :type t))
 
 (defun lighting (material object light point eyev normalv shadowed?)

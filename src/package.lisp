@@ -25,6 +25,7 @@
    #:computations-object
    #:computations-over-point
    #:computations-point
+   #:computations-reflectv
    #:computations-tt
    #:create-camera
    #:create-canvas
@@ -70,6 +71,7 @@
    #:material-color
    #:material-diffuse
    #:material-pattern
+   #:material-reflective
    #:material-shadowed?
    #:material-shininess
    #:material-specular
@@ -111,6 +113,7 @@
    #:ray-for-pixel
    #:ray-origin
    #:reflect
+   #:reflected-color
    #:render
    #:ring-pattern
    #:rotation-x

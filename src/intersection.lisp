@@ -7,12 +7,14 @@
 
 (defun prepare-computations (i r)
   (declare (type rt-intersection i) (type ray r))
-  (let* ((comps-object (rt-intersection-object i))
+  (let* ((direction (ray-direction r))
+         (comps-object (rt-intersection-object i))
          (comps-point (pos r (rt-intersection-tt i)))
-         (comps-eyev (neg (ray-direction r)))
+         (comps-eyev (neg direction))
          (comps-normalv (normal-at comps-object comps-point))
          (inside? (< (dot comps-normalv comps-eyev) 0.0))
          (normalv (if inside? (neg comps-normalv) comps-normalv))
+         (reflectv (reflect direction normalv))
          (comps-over-point (add comps-point
                                 (mult normalv epsilon))))
     (make-computations
@@ -22,7 +24,8 @@
      :point comps-point
      :over-point comps-over-point
      :eyev comps-eyev
-     :normalv normalv)))
+     :normalv normalv
+     :reflectv reflectv)))
 
 (declaim (inline tt<))
 (defun tt< (a b)
