@@ -3,6 +3,7 @@
         #:iterate)
   (:export
    #:add
+   #:air
    #:camera
    #:camera-field-of-view
    #:camera-hsize
@@ -35,10 +36,12 @@
    #:create-matrix
    #:cross
    #:default-world
+   #:diamond
    #:div
    #:dot
    #:epsilon
    #:equal?
+   #:glass
    #:glass-sphere
    #:gradient-pattern
    #:hit
@@ -120,6 +123,7 @@
    #:ray-origin
    #:reflect
    #:reflected-color
+   #:refracted-color
    #:render
    #:ring-pattern
    #:rotation-x
@@ -138,6 +142,7 @@
    #:sphere
    #:stripe-pattern
    #:sub
+   #:test-pattern
    #:transform
    #:transform-object
    #:translation
@@ -150,9 +155,11 @@
    #:tuple-x
    #:tuple-y
    #:tuple-z
+   #:vacuum
    #:vec
    #:vec?
    #:view-transform
+   #:water
    #:world
    #:world-light
    #:world-objects

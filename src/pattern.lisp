@@ -9,6 +9,13 @@
 (defstruct (gradient (:include pattern)))
 (defstruct (rings (:include pattern)))
 (defstruct (checkers (:include pattern)))
+(defstruct (test (:include pattern)))
+
+(defun test-pattern (&optional (transform (identity-matrix)))
+  (declare (type matrix transform))
+  (make-test :a (make-color :red 1.0 :green 1.0 :blue 1.0)
+             :b (make-color :red 0.0 :green 0.0 :blue 0.0)
+             :transform transform))
 
 (defun stripe-pattern (a b &optional (transform (identity-matrix)))
   (declare (type color a b) (type matrix transform))
@@ -28,6 +35,11 @@
 
 (defgeneric pattern-at (pattern point)
   (:documentation "Return pattern at a given point."))
+
+(defmethod pattern-at ((test test) point)
+  (make-color :red (tuple-x point)
+              :green (tuple-y point)
+              :blue (tuple-z point)))
 
 (defmethod pattern-at ((stripes stripes) point)
   (if (= (mod (floor (tuple-x point)) 2) 0)

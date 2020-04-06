@@ -1,5 +1,11 @@
 (in-package #:lisp-tracer)
 
+(defconstant vacuum 1.0)
+(defconstant air 1.00029)
+(defconstant water 1.333)
+(defconstant glass 1.52)
+(defconstant diamond 2.417)
+
 (defstruct material
   (color (make-color :red 1.0 :green 1.0 :blue 1.0))
   (pattern nil :type (or pattern null))

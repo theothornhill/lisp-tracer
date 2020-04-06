@@ -122,3 +122,83 @@
            (comps (prepare-computations i r))
            (c (shade-hit w comps)))
       (ok (equal? (make-color :red 0.1 :green 0.1 :blue 0.1) c)))))
+
+(deftest refracted-world
+  (testing "The refracted color with an opaque surface"
+    (let* ((w (default-world))
+           (shape (car (world-objects w)))
+           (r (make-ray :origin (make-point 0.0 0.0 -5.0)
+                        :direction (make-vec 0.0 0.0 1.0)))
+           (xs (intersections
+                (make-intersection 4.0 shape)
+                (make-intersection 6.0 shape)))
+           (comps (prepare-computations (car xs) r xs))
+           (c (refracted-color w comps 5)))
+      (ok (equal? c (make-color :red 0.0 :green 0.0 :blue 0.0)))))
+  (testing "The refracted color at the maximum recursive depth"
+    (let* ((w (default-world))
+           (shape (car (world-objects w)))
+           (r (make-ray :origin (make-point 0.0 0.0 -5.0)
+                        :direction (make-vec 0.0 0.0 1.0))))
+      (setf (material-transparency (shape-material shape)) 1.0)
+      (setf (material-refractive-index (shape-material shape)) 1.5)
+      (let* ((xs (intersections
+                  (make-intersection 4.0 shape)
+                  (make-intersection 6.0 shape)))
+             (comps (prepare-computations (car xs) r xs))
+             (c (refracted-color w comps 0)))
+        (ok (equal? c (make-color :red 0.0 :green 0.0 :blue 0.0))))))
+  (testing "The refracted color under total internal reflection"
+    (let* ((w (default-world))
+           (shape (car (world-objects w)))
+           (r (make-ray :origin (make-point 0.0 0.0 (/ (sqrt 2) 2.0))
+                        :direction (make-vec 0.0 1.0 0.0))))
+      (setf (material-transparency (shape-material shape)) 1.0)
+      (setf (material-refractive-index (shape-material shape)) 1.5)
+      (let* ((xs (intersections
+                  (make-intersection (- (/ (sqrt 2) 2.0)) shape)
+                  (make-intersection (/ (sqrt 2) 2.0) shape)))
+             (comps (prepare-computations (cadr xs) r xs))
+             (c (refracted-color w comps 5)))
+        (ok (equal? c (make-color :red 0.0 :green 0.0 :blue 0.0))))))
+  (testing "The refracted color with a refracted ray"
+    (let* ((w (default-world))
+           (a (car (world-objects w)))
+           (b (cadr (world-objects w)))
+           (r (make-ray :origin (make-point 0.0 0.0 0.1)
+                        :direction (make-vec 0.0 1.0 0.0))))
+      (setf (material-ambient (shape-material a)) 1.0)
+      (setf (material-pattern (shape-material a)) (test-pattern))
+      (setf (material-transparency (shape-material b)) 1.0)
+      (setf (material-refractive-index (shape-material b)) 1.5)
+      (let* ((xs (intersections
+                  (make-intersection -0.9899 a)
+                  (make-intersection -0.4899 b)
+                  (make-intersection 0.4899 b)
+                  (make-intersection 0.9899 a)))
+             (comps (prepare-computations (caddr xs) r xs))
+             (c (refracted-color w comps 5)))
+        (ok (equal? c (make-color :red 0.0 :green 0.998884539 :blue 0.04721945253)))))))
+
+(deftest shading-refracting
+  (testing "shade-hit with a transparent material"
+    (let ((floor (make-plane
+                  :transform (translation 0.0 -1.0 0.0)
+                  :material (make-material
+                             :transparency 0.5
+                             :refractive-index 1.5)))
+          (ball (make-sphere
+                 :material (make-material
+                            :color (make-color :red 1.0 :green 0.0 :blue 0.0)
+                            :ambient 0.5)
+                 :transform (translation 0.0 -3.5 -0.5)))
+          (w (default-world)))
+      (setf (world-objects w) (append (world-objects w) (list floor ball)))
+      (let* ((r (make-ray :origin (make-point 0.0 0.0 -3.0)
+                          :direction (make-vec 0.0
+                                               (- (/ (sqrt 2) 2.0))
+                                               (/ (sqrt 2) 2.0))))
+             (xs (intersections (make-intersection (sqrt 2.0) floor)))
+             (comps (prepare-computations (car xs) r xs))
+             (color (shade-hit w comps 5)))
+        (ok (equal? color (make-color :red 0.93642 :green 0.68642 :blue 0.68642)))))))

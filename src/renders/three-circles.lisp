@@ -15,7 +15,9 @@
 (defparameter *scene-left-wall*
   (make-sphere
    :material (make-material
-              :color (make-color :red 1.0 :green 0.9 :blue 0.9)
+              :color (make-color :red 0.3 :green 0.3 :blue 0.3)
+              :reflective 1.0
+              :refractive-index diamond
               :specular 0.0)
    :transform (transform-object
                (scaling 10.0 0.01 10.0)
@@ -38,9 +40,11 @@
   (make-sphere
    :transform (translation -0.5 1.0 0.5)
    :material (make-material
-              :color (make-color :red 0.1 :green 1.0 :blue 0.5)
+              :color (make-color :red 0.1 :green 0.4 :blue 0.5)
               :specular 0.3
-              :reflective 0.8
+              :reflective 0.4
+              :transparency 0.6
+              :refractive-index 1.333
               :diffuse 0.7)))
 
 (defparameter *right*
@@ -79,7 +83,7 @@
   (create-camera
    1000
    500
-   (/ pi 1.5)
+   (/ pi 3)
    (view-transform (make-point 0.0 1.5 -5.0)
                    (make-point 0.0 1.0 0.0)
                    (make-vec 0.0 1.0 0.0))))
