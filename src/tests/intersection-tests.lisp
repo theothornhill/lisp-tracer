@@ -131,3 +131,16 @@
         (ok (equal? (computations-n2 comps5) 1.5))
         (ok (equal? (computations-n1 comps6) 1.5))
         (ok (equal? (computations-n2 comps6) 1.0))))))
+
+(deftest under-point-tests
+  (testing "The under point is offset below the surface"
+    (let* ((r (make-ray :origin (make-point 0.0 0.0 -5.0)
+                        :direction (make-vec 0.0 0.0 1.0)))
+           (shape (glass-sphere)))
+      (setf (shape-transform shape) (translation-y 1.0))
+      (let* ((i (make-intersection 5.0 shape))
+             (comps (prepare-computations i r)))
+        (ok (> (tuple-z (computations-under-point comps))
+               (float (/ (neg epsilon) 2))))
+        (ok (< (tuple-z (computations-point comps))
+               (tuple-z (computations-under-point comps))))))))

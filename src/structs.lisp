@@ -67,6 +67,7 @@
   (inside? nil :type t)
   (point (make-point 0.0 0.0 0.0) :type tuple)
   (over-point (make-point 0.0 0.0 0.0) :type tuple)
+  (under-point (make-point 0.0 0.0 0.0) :type tuple)
   (eyev (make-vec 0.0 0.0 0.0) :type tuple)
   (normalv (make-vec 0.0 0.0 0.0) :type tuple)
   (reflectv (make-vec 0.0 0.0 0.0) :type tuple))

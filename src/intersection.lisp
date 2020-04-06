@@ -40,7 +40,8 @@
          (inside? (< (dot comps-normalv comps-eyev) 0.0))
          (normalv (if inside? (neg comps-normalv) comps-normalv))
          (reflectv (reflect direction normalv))
-         (comps-over-point (add comps-point (mult normalv epsilon))))
+         (comps-over-point (add comps-point (mult normalv epsilon)))
+         (comps-under-point (sub comps-point (mult normalv epsilon))))
     (multiple-value-bind (n1 n2) (refractive-indexes i xs)
       (make-computations
        :tt (rt-intersection-tt i)
@@ -50,6 +51,7 @@
        :inside? inside?
        :point comps-point
        :over-point comps-over-point
+       :under-point comps-under-point
        :eyev comps-eyev
        :normalv normalv
        :reflectv reflectv))))

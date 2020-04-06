@@ -29,6 +29,7 @@
    #:computations-point
    #:computations-reflectv
    #:computations-tt
+   #:computations-under-point
    #:create-camera
    #:create-canvas
    #:create-matrix
