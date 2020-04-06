@@ -29,7 +29,10 @@
   (declare (type color a b) (type matrix transform))
   (make-rings :a a :b b :transform transform))
 
-(defun checkers-pattern (a b &optional (transform (identity-matrix)))
+(defun checkers-pattern (&optional
+                           (transform (identity-matrix))
+                           (a (make-color :red 1.0 :green 1.0 :blue 1.0))
+                           (b (make-color :red 0.0 :green 0.0 :blue 0.0)))
   (declare (type color a b) (type matrix transform))
   (make-checkers :a a :b b :transform transform))
 
