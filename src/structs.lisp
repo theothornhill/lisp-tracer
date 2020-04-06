@@ -61,6 +61,8 @@
 
 (defstruct computations
   (tt 0.0 :type double-float)
+  (n1 0.0 :type double-float)
+  (n2 0.0 :type double-float)
   (object nil :type shape)
   (inside? nil :type t)
   (point (make-point 0.0 0.0 0.0) :type tuple)

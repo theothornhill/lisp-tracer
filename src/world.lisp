@@ -29,9 +29,10 @@
 
 (defun color-at (w r &optional (remaining 5))
   (declare (type world w) (type ray r))
-  (let ((hit (hit (intersect-world w r))))
+  (let* ((hits (intersect-world w r))
+         (hit (hit hits)))
     (if hit
-        (shade-hit w (prepare-computations hit r) remaining)
+        (shade-hit w (prepare-computations hit r hits) remaining)
         (make-color :red 0.0 :green 0.0 :blue 0.0))))
 
 (defun is-shadowed? (world point)

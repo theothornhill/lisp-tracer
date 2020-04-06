@@ -21,6 +21,8 @@
    #:color-red
    #:computations-eyev
    #:computations-inside?
+   #:computations-n1
+   #:computations-n2
    #:computations-normalv
    #:computations-object
    #:computations-over-point
