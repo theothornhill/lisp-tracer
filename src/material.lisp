@@ -7,7 +7,7 @@
 (defconstant diamond 2.417)
 
 (defstruct material
-  (color (make-color :red 0.0 :green 0.0 :blue 0.0))
+  (color (make-color :red 1.0 :green 1.0 :blue 1.0))
   (pattern nil :type (or pattern null))
   (ambient 0.1 :type double-float)
   (diffuse 0.9 :type double-float)

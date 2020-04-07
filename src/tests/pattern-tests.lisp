@@ -70,7 +70,7 @@
       (equal? (pattern-at pattern (make-point 0.708 0.0 0.708)) black))))
 
 (deftest checkers-pattern-tests
-  (let ((pattern (checkers-pattern white black)))
+  (let ((pattern (checkers-pattern (identity-matrix) white black)))
     (testing "Checkers should repeat in x"
       (equal? (pattern-at pattern (make-point 0.0 0.0 0.0)) white)
       (equal? (pattern-at pattern (make-point 0.99 0.0 0.0)) white)

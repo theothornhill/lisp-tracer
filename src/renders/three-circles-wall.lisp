@@ -3,34 +3,43 @@
 (defparameter *backdrop*
   (make-plane
    :transform (mult (rotation-x (/ pi 2))
-                    (translation 0.0 1.5 0.0))
+                    (translation 0.0 5.0 0.0))
    :material (make-material
               :pattern (checkers-pattern (mult (scaling 0.5 0.5 0.5)
                                                (translation-y 0.1))))))
 
 (defparameter *middle*
   (make-sphere
-   :transform (translation -0.5 1.0 0.5)
+   :transform (translation -0.5 1.0 0.0)
    :material (make-material
-              :specular 0.1
+              :specular 0.5
               :diffuse 0.0
-              :transparency 0.3
-              :reflective 0.6
+              :transparency 1.0
               :refractive-index glass)))
+
+(defparameter *air-bubble*
+  (make-sphere
+   :transform (mult (scaling 0.5 0.5 0.5)
+                    (translation -1.0 2.0 0.0))
+   :material (make-material
+              :specular 0.5
+              :diffuse 0.0
+              :transparency 1.0
+              :refractive-index air)))
 
 (defparameter *world*
   (make-world
-   :objects (list *backdrop* *middle*)
+   :objects (list *backdrop* *middle* *air-bubble*)
    :light (point-light
-           (make-point -250.0 250.0 -250.0)
+           (make-point -100.0 600.0 -250.0)
            (make-color :red 1.0 :green 1.0 :blue 1.0))))
 
 (defparameter *camera*
   (create-camera
    1000
-   500
-   (/ pi 3)
-   (view-transform (make-point 0.0 1.5 -5.0)
+   1000
+   (/ pi 4)
+   (view-transform (make-point 0.0 1.0 -5.0)
                    (make-point 0.0 1.0 0.0)
                    (make-vec 0.0 1.0 0.0))))
 
