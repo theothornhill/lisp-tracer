@@ -15,6 +15,8 @@
               :specular 0.5
               :diffuse 0.0
               :transparency 1.0
+              :ambient 0.0
+              :reflective 0.9
               :refractive-index glass)))
 
 (defparameter *air-bubble*
@@ -24,7 +26,9 @@
    :material (make-material
               :specular 0.5
               :diffuse 0.0
+              :ambient 0.0
               :transparency 1.0
+              :reflective 0.9
               :refractive-index air)))
 
 (defparameter *world*

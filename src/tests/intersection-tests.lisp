@@ -144,3 +144,34 @@
                (float (/ (neg epsilon) 2))))
         (ok (< (tuple-z (computations-point comps))
                (tuple-z (computations-under-point comps))))))))
+
+(deftest schlick-tests
+  (testing "The schlick approx. under total internal reflection"
+    (let* ((shape (glass-sphere))
+           (r (make-ray :origin (make-point 0.0 0.0 (/ (sqrt 2) 2.0))
+                        :direction (make-vec 0.0 1.0 0.0)))
+           (xs (intersections
+                (make-intersection (- (/ (sqrt 2) 2.0)) shape)
+                (make-intersection (/ (sqrt 2) 2.0) shape)))
+           (comps (prepare-computations (cadr xs) r xs))
+           (reflectance (schlick comps)))
+      (ok (equal? reflectance 1.0))))
+  (testing "The schlick approx with a perpendicular viewing angle"
+    (let* ((shape (glass-sphere))
+           (r (make-ray :origin (make-point 0.0 0.0 0.0)
+                        :direction (make-vec 0.0 1.0 0.0)))
+           (xs (intersections
+                (make-intersection -1.0 shape)
+                (make-intersection 1.0 shape)))
+           (comps (prepare-computations (cadr xs) r xs))
+           (reflectance (schlick comps)))
+      (ok (equal? reflectance 0.04))))
+  (testing "The schlick approx with small angle and n2 > n1"
+    (let* ((shape (glass-sphere))
+           (r (make-ray :origin (make-point 0.0 0.99 -2.0)
+                        :direction (make-vec 0.0 0.0 1.0)))
+           (xs (intersections
+                (make-intersection 1.8589 shape)))
+           (comps (prepare-computations (car xs) r xs))
+           (reflectance (schlick comps)))
+      (ok (equal? reflectance 0.48873)))))

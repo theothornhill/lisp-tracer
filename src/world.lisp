@@ -26,7 +26,13 @@
                             shadowed?))
          (reflected (reflected-color w comps remaining))
          (refracted (refracted-color w comps remaining)))
-    (add (add surface reflected) refracted)))
+    (if (and (> (material-reflective material) 0)
+             (> (material-transparency material) 0))
+        (let ((reflectance (schlick comps)))
+          (add surface
+               (add (mult reflected reflectance)
+                    (mult refracted (- 1 reflectance)))))
+        (add (add surface reflected) refracted))))
 
 (defun color-at (w r &optional (remaining 5))
   (declare (type world w) (type ray r))

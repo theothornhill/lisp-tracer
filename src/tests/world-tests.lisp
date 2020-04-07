@@ -201,4 +201,28 @@
              (xs (intersections (make-intersection (sqrt 2.0) floor)))
              (comps (prepare-computations (car xs) r xs))
              (color (shade-hit w comps 5)))
-        (ok (equal? color (make-color :red 0.93642 :green 0.68642 :blue 0.68642)))))))
+        (ok (equal? color (make-color :red 0.93642 :green 0.68642 :blue 0.68642))))))
+  (testing "shade-hit with a transparent material"
+    (let ((floor (make-plane
+                  :transform (translation 0.0 -1.0 0.0)
+                  :material (make-material
+                             :transparency 0.5
+                             :reflective 0.5
+                             :refractive-index 1.5)))
+          (ball (make-sphere
+                 :material (make-material
+                            :color (make-color :red 1.0 :green 0.0 :blue 0.0)
+                            :ambient 0.5)
+                 :transform (translation 0.0 -3.5 -0.5)))
+          (w (default-world)))
+      (setf (world-objects w) (append (world-objects w) (list floor ball)))
+      (let* ((r (make-ray :origin (make-point 0.0 0.0 -3.0)
+                          :direction (make-vec 0.0
+                                               (- (/ (sqrt 2) 2.0))
+                                               (/ (sqrt 2) 2.0))))
+             (xs (intersections (make-intersection (sqrt 2.0) floor)))
+             (comps (prepare-computations (car xs) r xs))
+             (color (shade-hit w comps 5)))
+        (ok (equal? color (make-color :red 0.93391
+                                      :green 0.69643
+                                      :blue 0.69243)))))))

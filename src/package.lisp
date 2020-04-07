@@ -135,6 +135,7 @@
    #:scaling-x
    #:scaling-y
    #:scaling-z
+   #:schlick
    #:shade-hit
    #:shape-material
    #:shape-transform
@@ -166,3 +167,4 @@
    #:write-pixel
    #:zerovec
    ))
+
