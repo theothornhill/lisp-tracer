@@ -2,6 +2,8 @@
 A ray tracer made in Common Lisp following [[https://pragprog.com/book/jbtracer/the-ray-tracer-challenge][The Ray Tracer Challenge]] by
 Jamis Buck
 
+** Example
+[[./pictures/fresnel.png]]
 ** How to run
 You need to enable double floats. We need the higher precision to avoid
 acne.

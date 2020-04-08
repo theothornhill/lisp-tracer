@@ -8,7 +8,7 @@
               :pattern (checkers-pattern (mult (scaling 0.5 0.5 0.5)
                                                (translation-y 0.1))))))
 
-(defparameter *middle*
+(defparameter *glass-sphere*
   (make-sphere
    :transform (translation -0.5 1.0 0.0)
    :material (make-material
@@ -33,7 +33,7 @@
 
 (defparameter *world*
   (make-world
-   :objects (list *backdrop* *middle* *air-bubble*)
+   :objects (list *backdrop* *glass-sphere* *air-bubble*)
    :light (point-light
            (make-point -100.0 600.0 -250.0)
            (make-color :red 1.0 :green 1.0 :blue 1.0))))
