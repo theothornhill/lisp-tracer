@@ -1,7 +1,5 @@
 (in-package #:lisp-tracer)
 
-(defconstant epsilon 0.00001)
-
 (defun eq? (a b)
   (< (abs (- a b)) epsilon))
 

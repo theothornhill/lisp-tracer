@@ -1,5 +1,7 @@
 (in-package #:lisp-tracer)
 
+(defconstant epsilon 0.00001)
+
 (defstruct camera
   (hsize 0 :type integer)
   (vsize 0 :type integer)
