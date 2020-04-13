@@ -1,9 +1,9 @@
 (in-package #:lisp-tracer)
 
 (declaim (inline make-intersection))
-(defun make-intersection (tt obj)
+(defun make-intersection (&key (tt 0.0) (object nil))
   "Creates an intersection with an OBJECT at a given time TT."
-  (make-rt-intersection :tt tt :object obj))
+  (make-rt-intersection :tt tt :object object))
 
 (defmacro set-new-refractive (n containers)
   "Helper for update-n"

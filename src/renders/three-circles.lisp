@@ -7,10 +7,10 @@
               :color (make-color :red 1.0 :green 0.9 :blue 0.9)
               :specular 0.0
               :reflective 0.5
-              :pattern (gradient-pattern (make-color :red 0.4 :green 0.9 :blue 0.9)
-                                         (make-color :red 0.6 :green 0.5 :blue 0.2)
-                                         (mult (translation -1.0 1.0 1.0)
-                                               (scaling 2.0 1.0 1.0))))))
+              :pattern (gradient-pattern :a (make-color :red 0.4 :green 0.9 :blue 0.9)
+                                         :b (make-color :red 0.6 :green 0.5 :blue 0.2)
+                                         :transform (mult (translation -1.0 1.0 1.0)
+                                                          (scaling 2.0 1.0 1.0))))))
 
 (defparameter *scene-left-wall*
   (make-sphere
@@ -74,19 +74,20 @@
                   *right*
                   *left*)
    :light (point-light
-           (make-point -300.0 300.0 -500.0)
-           (make-color :red 1.0
-                       :green 1.0
-                       :blue 1.0))))
+           :position (make-point :x -300.0 :y 300.0 :z -500.0)
+           :intensity (make-color :red 1.0
+                                  :green 1.0
+                                  :blue 1.0))))
 
 (defparameter *camera*
   (create-camera
-   1000
-   500
-   (/ pi 3)
-   (view-transform (make-point 0.0 1.5 -5.0)
-                   (make-point 0.0 1.0 0.0)
-                   (make-vec 0.0 1.0 0.0))))
+   :hsize 1000
+   :vsize 500
+   :field-of-view (/ pi 3)
+   :transform (view-transform
+               :from (make-point :x 0.0 :y 1.5 :z -5.0)
+               :to (make-point :x 0.0 :y 1.0 :z 0.0)
+               :up (make-vec :x 0.0 :y 1.0 :z 0.0))))
 
 (defparameter *canvas* (render *camera* *world*))
 (canvas-to-ppm *canvas*)

@@ -1,8 +1,9 @@
 (in-package #:lisp-tracer)
 
 (defun default-world ()
-  (let* ((l (point-light (make-point -10.0 10.0 -10.0)
-                         (make-color :red 1.0 :green 1.0 :blue 1.0)))
+  (let* ((l (point-light
+             :position (make-point :x -10.0 :y 10.0 :z -10.0)
+             :intensity (make-color :red 1.0 :green 1.0 :blue 1.0)))
          (s1 (make-sphere))
          (s2 (make-sphere)))
     (setf (material-color (shape-material s1)) (make-color :red 0.8 :green 1.0 :blue 0.6))

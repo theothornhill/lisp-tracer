@@ -5,7 +5,8 @@
    :transform (mult (rotation-x (/ pi 2))
                     (translation 0.0 5.0 0.0))
    :material (make-material
-              :pattern (checkers-pattern (mult (scaling 0.5 0.5 0.5)
+              :pattern (checkers-pattern :transform
+                                         (mult (scaling 0.5 0.5 0.5)
                                                (translation-y 0.1))))))
 
 (defparameter *glass-sphere*
@@ -35,17 +36,15 @@
   (make-world
    :objects (list *backdrop* *glass-sphere* *air-bubble*)
    :light (point-light
-           (make-point -100.0 600.0 -250.0)
-           (make-color :red 1.0 :green 1.0 :blue 1.0))))
+           :position (make-point :x -100.0 :y 600.0 :z -250.0)
+           :intensity (make-color :red 1.0 :green 1.0 :blue 1.0))))
 
 (defparameter *camera*
   (create-camera
-   1000
-   1000
-   (/ pi 4)
-   (view-transform (make-point 0.0 1.0 -5.0)
-                   (make-point 0.0 1.0 0.0)
-                   (make-vec 0.0 1.0 0.0))))
+   :transform (view-transform
+               :from (make-point :x 0.0 :y 1.0 :z -5.0)
+               :to (make-point :x 0.0 :y 1.0 :z 0.0)
+               :up (make-vec :x 0.0 :y 1.0 :z 0.0))))
 
 (defparameter *canvas* (render *camera* *world*))
 (canvas-to-ppm *canvas*)

@@ -1,6 +1,6 @@
 (in-package #:lisp-tracer)
 
-(defun make-grid (width height)
+(defun grid (width height)
   "Array of WIDTH and HEIGHT size filled with BLACK."
   (make-array (list width height)
               :element-type 'color
@@ -12,7 +12,7 @@
   (make-canvas
    :width width
    :height height
-   :grid (make-grid width height)))
+   :grid (grid width height)))
 
 (defun write-pixel (canvas x y color)
   "Set a cell in the CANVAS grid with COLOR at position X Y."

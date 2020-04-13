@@ -6,8 +6,8 @@
       (ok (null (world-objects w)))
       (ok (null (world-light w)))))
   (testing "The default world"
-    (let* ((l (point-light (make-point -10.0 -10.0 -10.0)
-                           (make-color :red 1.0 :green 1.0 :blue 1.0)))
+    (let* ((l (point-light :position (make-point :x -10.0 :y -10.0 :z -10.0)
+                           :intensity (make-color :red 1.0 :green 1.0 :blue 1.0)))
            (s1 (make-sphere))
            (s2 (make-sphere))
            (w (default-world)))
@@ -22,8 +22,8 @@
 (deftest ray-world-intersection
   (testing "Intersect a world with a ray"
     (let* ((w (default-world))
-           (r (make-ray :origin (make-point 0.0 0.0 -5.0)
-                        :direction (make-vec 0.0 0.0 1.0)))
+           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z -5.0)
+                        :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
            (xs (intersect-world w r)))
       (ok (equal? (length xs) 4))
       (ok (equal? (rt-intersection-tt (car xs)) 4.0))
@@ -34,10 +34,10 @@
 (deftest shading-intersection
   (testing "Shading an intersection"
     (let* ((w (default-world))
-           (r (make-ray :origin (make-point 0.0 0.0 -5.0)
-                        :direction (make-vec 0.0 0.0 1.0)))
+           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z -5.0)
+                        :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
            (shape (car (world-objects w)))
-           (i (make-intersection 4.0 shape))
+           (i (make-intersection :tt 4.0 :object shape))
            (comps (prepare-computations i r))
            (c (shade-hit w comps)))
       (ok (equal? c (make-color :red 0.38066
@@ -46,12 +46,12 @@
   (testing "Shading an intersection"
     (let ((w (default-world)))
       (setf (world-light w)
-            (point-light (make-point 0.0 -0.25 0.0)
-                         (make-color :red 1.0 :green 1.0 :blue 1.0)))
-      (let* ((r (make-ray :origin (make-point 0.0 0.0 0.0)
-                          :direction (make-vec 0.0 0.0 1.0)))
+            (point-light :position (make-point :x 0.0 :y -0.25 :z 0.0)
+                         :intensity (make-color :red 1.0 :green 1.0 :blue 1.0)))
+      (let* ((r (make-ray :origin (make-point :x 0.0 :y 0.0 :z 0.0)
+                          :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
              (shape (cadr (world-objects w)))
-             (i (make-intersection 0.5 shape))
+             (i (make-intersection :tt 0.5 :object shape))
              (comps (prepare-computations i r))
              (c (shade-hit w comps)))
         (ok (equal? c (make-color :red 0.90498
@@ -61,14 +61,14 @@
 (deftest color-at-world
   (testing "The color when a ray misses"
     (let* ((w (default-world))
-           (r (make-ray :origin (make-point 0.0 0.0 -5.0)
-                        :direction (make-vec 0.0 1.0 0.0)))
+           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z -5.0)
+                        :direction (make-vec :x 0.0 :y 1.0 :z 0.0)))
            (c (color-at w r)))
       (ok (equal? c (make-color :red 0.0 :green 0.0 :blue 0.0)))))
   (testing "The color when a ray hits"
     (let* ((w (default-world))
-           (r (make-ray :origin (make-point 0.0 0.0 -5.0)
-                        :direction (make-vec 0.0 0.0 1.0)))
+           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z -5.0)
+                        :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
            (c (color-at w r)))
       (ok (equal? c (make-color :red 0.38066 :green 0.47583 :blue 0.2855)))))
   (testing "The color with an intersection behind the ray"
@@ -81,8 +81,8 @@
              (shape-material
               (cadr (world-objects w))))
             1.0)
-      (let* ((r (make-ray :origin (make-point 0.0 0.0 0.75)
-                          :direction (make-vec 0.0 0.0 -1.0)))
+      (let* ((r (make-ray :origin (make-point :x 0.0 :y 0.0 :z 0.75)
+                          :direction (make-vec :x 0.0 :y 0.0 :z -1.0)))
              (c (color-at w r)))
         (ok (equal? c (material-color
                        (shape-material
@@ -91,19 +91,19 @@
 (deftest shadow-testing
   (testing "There is no shadow when nothing is collinear with point and light"
     (let ((w (default-world))
-          (p (make-point 0.0 10.0 0.0)))
+          (p (make-point :x 0.0 :y 10.0 :z 0.0)))
       (ng (is-shadowed? w p))))
   (testing "The shadow when an object is between the point and the light"
     (let ((w (default-world))
-          (p (make-point 10.0 -10.0 10.0)))
+          (p (make-point :x 10.0 :y -10.0 :z 10.0)))
       (ok (is-shadowed? w p))))
   (testing "There is no shadow when an object is behind the light"
     (let ((w (default-world))
-          (p (make-point -20.0 20.0 -20.0)))
+          (p (make-point :x -20.0 :y 20.0 :z -20.0)))
       (ng (is-shadowed? w p))))
   (testing "There is no shadow when an object is behind the point"
     (let ((w (default-world))
-          (p (make-point -2.0 2.0 -2.0)))
+          (p (make-point :x -2.0 :y 2.0 :z -2.0)))
       (ng (is-shadowed? w p)))))
 
 (deftest shade-hit-shadowed
@@ -114,11 +114,11 @@
            (w (make-world
                :objects (list s1 s2)
                :light (point-light
-                       (make-point 0.0 0.0 -10.0)
-                       (make-color :red 1.0 :green 1.0 :blue 1.0))))
-           (r (make-ray :origin (make-point 0.0 0.0 5.0)
-                        :direction (make-vec 0.0 0.0 1.0)))
-           (i (make-intersection 4.0 s2))
+                       :position (make-point :x 0.0 :y 0.0 :z -10.0)
+                       :intensity (make-color :red 1.0 :green 1.0 :blue 1.0))))
+           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z 5.0)
+                        :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
+           (i (make-intersection :tt 4.0 :object s2))
            (comps (prepare-computations i r))
            (c (shade-hit w comps)))
       (ok (equal? (make-color :red 0.1 :green 0.1 :blue 0.1) c)))))
@@ -127,37 +127,37 @@
   (testing "The refracted color with an opaque surface"
     (let* ((w (default-world))
            (shape (car (world-objects w)))
-           (r (make-ray :origin (make-point 0.0 0.0 -5.0)
-                        :direction (make-vec 0.0 0.0 1.0)))
+           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z -5.0)
+                        :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
            (xs (intersections
-                (make-intersection 4.0 shape)
-                (make-intersection 6.0 shape)))
+                (make-intersection :tt 4.0 :object shape)
+                (make-intersection :tt 6.0 :object shape)))
            (comps (prepare-computations (car xs) r xs))
            (c (refracted-color w comps 5)))
       (ok (equal? c (make-color :red 0.0 :green 0.0 :blue 0.0)))))
   (testing "The refracted color at the maximum recursive depth"
     (let* ((w (default-world))
            (shape (car (world-objects w)))
-           (r (make-ray :origin (make-point 0.0 0.0 -5.0)
-                        :direction (make-vec 0.0 0.0 1.0))))
+           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z -5.0)
+                        :direction (make-vec :x 0.0 :y 0.0 :z 1.0))))
       (setf (material-transparency (shape-material shape)) 1.0)
       (setf (material-refractive-index (shape-material shape)) 1.5)
       (let* ((xs (intersections
-                  (make-intersection 4.0 shape)
-                  (make-intersection 6.0 shape)))
+                  (make-intersection :tt 4.0 :object shape)
+                  (make-intersection :tt 6.0 :object shape)))
              (comps (prepare-computations (car xs) r xs))
              (c (refracted-color w comps 0)))
         (ok (equal? c (make-color :red 0.0 :green 0.0 :blue 0.0))))))
   (testing "The refracted color under total internal reflection"
     (let* ((w (default-world))
            (shape (car (world-objects w)))
-           (r (make-ray :origin (make-point 0.0 0.0 (/ (sqrt 2) 2.0))
-                        :direction (make-vec 0.0 1.0 0.0))))
+           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z (/ (sqrt 2) 2.0))
+                        :direction (make-vec :x 0.0 :y 1.0 :z 0.0))))
       (setf (material-transparency (shape-material shape)) 1.0)
       (setf (material-refractive-index (shape-material shape)) 1.5)
       (let* ((xs (intersections
-                  (make-intersection (- (/ (sqrt 2) 2.0)) shape)
-                  (make-intersection (/ (sqrt 2) 2.0) shape)))
+                  (make-intersection :tt (- (/ (sqrt 2) 2.0)) :object shape)
+                  (make-intersection :tt (/ (sqrt 2) 2.0) :object shape)))
              (comps (prepare-computations (cadr xs) r xs))
              (c (refracted-color w comps 5)))
         (ok (equal? c (make-color :red 0.0 :green 0.0 :blue 0.0))))))
@@ -165,17 +165,17 @@
     (let* ((w (default-world))
            (a (car (world-objects w)))
            (b (cadr (world-objects w)))
-           (r (make-ray :origin (make-point 0.0 0.0 0.1)
-                        :direction (make-vec 0.0 1.0 0.0))))
+           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z 0.1)
+                        :direction (make-vec :x 0.0 :y 1.0 :z 0.0))))
       (setf (material-ambient (shape-material a)) 1.0)
       (setf (material-pattern (shape-material a)) (test-pattern))
       (setf (material-transparency (shape-material b)) 1.0)
       (setf (material-refractive-index (shape-material b)) 1.5)
       (let* ((xs (intersections
-                  (make-intersection -0.9899 a)
-                  (make-intersection -0.4899 b)
-                  (make-intersection 0.4899 b)
-                  (make-intersection 0.9899 a)))
+                  (make-intersection :tt -0.9899 :object a)
+                  (make-intersection :tt -0.4899 :object b)
+                  (make-intersection :tt 0.4899 :object b)
+                  (make-intersection :tt 0.9899 :object a)))
              (comps (prepare-computations (caddr xs) r xs))
              (c (refracted-color w comps 5)))
         (ok (equal? c (make-color :red 0.0 :green 0.998884539 :blue 0.04721945253)))))))
@@ -194,11 +194,11 @@
                  :transform (translation 0.0 -3.5 -0.5)))
           (w (default-world)))
       (setf (world-objects w) (append (world-objects w) (list floor ball)))
-      (let* ((r (make-ray :origin (make-point 0.0 0.0 -3.0)
-                          :direction (make-vec 0.0
-                                               (- (/ (sqrt 2) 2.0))
+      (let* ((r (make-ray :origin (make-point :x 0.0 :y 0.0 :z -3.0)
+                          :direction (make-vec :x 0.0 :y
+                                               (- (/ (sqrt 2) 2.0)) :z
                                                (/ (sqrt 2) 2.0))))
-             (xs (intersections (make-intersection (sqrt 2.0) floor)))
+             (xs (intersections (make-intersection :tt (sqrt 2.0) :object floor)))
              (comps (prepare-computations (car xs) r xs))
              (color (shade-hit w comps 5)))
         (ok (equal? color (make-color :red 0.93642 :green 0.68642 :blue 0.68642))))))
@@ -216,11 +216,11 @@
                  :transform (translation 0.0 -3.5 -0.5)))
           (w (default-world)))
       (setf (world-objects w) (append (world-objects w) (list floor ball)))
-      (let* ((r (make-ray :origin (make-point 0.0 0.0 -3.0)
-                          :direction (make-vec 0.0
-                                               (- (/ (sqrt 2) 2.0))
+      (let* ((r (make-ray :origin (make-point :x 0.0 :y 0.0 :z -3.0)
+                          :direction (make-vec :x 0.0 :y
+                                               (- (/ (sqrt 2) 2.0)) :z
                                                (/ (sqrt 2) 2.0))))
-             (xs (intersections (make-intersection (sqrt 2.0) floor)))
+             (xs (intersections (make-intersection :tt (sqrt 2.0) :object floor)))
              (comps (prepare-computations (car xs) r xs))
              (color (shade-hit w comps 5)))
         (ok (equal? color (make-color :red 0.93391

@@ -11,25 +11,34 @@
 (defstruct (checkers (:include pattern)))
 (defstruct (test (:include pattern)))
 
-(defun test-pattern (&optional (transform (identity-matrix)))
+(defun test-pattern (&key (transform (identity-matrix)))
   (declare (type matrix transform))
   (make-test :a (make-color :red 1.0 :green 1.0 :blue 1.0)
              :b (make-color :red 0.0 :green 0.0 :blue 0.0)
              :transform transform))
 
-(defun stripe-pattern (a b &optional (transform (identity-matrix)))
+(defun stripe-pattern (&key
+                         (a (make-color :red 1.0 :green 1.0 :blue 1.0))
+                         (b (make-color :red 0.0 :green 0.0 :blue 0.0))
+                         (transform (identity-matrix)))
   (declare (type color a b) (type matrix transform))
   (make-stripes :a a :b b :transform transform))
 
-(defun gradient-pattern (a b &optional (transform (identity-matrix)))
+(defun gradient-pattern (&key
+                           (a (make-color :red 1.0 :green 1.0 :blue 1.0))
+                           (b (make-color :red 0.0 :green 0.0 :blue 0.0))
+                           (transform (identity-matrix)))
   (declare (type color a b) (type matrix transform))
   (make-gradient :a a :b b :transform transform))
 
-(defun ring-pattern (a b &optional (transform (identity-matrix)))
+(defun ring-pattern (&key
+                       (a (make-color :red 1.0 :green 1.0 :blue 1.0))
+                       (b (make-color :red 0.0 :green 0.0 :blue 0.0))
+                       (transform (identity-matrix)))
   (declare (type color a b) (type matrix transform))
   (make-rings :a a :b b :transform transform))
 
-(defun checkers-pattern (&optional
+(defun checkers-pattern (&key
                            (transform (identity-matrix))
                            (a (make-color :red 1.0 :green 1.0 :blue 1.0))
                            (b (make-color :red 0.0 :green 0.0 :blue 0.0)))

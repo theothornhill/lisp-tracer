@@ -15,13 +15,15 @@
                     (camera-hsize camera))))))
 
 
-(defun create-camera (hsize vsize field-of-view &optional transform)
+(defun create-camera (&key
+                        (hsize 1000)
+                        (vsize 1000)
+                        (field-of-view (/ pi 4))
+                        (transform (identity-matrix)))
   (let ((c (make-camera :hsize hsize
                         :vsize vsize
                         :field-of-view field-of-view
-                        :transform (if transform
-                                       transform
-                                       (identity-matrix)))))
+                        :transform transform)))
     (compute-pixel-size c)
     c))
 
@@ -32,10 +34,12 @@
          (world-y (sub (camera-half-height camera) y-offset))
          (pixel (mult
                  (inverse (camera-transform camera))
-                 (make-point world-x world-y -1.0)))
+                 (make-point :x world-x
+                             :y world-y
+                             :z -1.0)))
          (origin (mult
                   (inverse (camera-transform camera))
-                  (make-point 0.0 0.0 0.0)))
+                  (make-point :x 0.0 :y 0.0 :z 0.0)))
          (direction (normalize (sub pixel origin))))
     (make-ray :origin origin :direction direction)))
 

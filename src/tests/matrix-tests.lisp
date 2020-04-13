@@ -89,162 +89,162 @@
 (deftest translate-matrix
   (testing "Multiplying by a translation matrix"
     (let ((transform (translation 5.0 -3.0 2.0))
-          (p (make-point -3.0 4.0 5.0)))
-      (ok (equal? (mult transform p) (make-point 2.0 1.0 7.0)))))
+          (p (make-point :x -3.0 :y 4.0 :z 5.0)))
+      (ok (equal? (mult transform p) (make-point :x 2.0 :y 1.0 :z 7.0)))))
   (testing "Multiplying by the inverse of a translation matrix"
     (let* ((transform (translation 5.0 -3.0 2.0))
            (inv (inverse transform))
-           (p (make-point -3.0 4.0 5.0)))
-      (ok (equal? (mult inv p) (make-point -8.0 7.0 3.0)))))
+           (p (make-point :x -3.0 :y 4.0 :z 5.0)))
+      (ok (equal? (mult inv p) (make-point :x -8.0 :y 7.0 :z 3.0)))))
   (testing "Translation does not affect vectors"
     (let ((transform (translation 5.0 -3.0 2.0))
-          (v (make-vec -3.0 4.0 5.0)))
+          (v (make-vec :x -3.0 :y 4.0 :z 5.0)))
       (ok (equal? (mult transform v) v)))))
 
 (deftest scaling-matrix
   (testing "A scaling matrix applied to a point"
     (let ((transform (scaling 2.0 3.0 4.0))
-          (p (make-point -4.0 6.0 8.0)))
-      (ok (equal? (mult transform p) (make-point -8.0 18.0 32.0)))))
+          (p (make-point :x -4.0 :y 6.0 :z 8.0)))
+      (ok (equal? (mult transform p) (make-point :x -8.0 :y 18.0 :z 32.0)))))
   (testing "A scaling matrix applied to a vector"
     (let ((transform (scaling 2.0 3.0 4.0))
-          (v (make-vec -4.0 6.0 8.0)))
-      (ok (equal? (mult transform v) (make-vec -8.0 18.0 32.0)))))
+          (v (make-vec :x -4.0 :y 6.0 :z 8.0)))
+      (ok (equal? (mult transform v) (make-vec :x -8.0 :y 18.0 :z 32.0)))))
   (testing "Multiplying by the inverse of a scaling matrix"
     (let* ((transform (scaling 2.0 3.0 4.0))
            (inv (inverse transform))
-           (v (make-vec -4.0 6.0 8.0)))
-      (ok (equal? (mult inv v) (make-vec -2.0 2.0 2.0)))))
+           (v (make-vec :x -4.0 :y 6.0 :z 8.0)))
+      (ok (equal? (mult inv v) (make-vec :x -2.0 :y 2.0 :z 2.0)))))
   (testing "Reflection is scaling by a negative value"
     (let ((transform (scaling -1.0 1.0 1.0))
-          (p (make-point 2.0 3.0 4.0)))
-      (ok (equal? (mult transform p) (make-point -2.0 3.0 4.0))))))
+          (p (make-point :x 2.0 :y 3.0 :z 4.0)))
+      (ok (equal? (mult transform p) (make-point :x -2.0 :y 3.0 :z 4.0))))))
 
 (deftest rotation-x-axis
   (testing "Rotating a point around the x axis"
-    (let ((p (make-point 0.0 1.0 0.0))
+    (let ((p (make-point :x 0.0 :y 1.0 :z 0.0))
           (half-quarter (rotation-x (div (coerce pi 'double-float) 4.0)))
           (full-quarter (rotation-x (div (coerce pi 'double-float) 2.0))))
-      (ok (equal? (mult half-quarter p) (make-point 0.0
-                                                    (/ (sqrt 2) 2.0)
+      (ok (equal? (mult half-quarter p) (make-point :x 0.0 :y
+                                                    (/ (sqrt 2) 2.0) :z
                                                     (/ (sqrt 2) 2.0))))
-      (ok (equal? (mult full-quarter p) (make-point 0.0 0.0 1.0)))))
+      (ok (equal? (mult full-quarter p) (make-point :x 0.0 :y 0.0 :z 1.0)))))
   (testing "The inverse of an x-rotation rotates in the opposite direction"
-    (let* ((p (make-point 0.0 1.0 0.0))
+    (let* ((p (make-point :x 0.0 :y 1.0 :z 0.0))
            (half-quarter (rotation-x (float (div (coerce pi 'double-float) 4.0))))
            (inv (inverse half-quarter)))
-      (ok (equal? (mult inv p) (make-point 0.0
-                                           (/ (sqrt 2) 2.0)
+      (ok (equal? (mult inv p) (make-point :x 0.0 :y
+                                           (/ (sqrt 2) 2.0) :z
                                            (- (/ (sqrt 2) 2.0))))))))
 
 (deftest rotation-y-axis
   (testing "Rotating a point around the y axis"
-    (let ((p (make-point 0.0 0.0 1.0))
+    (let ((p (make-point :x 0.0 :y 0.0 :z 1.0))
           (half-quarter (rotation-y (/ (coerce pi 'double-float) 4)))
           (full-quarter (rotation-y (/ (coerce pi 'double-float) 2))))
-      (ok (equal? (mult half-quarter p) (make-point (/ (sqrt 2) 2.0)
-                                                    0.0
+      (ok (equal? (mult half-quarter p) (make-point :x (/ (sqrt 2) 2.0) :y
+                                                    0.0 :z
                                                     (/ (sqrt 2) 2.0))))
-      (ok (equal? (mult full-quarter p) (make-point 1.0 0.0 0.0))))))
+      (ok (equal? (mult full-quarter p) (make-point :x 1.0 :y 0.0 :z 0.0))))))
 
 (deftest rotation-z-axis
   (testing "Rotating a point around the z axis"
-    (let ((p (make-point 0.0 1.0 0.0))
+    (let ((p (make-point :x 0.0 :y 1.0 :z 0.0))
           (half-quarter (rotation-z (div (coerce pi 'double-float) 4.0)))
           (full-quarter (rotation-z (div (coerce pi 'double-float) 2.0))))
-      (ok (equal? (mult half-quarter p) (make-point (- (/ (sqrt 2) 2.0))
-                                                    (/ (sqrt 2) 2.0)
+      (ok (equal? (mult half-quarter p) (make-point :x (- (/ (sqrt 2) 2.0)) :y
+                                                    (/ (sqrt 2) 2.0) :z
                                                     0.0)))
-      (ok (equal? (mult full-quarter p) (make-point -1.0 0.0 0.0))))))
+      (ok (equal? (mult full-quarter p) (make-point :x -1.0 :y 0.0 :z 0.0))))))
 
 (deftest shearing
   (testing "A shearing transformation moves x in proportion to y"
     (let ((transform (shearing 1.0 0.0 0.0 0.0 0.0 0.0))
-          (p (make-point 2.0 3.0 4.0)))
-      (ok (equal? (mult transform p) (make-point 5.0 3.0 4.0)))))
+          (p (make-point :x 2.0 :y 3.0 :z 4.0)))
+      (ok (equal? (mult transform p) (make-point :x 5.0 :y 3.0 :z 4.0)))))
   (testing "A shearing transformation moves x in proportion to z"
     (let ((transform (shearing 0.0 1.0 0.0 0.0 0.0 0.0))
-          (p (make-point 2.0 3.0 4.0)))
-      (ok (equal? (mult transform p) (make-point 6.0 3.0 4.0)))))
+          (p (make-point :x 2.0 :y 3.0 :z 4.0)))
+      (ok (equal? (mult transform p) (make-point :x 6.0 :y 3.0 :z 4.0)))))
   (testing "A shearing transformation moves y in proportion to x"
     (let ((transform (shearing 0.0 0.0 1.0 0.0 0.0 0.0))
-          (p (make-point 2.0 3.0 4.0)))
-      (ok (equal? (mult transform p) (make-point 2.0 5.0 4.0)))))
+          (p (make-point :x 2.0 :y 3.0 :z 4.0)))
+      (ok (equal? (mult transform p) (make-point :x 2.0 :y 5.0 :z 4.0)))))
   (testing "A shearing transformation moves y in proportion to z"
     (let ((transform (shearing 0.0 0.0 0.0 1.0 0.0 0.0))
-          (p (make-point 2.0 3.0 4.0)))
-      (ok (equal? (mult transform p) (make-point 2.0 7.0 4.0)))))
+          (p (make-point :x 2.0 :y 3.0 :z 4.0)))
+      (ok (equal? (mult transform p) (make-point :x 2.0 :y 7.0 :z 4.0)))))
   (testing "A shearing transformation moves z in proportion to x"
     (let ((transform (shearing 0.0 0.0 0.0 0.0 1.0 0.0))
-          (p (make-point 2.0 3.0 4.0)))
-      (ok (equal? (mult transform p) (make-point 2.0 3.0 6.0)))))
+          (p (make-point :x 2.0 :y 3.0 :z 4.0)))
+      (ok (equal? (mult transform p) (make-point :x 2.0 :y 3.0 :z 6.0)))))
   (testing "A shearing transformation moves z in proportion to y"
     (let ((transform (shearing 0.0 0.0 0.0 0.0 0.0 1.0))
-          (p (make-point 2.0 3.0 4.0)))
-      (ok (equal? (mult transform p) (make-point 2.0 3.0 7.0))))))
+          (p (make-point :x 2.0 :y 3.0 :z 4.0)))
+      (ok (equal? (mult transform p) (make-point :x 2.0 :y 3.0 :z 7.0))))))
 
 (deftest matrix-composing
   (testing "Individual transformations are applied in sequence"
-    (let* ((p (make-point 1.0 0.0 1.0))
+    (let* ((p (make-point :x 1.0 :y 0.0 :z 1.0))
            (a (rotation-x (div (coerce pi 'double-float) 2.0)))
            (b (scaling 5.0 5.0 5.0))
            (c (translation 10.0 5.0 7.0))
            (p2 (mult a p))
            (p3 (mult b p2))
            (p4 (mult c p3)))
-      (ok (equal? p4 (make-point 15.0 0.0 7.0)))))
+      (ok (equal? p4 (make-point :x 15.0 :y 0.0 :z 7.0)))))
   (testing "Chained transformations must be applied in reverse order"
-    (let* ((p (make-point 1.0 0.0 1.0))
+    (let* ((p (make-point :x 1.0 :y 0.0 :z 1.0))
            (a (rotation-x (div (coerce pi 'double-float) 2.0)))
            (b (scaling 5.0 5.0 5.0))
            (c (translation 10.0 5.0 7.0))
            (transformed (reduce #'mult (list c b a p))))
-      (ok (equal? transformed (make-point 15.0 0.0 7.0))))))
+      (ok (equal? transformed (make-point :x 15.0 :y 0.0 :z 7.0))))))
 
 (deftest translation-testing
   (testing "Multiplying by a translation matrix"
     (let* ((transform (translation 5.0 -3.0 2.0))
-           (p (make-point -3.0 4.0 5.0))
+           (p (make-point :x -3.0 :y 4.0 :z 5.0))
            (inv (inverse transform))
-           (v (make-vec -3.0 4.0 5.0)))
-      (ok (equal? (mult transform p) (make-point 2.0 1.0 7.0)))
-      (ok (equal? (mult inv p) (make-point -8.0 7.0 3.0)))
+           (v (make-vec :x -3.0 :y 4.0 :z 5.0)))
+      (ok (equal? (mult transform p) (make-point :x 2.0 :y 1.0 :z 7.0)))
+      (ok (equal? (mult inv p) (make-point :x -8.0 :y 7.0 :z 3.0)))
       (ok (equal? (mult transform v) v)))))
 
 (deftest scaling-testing
   (testing "A scaling matrix applied to a point"
     (let* ((transform (scaling 2.0 3.0 4.0))
-           (p (make-point -4.0 6.0 8.0))
-           (v (make-vec -4.0 6.0 8.0))
+           (p (make-point :x -4.0 :y 6.0 :z 8.0))
+           (v (make-vec :x -4.0 :y 6.0 :z 8.0))
            (inv (inverse transform)))
-      (ok (equal? (mult transform p) (make-point -8.0 18.0 32.0)))
-      (ok (equal? (mult transform v) (make-vec -8.0 18.0 32.0)))
-      (ok (equal? (mult inv v) (make-vec -2.0 2.0 2.0))))))
+      (ok (equal? (mult transform p) (make-point :x -8.0 :y 18.0 :z 32.0)))
+      (ok (equal? (mult transform v) (make-vec :x -8.0 :y 18.0 :z 32.0)))
+      (ok (equal? (mult inv v) (make-vec :x -2.0 :y 2.0 :z 2.0))))))
 
 (deftest transform-matrix-testing
   (testing "The transformation matrix for the default orientation"
-    (let* ((from (make-point 0.0 0.0 0.0))
-           (to (make-point 0.0 0.0 -1.0))
-           (up (make-vec 0.0 1.0 0.0))
-           (trans (view-transform from to up)))
+    (let* ((from (make-point :x 0.0 :y 0.0 :z 0.0))
+           (to (make-point :x 0.0 :y 0.0 :z -1.0))
+           (up (make-vec :x 0.0 :y 1.0 :z 0.0))
+           (trans (view-transform :from from :to to :up up)))
       (equal? trans (identity-matrix))))
   (testing "A view transformation matrix looking in positive z direction"
-    (let* ((from (make-point 0.0 0.0 0.0))
-           (to (make-point 0.0 0.0 1.0))
-           (up (make-vec 0.0 1.0 0.0))
-           (trans (view-transform from to up)))
+    (let* ((from (make-point :x 0.0 :y 0.0 :z 0.0))
+           (to (make-point :x 0.0 :y 0.0 :z 1.0))
+           (up (make-vec :x 0.0 :y 1.0 :z 0.0))
+           (trans (view-transform :from from :to to :up up)))
           (equal? trans (scaling -1.0 1.0 -1.0))))
   (testing "The view transformation moves the world"
-    (let* ((from (make-point 0.0 0.0 8.0))
-           (to (make-point 0.0 0.0 0.0))
-           (up (make-vec 0.0 1.0 0.0))
-           (trans (view-transform from to up)))
+    (let* ((from (make-point :x 0.0 :y 0.0 :z 8.0))
+           (to (make-point :x 0.0 :y 0.0 :z 0.0))
+           (up (make-vec :x 0.0 :y 1.0 :z 0.0))
+           (trans (view-transform :from from :to to :up up)))
       (equal? trans (translation 0.0 0.0 -8.0))))
   (testing "An arbitrary view transformation"
-    (let* ((from (make-point 1.0 3.0 2.0))
-           (to (make-point 4.0 -2.0 8.0))
-           (up (make-vec 1.0 1.0 0.0))
-           (trans (view-transform from to up)))
+    (let* ((from (make-point :x 1.0 :y 3.0 :z 2.0))
+           (to (make-point :x 4.0 :y -2.0 :z 8.0))
+           (up (make-vec :x 1.0 :y 1.0 :z 0.0))
+           (trans (view-transform :from from :to to :up up)))
       (equal? trans (create-matrix
                      -0.50709 0.50709 0.67612 -2.36643
                      0.76772 0.60609 0.12122 -2.82843
