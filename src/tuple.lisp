@@ -1,10 +1,10 @@
 (in-package #:lisp-tracer)
 
-(defun make-point (&key x y z)
+(defun make-point (&key (x 0.0) (y 0.0) (z 0.0))
   "A point is a TUPLE with provided X Y Z and W set to 1.0."
   (make-tuple :x x :y y :z z :w 1.0))
 
-(defun make-vec (&key x y z)
+(defun make-vec (&key (x 0.0) (y 0.0) (z 0.0))
   "A vector is a TUPLE with provided X Y Z and W set to 0.0."
   (make-tuple :x x :y y :z z :w 0.0))
 
