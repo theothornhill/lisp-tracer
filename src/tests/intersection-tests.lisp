@@ -71,7 +71,7 @@
            (comps (prepare-computations i r)))
       (ng (computations-inside? comps))))
   (testing "The hit, when an intersection occurs on the inside"
-    (let* ((r (make-ray :origin (make-point :x 0.0 :y 0.0 :z 0.0)
+    (let* ((r (make-ray :origin (make-point)
                         :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
            (shape (make-sphere))
            (i (make-intersection :tt 1.0 :object  shape))
@@ -158,7 +158,7 @@
       (ok (equal? reflectance 1.0))))
   (testing "The schlick approx with a perpendicular viewing angle"
     (let* ((shape (glass-sphere))
-           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z 0.0)
+           (r (make-ray :origin (make-point)
                         :direction (make-vec :x 0.0 :y 1.0 :z 0.0)))
            (xs (intersections
                 (make-intersection :tt -1.0 :object shape)

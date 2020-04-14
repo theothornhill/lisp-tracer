@@ -12,7 +12,10 @@
   (testing "point creates tuples with w=1"
     (let ((p (make-point :x 4.0 :y -4.0 :z 3.0)))
       (ok (= (tuple-w p) 1))
-      (ok (equal? p (make-tuple :x 4.0 :y -4.0 :z 3.0 :w 1.0))))))
+      (ok (equal? p (make-tuple :x 4.0 :y -4.0 :z 3.0 :w 1.0)))))
+  (testing "make-point creates tuples with 0.0 0.0 0.0 1.0"
+    (let ((p (make-point)))
+      (ok (equal? p (make-tuple :x 0.0 :y 0.0 :z 0.0 :w 1.0))))))
 
 (deftest vec-testing
   (testing "A tuple with w=1.0 is a point"
@@ -26,7 +29,10 @@
   (testing "point creates tuples with w=1"
     (let ((v (make-vec :x 4.0 :y -4.0 :z 3.0)))
       (ok (= (tuple-w v) 0))
-      (ok (equal? v (make-tuple :x 4.0 :y -4.0 :z 3.0 :w 0.0))))))
+      (ok (equal? v (make-tuple :x 4.0 :y -4.0 :z 3.0 :w 0.0)))))
+  (testing "make-vec creates tuples with 0.0 0.0 0.0 0.0"
+    (let ((p (make-vec)))
+      (ok (equal? p (make-tuple :x 0.0 :y 0.0 :z 0.0 :w 0.0))))))
 
 
 (deftest tuple-math

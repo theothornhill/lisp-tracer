@@ -48,7 +48,7 @@
       (setf (world-light w)
             (point-light :position (make-point :x 0.0 :y -0.25 :z 0.0)
                          :intensity (make-color :red 1.0 :green 1.0 :blue 1.0)))
-      (let* ((r (make-ray :origin (make-point :x 0.0 :y 0.0 :z 0.0)
+      (let* ((r (make-ray :origin (make-point)
                           :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
              (shape (cadr (world-objects w)))
              (i (make-intersection :tt 0.5 :object shape))

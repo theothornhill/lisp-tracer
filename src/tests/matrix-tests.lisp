@@ -223,20 +223,20 @@
 
 (deftest transform-matrix-testing
   (testing "The transformation matrix for the default orientation"
-    (let* ((from (make-point :x 0.0 :y 0.0 :z 0.0))
+    (let* ((from (make-point))
            (to (make-point :x 0.0 :y 0.0 :z -1.0))
            (up (make-vec :x 0.0 :y 1.0 :z 0.0))
            (trans (view-transform :from from :to to :up up)))
       (equal? trans (identity-matrix))))
   (testing "A view transformation matrix looking in positive z direction"
-    (let* ((from (make-point :x 0.0 :y 0.0 :z 0.0))
+    (let* ((from (make-point))
            (to (make-point :x 0.0 :y 0.0 :z 1.0))
            (up (make-vec :x 0.0 :y 1.0 :z 0.0))
            (trans (view-transform :from from :to to :up up)))
           (equal? trans (scaling -1.0 1.0 -1.0))))
   (testing "The view transformation moves the world"
     (let* ((from (make-point :x 0.0 :y 0.0 :z 8.0))
-           (to (make-point :x 0.0 :y 0.0 :z 0.0))
+           (to (make-point))
            (up (make-vec :x 0.0 :y 1.0 :z 0.0))
            (trans (view-transform :from from :to to :up up)))
       (equal? trans (translation 0.0 0.0 -8.0))))

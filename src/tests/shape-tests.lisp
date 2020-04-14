@@ -30,7 +30,7 @@
 
 (deftest ray-intersect-inside
   (testing "A ray originates inside a sphere"
-    (let* ((r (make-ray :origin (make-point :x 0.0 :y 0.0 :z 0.0)
+    (let* ((r (make-ray :origin (make-point)
                         :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
            (s (make-sphere))
            (xs (intersect s r)))

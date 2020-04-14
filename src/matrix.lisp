@@ -226,8 +226,8 @@
    0.0 0.0 0.0 1.0))
 
 (defun view-transform (&key
-                         (from (make-point :x 0.0 :y 0.0 :z 0.0))
-                         (to (make-point :x 0.0 :y 0.0 :z 0.0))
+                         (from (make-point))
+                         (to (make-point))
                          (up (make-vec :x 0.0 :y 0.0 :z 0.0)))
   (declare (type tuple from to up))
   (let* ((forward (normalize (sub to from)))

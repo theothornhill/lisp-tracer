@@ -39,7 +39,7 @@
                              :z -1.0)))
          (origin (mult
                   (inverse (camera-transform camera))
-                  (make-point :x 0.0 :y 0.0 :z 0.0)))
+                  (make-point)))
          (direction (normalize (sub pixel origin))))
     (make-ray :origin origin :direction direction)))
 

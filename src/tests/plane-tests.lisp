@@ -3,7 +3,7 @@
 (deftest normal-plane
   (testing "The normal of a plane is constant everywhere"
     (let* ((p (make-plane))
-           (n1 (local-normal-at p (make-point :x 0.0 :y 0.0 :z 0.0)))
+           (n1 (local-normal-at p (make-point)))
            (n2 (local-normal-at p (make-point :x 10.0 :y 0.0 :z -10.0)))
            (n3 (local-normal-at p (make-point :x -5.0 :y 0.0 :z 150.0))))
       (ok (equal? n1 (make-vec :x 0.0 :y 1.0 :z 0.0)))

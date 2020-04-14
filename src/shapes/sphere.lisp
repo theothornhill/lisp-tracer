@@ -10,7 +10,7 @@
               :refractive-index 1.5)))
 
 (defmethod local-intersect ((sphere sphere) (ray ray))
-  (let* ((sphere-to-ray (sub (ray-origin ray) (make-point :x 0.0 :y 0.0 :z 0.0)))
+  (let* ((sphere-to-ray (sub (ray-origin ray) (make-point)))
          (ray-direction (ray-direction ray))
          (a (dot ray-direction ray-direction))
          (b (mult 2.0 (dot ray-direction sphere-to-ray)))
@@ -27,4 +27,4 @@
                                         :object sphere)))))
 
 (defmethod local-normal-at ((sphere sphere) (point tuple))
-  (sub point (make-point :x 0.0 :y 0.0 :z 0.0)))
+  (sub point (make-point)))

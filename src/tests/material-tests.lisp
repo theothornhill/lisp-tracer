@@ -15,7 +15,7 @@
 (defparameter *mock-sphere* (make-sphere))
 (deftest light-testing
   (let ((m (make-material))
-        (p (make-point :x 0.0 :y 0.0 :z 0.0)))
+        (p (make-point)))
     (testing "Lighting with the eye between the light and the surface"
       (let* ((eyev (make-vec :x 0.0 :y 0.0 :z -1.0))
              (normalv (make-vec :x 0.0 :y 0.0 :z -1.0))
@@ -98,7 +98,7 @@
                             (div (sqrt 2.0) 2.0))))))
   (testing "The reflected color for a nonreflective material"
     (let* ((w (default-world))
-           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z 0.0)
+           (r (make-ray :origin (make-point)
                         :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
            (shape (cadr (world-objects w))))
       (setf (material-ambient (shape-material shape)) 1.0)
@@ -139,7 +139,7 @@
                                       :green 0.92434
                                       :blue 0.829174))))))
   (testing "color-at with mutually reflective surfaces"
-    (let* ((light (point-light :position (make-point :x 0.0 :y 0.0 :z 0.0)
+    (let* ((light (point-light :position (make-point)
                                :intensity (make-color :red 1.0 :green 1.0 :blue 1.0)))
            (lower (make-plane
                    :material (make-material
@@ -152,7 +152,7 @@
            (w (make-world
                :objects (list lower upper)
                :light light))
-           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z 0.0)
+           (r (make-ray :origin (make-point)
                         :direction (make-vec :x 0.0 :y 1.0 :z 0.0))))
       (ok (color-at w r))))
   (testing "shade-hit with a reflective material"
