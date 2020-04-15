@@ -61,6 +61,7 @@
    #:make-camera
    #:make-canvas
    #:make-color
+   #:make-cube
    #:make-intersection
    #:make-material
    #:make-matrix
