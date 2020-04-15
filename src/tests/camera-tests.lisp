@@ -28,14 +28,14 @@
     (let* ((c (create-camera :hsize 201
                              :vsize 101
                              :field-of-view (/ pi 2.0)))
-           (r (ray-for-pixel c 100.0 50.0)))
+           (r (ray-for-pixel c 100 50)))
       (ok (equal? (ray-origin r) (make-point)))
       (ok (equal? (ray-direction r) (make-vec :x 0.0 :y 0.0 :z -1.0)))))
   (testing "Constructing a ray through a corner of the canvas"
     (let* ((c (create-camera :hsize 201
                              :vsize 101
                              :field-of-view (/ pi 2.0)))
-           (r (ray-for-pixel c 0.0 0.0)))
+           (r (ray-for-pixel c 0 0)))
       (ok (equal? (ray-origin r) (make-point)))
       (ok (equal? (ray-direction r) (make-vec :x 0.66519 :y 0.33259 :z -0.66851)))))
   (testing "Constructing a ray when the camera is transformed"
@@ -46,7 +46,7 @@
       (setf (camera-transform c)
             (mult (rotation-y (/ pi 4.0))
                   (translation 0.0 -2.0 5.0)))
-      (let ((r (ray-for-pixel c 100.0 50.0)))
+      (let ((r (ray-for-pixel c 100 50)))
         (ok (equal? (ray-origin r) (make-point :x 0.0 :y 2.0 :z -5.0)))
         (ok (equal? (ray-direction r) (make-vec :x sqrt2/2 :y 0.0 :z (neg sqrt2/2))))))))
 

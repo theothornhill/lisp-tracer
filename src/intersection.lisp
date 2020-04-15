@@ -18,6 +18,7 @@
          (setf ,n 1.0))))
 
 (defun refractive-indexes (hit is)
+  (declare (type rt-intersection hit) (type cons is))
   (let ((n1 1.0) (n2 1.0) containers)
     (mapc (lambda (i)
             (update-n n1)
