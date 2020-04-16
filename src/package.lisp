@@ -3,6 +3,7 @@
         #:iterate)
   (:export
    #:add
+   #:cylinder-closed
    #:air
    #:camera
    #:camera-field-of-view
@@ -35,6 +36,8 @@
    #:create-canvas
    #:create-matrix
    #:cross
+   #:cylinder-maximum
+   #:cylinder-minimum
    #:default-world
    #:diamond
    #:div
@@ -62,6 +65,7 @@
    #:make-canvas
    #:make-color
    #:make-cube
+   #:make-cylinder
    #:make-intersection
    #:make-material
    #:make-matrix
@@ -166,4 +170,4 @@
    #:world-light
    #:world-objects
    #:write-pixel
-   ))
+y   ))

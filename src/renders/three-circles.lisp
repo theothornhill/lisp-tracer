@@ -48,9 +48,13 @@
               :diffuse 0.7)))
 
 (defparameter *right*
-  (make-sphere
+  (make-cylinder
+   :minimum 1.0
+   :maximum 2.0
+   :closed t
    :transform (mult (scaling 0.5 0.5 0.5)
-                    (translation 2.5 1.0 -0.5))
+                    (mult (translation 2.5 2.5 -0.5)
+                          (rotation-x (/ pi 1.2))))
    :material (make-material
               :color (make-color :red 0.5 :green 1.0 :blue 0.1)
               :specular 0.3
