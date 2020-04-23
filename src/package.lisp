@@ -3,7 +3,6 @@
         #:iterate)
   (:export
    #:add
-   #:cylinder-closed
    #:air
    #:camera
    #:camera-field-of-view
@@ -36,6 +35,7 @@
    #:create-canvas
    #:create-matrix
    #:cross
+   #:cylinder-closed
    #:cylinder-maximum
    #:cylinder-minimum
    #:default-world
