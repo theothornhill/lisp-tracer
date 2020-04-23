@@ -3,6 +3,7 @@
         #:iterate)
   (:export
    #:add
+   #:add-child
    #:air
    #:camera
    #:camera-field-of-view
@@ -47,6 +48,7 @@
    #:glass
    #:glass-sphere
    #:gradient-pattern
+   #:group-items
    #:hit
    #:identity-matrix
    #:intersect
@@ -67,6 +69,7 @@
    #:make-cone
    #:make-cube
    #:make-cylinder
+   #:make-group
    #:make-intersection
    #:make-material
    #:make-matrix
@@ -150,6 +153,7 @@
    #:schlick
    #:shade-hit
    #:shape-material
+   #:shape-parent
    #:shape-transform
    #:shearing
    #:sphere
@@ -163,6 +167,7 @@
    #:translation-y
    #:translation-z
    #:transpose
+   #:tt<
    #:tuple
    #:tuple-w
    #:tuple-x
@@ -176,5 +181,6 @@
    #:world
    #:world-light
    #:world-objects
+   #:world-to-object
    #:write-pixel
    ))

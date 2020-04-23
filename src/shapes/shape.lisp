@@ -1,6 +1,7 @@
 (in-package #:lisp-tracer)
 
 (defstruct shape
+  (parent nil :type (or shape null))
   (transform (identity-matrix) :type matrix)
   (material (make-material) :type (or material null)))
 
