@@ -64,6 +64,7 @@
    #:make-camera
    #:make-canvas
    #:make-color
+   #:make-cone
    #:make-cube
    #:make-cylinder
    #:make-intersection

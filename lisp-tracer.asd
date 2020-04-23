@@ -28,7 +28,8 @@
                              (:file "sphere")
                              (:file "plane")
                              (:file "cube")
-                             (:file "cylinder")))
+                             (:file "cylinder")
+                             (:file "cone")))
                (:module "src/renders"
                 :serial t
                 :components ((:file "package")

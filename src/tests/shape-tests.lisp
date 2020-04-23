@@ -335,3 +335,62 @@
           (c (make-cylinder :minimum 1.0 :maximum 2.0 :closed t)))
       (mapcar (lambda (p n) (ok (equal? (local-normal-at c p) n)))
               points normals))))
+
+(deftest cone-testing
+  (testing "A ray intersects a cone"
+    (let ((origins (list
+                    (make-point :x 0.0 :y 0.0 :z -5.0)
+                    (make-point :x 0.0 :y 0.0 :z -5.0)
+                    (make-point :x 1.0 :y 1.0 :z -5.0)))
+          (directions (list
+                       (make-vec :x 0.0 :y 0.0 :z 1.0)
+                       (make-vec :x 1.0 :y 1.0 :z 1.0)
+                       (make-vec :x -0.5 :y -1.0 :z 1.0)))
+          (t0s (list 5.0 8.660254037844386 4.550055679356349))
+          (t1s (list 5.0 8.660254037844386 49.449944320643645))
+          (c (make-cone)))
+      (mapcar (lambda (o d t0 t1)
+                (let* ((direction (normalize d))
+                       (r (make-ray :origin o :direction direction))
+                       (xs (local-intersect c r)))
+                  (ok (= (length xs) 2))
+                  (ok (= (rt-intersection-tt (car xs)) t0))
+                  (ok (= (rt-intersection-tt (cadr xs)) t1))))
+              origins directions t0s t1s)))
+  (testing "Intersecting a cone with a ray parallel to one of its halves"
+    (let* ((c (make-cone))
+           (direction (normalize (make-vec :x 0.0 :y 1.0 :z 1.0)))
+           (r (make-ray :origin (make-point :x 0.0 :y 0.0 :z -1.0)
+                        :direction direction))
+           (xs (local-intersect c r)))
+      (ok (= (length xs) 1))
+      (ok (= (rt-intersection-tt (car xs)) 0.3535533905932738))))
+  (testing "Intersecting a cone's end caps"
+    (let ((origins (list
+                    (make-point :x 0.0 :y 0.0 :z -5.0)
+                    (make-point :x 0.0 :y 0.0 :z -0.25)
+                    (make-point :x 0.0 :y 0.0 :z -0.25)))
+          (directions (list
+                       (make-vec :x 0.0 :y 1.0 :z 0.0)
+                       (make-vec :x 0.0 :y 1.0 :z 1.0)
+                       (make-vec :x 0.0 :y 1.0 :z 0.0)))
+          (counts (list 0 2 4))
+          (c (make-cone :minimum -0.5 :maximum 0.5 :closed t)))
+      (mapcar (lambda (o d count)
+                (let* ((direction (normalize d))
+                       (r (make-ray :origin o :direction direction))
+                       (xs (local-intersect c r)))
+                  (ok (= (length xs) count))))
+              origins directions counts)))
+  (testing "The normal vector on a cone"
+    (let ((points (list
+                   (make-point :x 0.0 :y 0.0 :z 0.0)
+                   (make-point :x 1.0 :y 1.0 :z 1.0)
+                   (make-point :x -1.0 :y -1.0 :z 0.0)))
+          (normals (list
+                    (make-vec :x 0.0 :y 0.0 :z 0.0)
+                    (make-vec :x 1.0 :y (coerce (- (sqrt 2)) 'double-float) :z 1.0)
+                    (make-vec :x -1.0 :y 1.0 :z 0.0)))
+          (c (make-cone)))
+      (mapcar (lambda (p n) (ok (equal? (local-normal-at c p) n)))
+              points normals))))
