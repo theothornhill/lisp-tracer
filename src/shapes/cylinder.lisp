@@ -5,26 +5,6 @@
   (minimum sb-ext:double-float-negative-infinity :type double-float)
   (maximum sb-ext:double-float-positive-infinity :type double-float))
 
-;;; TODO: Below macros are for readablilty of code. Find out
-;;; how to make these nested accessors more general
-(defmacro ray-direction-x ()
-  `(tuple-x (ray-direction ray)))
-
-(defmacro ray-direction-y ()
-  `(tuple-y (ray-direction ray)))
-
-(defmacro ray-direction-z ()
-  `(tuple-z (ray-direction ray)))
-
-(defmacro ray-origin-x ()
-  `(tuple-x (ray-origin ray)))
-
-(defmacro ray-origin-y ()
-  `(tuple-y (ray-origin ray)))
-
-(defmacro ray-origin-z ()
-  `(tuple-z (ray-origin ray)))
-
 (defmacro add-intersection? (t-val)
   `(let ((y (+ (ray-origin-y) (* ,t-val (ray-direction-y)))))
      (if (< (cylinder-minimum cylinder) y (cylinder-maximum cylinder))

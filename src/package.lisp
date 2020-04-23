@@ -124,8 +124,14 @@
    #:prepare-computations
    #:ray
    #:ray-direction
+   #:ray-direction-x
+   #:ray-direction-y
+   #:ray-direction-z
    #:ray-for-pixel
    #:ray-origin
+   #:ray-origin-x
+   #:ray-origin-y
+   #:ray-origin-z
    #:reflect
    #:reflected-color
    #:refracted-color
@@ -170,4 +176,4 @@
    #:world-light
    #:world-objects
    #:write-pixel
-y   ))
+   ))
