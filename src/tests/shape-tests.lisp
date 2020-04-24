@@ -447,4 +447,27 @@
       (add-child g1 g2)
       (add-child g2 s)
       (let ((p (world-to-object s (make-point :x -2.0 :y 0.0 :z -10.0))))
-        (ok (equal? p (make-point :x 0.0 :y 0.0 :z -1.0)))))))
+        (ok (equal? p (make-point :x 0.0 :y 0.0 :z -1.0))))))
+  (testing "Converting a normal from object to world space"
+    (let ((g1 (make-group :transform (rotation-y (/ pi 2.0))))
+          (g2 (make-group :transform (scaling 1.0 2.0 3.0)))
+          (s (make-sphere :transform (translation 5.0 0.0 0.0)))
+          (sqrt3/3 (/ (sqrt 3) 3.0)))
+      (add-child g1 g2)
+      (add-child g2 s)
+      (let ((p (normal-to-world s (make-point :x sqrt3/3 :y sqrt3/3 :z sqrt3/3))))
+        (ok (equal? p (make-vec :x 0.285714285
+                                :y 0.428571428
+                                :z -0.85714285))))))
+  (testing "Finding the normal on a child object"
+    (let ((g1 (make-group :transform (rotation-y (/ pi 2.0))))
+          (g2 (make-group :transform (scaling 1.0 2.0 3.0)))
+          (s (make-sphere :transform (translation 5.0 0.0 0.0))))
+      (add-child g1 g2)
+      (add-child g2 s)
+      (let ((p (normal-at s (make-point :x 1.7321 :y 1.1547 :z -5.5774))))
+        (ok (equal? p (make-vec :x 0.285703681
+                                :y 0.428543151
+                                :z -0.85716052)))))))
+
+

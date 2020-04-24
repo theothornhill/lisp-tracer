@@ -86,8 +86,7 @@
       (pattern-b checkers)))
 
 (defun pattern-at-object (pattern object point)
-  (let* ((object-point
-           (mult (inverse (shape-transform object)) point))
+  (let* ((object-point (world-to-object object point))
          (pattern-point
            (mult (inverse (pattern-transform pattern)) object-point)))
     (pattern-at pattern pattern-point)))

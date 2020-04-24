@@ -13,9 +13,7 @@
 
 (defun normal-at (shape point)
   (declare (shape shape) (tuple point))
-  (let* ((inverse-matrix (inverse (shape-transform shape)))
-         (local-point (mult inverse-matrix point))
-         (local-normal (local-normal-at shape local-point))
-         (world-normal (mult (transpose inverse-matrix) local-normal)))
-    (setf (tuple-w world-normal) 0.0)
-    (normalize world-normal)))
+  (let* ((local-point (world-to-object shape point))
+         (local-normal (local-normal-at shape local-point)))
+    (normal-to-world shape local-normal)))
+

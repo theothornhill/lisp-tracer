@@ -113,6 +113,7 @@
    #:mult
    #:neg
    #:normal-at
+   #:normal-to-world
    #:normalize
    #:pattern
    #:pattern-a
