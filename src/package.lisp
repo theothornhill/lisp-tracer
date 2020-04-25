@@ -1,6 +1,5 @@
 (defpackage #:lisp-tracer
-  (:use #:cl
-        #:iterate)
+  (:use #:cl)
   (:export
    #:add
    #:add-child

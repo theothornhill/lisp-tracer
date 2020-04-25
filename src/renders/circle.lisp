@@ -17,9 +17,9 @@
          (light (point-light :position light-position :intensity light-color)))
     (setf (material-color (shape-material shape)) (make-color :red 1.0 :green 0.2 :blue 1.0))
     (setf (shape-transform shape) (scaling 10.0 10.0 10.0))
-    (iter (for y from 0 below canvas-pixels)
+    (loop :for y :from 0 :below canvas-pixels :do
       (let ((world-y (float (- (* pixel-size y) half))))
-        (iter (for x from 0 below canvas-pixels)
+        (loop :for x :from 0 :below canvas-pixels :do
           (let* ((world-x (float (+ (- half) (* pixel-size x))))
                  (pos (make-point :x world-x :y world-y :z wall-z))
                  (r (make-ray :origin ray-origin

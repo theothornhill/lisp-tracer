@@ -36,9 +36,9 @@
                          :if-exists :supersede
                          :if-does-not-exist :create)
       (format str "P3~%~a ~a~%255" n m)
-      (iterate (for j from 0 below m)
+      (loop :for j :from 0 :below m :do
         (format str "~%")
-        (iterate (for i from 0 below n)
+        (loop :for i :from 0 :below n :do
           (let ((color (pixel-at canvas i j)))
             (multiple-value-bind (red green blue) (color-as-255 color)
               (format str "~a ~a ~a " red green blue)))))

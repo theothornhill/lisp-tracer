@@ -44,8 +44,7 @@
 (defun render (camera world)
   (declare (type camera camera) (type world world))
   (let ((image (create-canvas (camera-hsize camera) (camera-vsize camera))))
-    (iter (for y from 0 below (camera-vsize camera))
-      (iter (for x from 0 below (camera-hsize camera))
-        (write-pixel image x y
-         (color-at world (ray-for-pixel camera x y)))))
+    (loop :for y :from 0 :below (camera-vsize camera) :do
+      (loop :for x :from 0 :below (camera-hsize camera) :do
+        (write-pixel image x y (color-at world (ray-for-pixel camera x y)))))
     image))
