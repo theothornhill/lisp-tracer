@@ -137,7 +137,7 @@
     (let* ((r (make-ray :origin (make-point :x 0.0 :y 0.0 :z -5.0)
                         :direction (make-vec :x 0.0 :y 0.0 :z 1.0)))
            (shape (glass-sphere)))
-      (setf (shape-transform shape) (translation-y 1.0))
+      (setf (shape-transform shape) (translation 1.0 1.0 1.0))
       (let* ((i (make-intersection :tt 5.0 :object shape))
              (comps (prepare-computations i r)))
         (ok (> (tuple-z (computations-under-point comps))

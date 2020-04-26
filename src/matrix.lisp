@@ -158,13 +158,13 @@
    0.0 0.0 0.0 1.0))
 
 (defun translation-x (x)
-  (translation x 1.0 1.0))
+  (translation x 0.0 0.0))
 
 (defun translation-y (y)
-  (translation 1.0 y 1.0))
+  (translation 0.0 y 0.0))
 
 (defun translation-z (z)
-  (translation 1.0 1.0 z))
+  (translation 0.0 0.0 z))
 
 (defun scaling (x y z)
   "Scale a MATRIX."
