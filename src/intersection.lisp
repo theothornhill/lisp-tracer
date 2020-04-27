@@ -12,7 +12,7 @@
 
 (defmacro update-n (n)
   "Helper for refractive indexes. Anaphoric - uses variable capture"
-  `(when (equalp i hit)
+  `(when (eq i hit)
      (if containers
          (set-new-refractive ,n containers)
          (setf ,n 1.0))))
@@ -22,7 +22,7 @@
   (let ((n1 1.0) (n2 1.0) containers)
     (mapc (lambda (i)
             (update-n n1)
-            (if (member (rt-intersection-object i) containers :test 'equalp)
+            (if (member (rt-intersection-object i) containers :test 'eq)
                 (setf containers
                       (remove (rt-intersection-object i) containers))
                 (setf containers
