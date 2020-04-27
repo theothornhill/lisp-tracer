@@ -1,7 +1,6 @@
 (in-package #:lisp-tracer)
 
-(defstruct (sphere (:include shape))
-  (id 1))
+(defstruct (sphere (:include shape)))
 
 (defun glass-sphere ()
   (make-sphere
