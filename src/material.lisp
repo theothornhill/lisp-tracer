@@ -19,29 +19,28 @@
   (shadowed? nil :type t))
 
 (defun lighting (material object light point eyev normalv shadowed?)
-  (let* ((material-pattern (material-pattern material))
-         (effective-color
-           (mult (if material-pattern
-                     (pattern-at-object material-pattern object point)
-                     (material-color material))
-                 (light-intensity light)))
-         (lightv (normalize (sub (light-position light) point)))
-         (ambient (mult effective-color (material-ambient material)))
-         (light-dot-normal (dot lightv normalv)))
-    (declare (type double-float light-dot-normal))
-    (if (or (< light-dot-normal 0.0) shadowed?)
-        ambient
-        (let ((diffuse (mult effective-color
-                             (mult (material-diffuse material)
-                                   light-dot-normal)))
-              (reflect-dot-eye (dot (reflect (neg lightv) normalv) eyev)))
-          (declare (type double-float reflect-dot-eye))
-          (if (<= reflect-dot-eye 0)
-              (add ambient diffuse)
-              (let ((specular
-                      (mult (light-intensity light)
-                            (mult
-                             (material-specular material)
-                             (expt reflect-dot-eye
-                                   (material-shininess material))))))
-                (add ambient (add diffuse specular))))))))
+  (with-slots (pattern color shininess ambient diffuse specular) material
+    (with-slots (position intensity) light
+      (let* ((effective-color
+               (mult (if pattern
+                         (pattern-at-object pattern object point)
+                         color)
+                     intensity))
+             (lightv (normalize (sub position point)))
+             (ambient (mult effective-color ambient))
+             (light-dot-normal (dot lightv normalv)))
+        (declare (type double-float light-dot-normal))
+        (if (or (< light-dot-normal 0.0) shadowed?)
+            ambient
+            (let ((diffuse (mult effective-color
+                                 (mult diffuse light-dot-normal)))
+                  (reflect-dot-eye (dot (reflect (neg lightv) normalv) eyev)))
+              (declare (type double-float reflect-dot-eye))
+              (if (<= reflect-dot-eye 0)
+                  (add ambient diffuse)
+                  (let ((specular
+                          (mult intensity
+                                (mult
+                                 specular
+                                 (expt reflect-dot-eye shininess)))))
+                    (add ambient (add diffuse specular))))))))))

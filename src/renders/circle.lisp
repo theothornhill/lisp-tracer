@@ -4,7 +4,7 @@
 (defparameter wall-z 100.0)
 (defparameter wall-size 70.0)
 (defparameter canvas-pixels 1000)
-(defparameter pixel-size (float (/ wall-size canvas-pixels)))
+(defparameter p-size (float (/ wall-size canvas-pixels)))
 (defparameter half (float (/ wall-size 2)))
 
 
@@ -18,9 +18,9 @@
     (setf (material-color (shape-material shape)) (make-color :red 1.0 :green 0.2 :blue 1.0))
     (setf (shape-transform shape) (scaling 10.0 10.0 10.0))
     (loop :for y :from 0 :below canvas-pixels :do
-      (let ((world-y (float (- (* pixel-size y) half))))
+      (let ((world-y (float (- (* p-size y) half))))
         (loop :for x :from 0 :below canvas-pixels :do
-          (let* ((world-x (float (+ (- half) (* pixel-size x))))
+          (let* ((world-x (float (+ (- half) (* p-size x))))
                  (pos (make-point :x world-x :y world-y :z wall-z))
                  (r (make-ray :origin ray-origin
                               :direction (normalize (sub pos ray-origin))))

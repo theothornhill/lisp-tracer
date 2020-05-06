@@ -54,39 +54,32 @@
               :blue (tuple-z point)))
 
 (defmethod pattern-at ((stripes stripes) point)
-  (if (= (mod (floor (tuple-x point)) 2) 0)
-      (pattern-a stripes)
-      (pattern-b stripes)))
+  (with-slots (a b) stripes
+    (if (= (mod (floor (tuple-x point)) 2) 0) a b)))
 
 (defmethod pattern-at ((gradient gradient) point)
-  (let ((distance (sub (pattern-b gradient) (pattern-a gradient)))
-        (fraction (float (- (tuple-x point)
-                            (floor (tuple-x point))))))
-    (add (pattern-a gradient) (mult distance fraction))))
+  (with-slots (a b) gradient
+    (with-slots (x) point
+      (let ((distance (sub b a))
+            (fraction (float (- x (floor x)))))
+        (add a (mult distance fraction))))))
 
 (defmethod pattern-at ((rings rings) point)
   "Calculates floor(sqrt(p_x^2 + p_z^2) mod 2 = 0"
-  (if (=
-       (mod (floor (sqrt (add (expt (tuple-x point) 2)
-                              (expt (tuple-z point) 2))))
-            2)
-       0)
-      (pattern-a rings)
-      (pattern-b rings)))
+  (with-slots (x z) point
+    (with-slots (a b) rings
+      (let ((hit (mod (floor (sqrt (add (expt x 2) (expt z 2)))) 2)))
+        (if (= hit 0) a b)))))
 
 (defmethod pattern-at ((checkers checkers) point)
   "Calculates p_x + p_y + p_z mod 2 = 0"
-  (if (=
-       (mod (+ (floor (tuple-x point))
-               (floor (tuple-y point))
-               (floor (tuple-z point)))
-            2)
-       0)
-      (pattern-a checkers)
-      (pattern-b checkers)))
+  (with-slots (x y z) point
+    (with-slots (a b) checkers
+      (let ((hit (mod (+ (floor x) (floor y) (floor z)) 2)))
+        (if (= hit  0) a b)))))
 
 (defun pattern-at-object (pattern object point)
-  (let* ((object-point (world-to-object object point))
-         (pattern-point
-           (mult (inverse (pattern-transform pattern)) object-point)))
-    (pattern-at pattern pattern-point)))
+  (with-slots (transform) pattern
+    (let* ((object-point (world-to-object object point))
+           (pattern-point (mult (inverse transform) object-point)))
+      (pattern-at pattern pattern-point))))

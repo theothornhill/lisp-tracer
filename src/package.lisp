@@ -31,6 +31,7 @@
    #:computations-reflectv
    #:computations-tt
    #:computations-under-point
+   #:cond-let
    #:create-camera
    #:create-canvas
    #:create-matrix
@@ -128,14 +129,8 @@
    #:prepare-computations
    #:ray
    #:ray-direction
-   #:ray-direction-x
-   #:ray-direction-y
-   #:ray-direction-z
    #:ray-for-pixel
    #:ray-origin
-   #:ray-origin-x
-   #:ray-origin-y
-   #:ray-origin-z
    #:reflect
    #:reflected-color
    #:refracted-color
@@ -178,6 +173,8 @@
    #:vec?
    #:view-transform
    #:water
+   #:with-all-ray-slots
+   #:with-ray-slots
    #:world
    #:world-light
    #:world-objects

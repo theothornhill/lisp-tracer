@@ -24,9 +24,10 @@
                ((>= col 1) 255)
                ((<= col 0) 0)
                (t (round (* 255 col))))))
-    (values (convert-color (color-red color))
-            (convert-color (color-green color))
-            (convert-color (color-blue color)))))
+    (with-slots (red green blue) color
+      (values (convert-color red)
+              (convert-color green)
+              (convert-color blue)))))
 
 (defun canvas-to-ppm (canvas)
   "Write the actual canvas to a PPM file."

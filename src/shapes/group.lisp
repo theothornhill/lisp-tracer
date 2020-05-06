@@ -4,24 +4,26 @@
   (items nil :type (or list null)))
 
 (defun add-child (group shape)
-  (setf (group-items group) (append (group-items group) (list shape)))
-  (setf (shape-parent shape) group))
+  (with-slots (items) group
+    (with-slots (parent) shape
+      (setf items (append items (list shape)))
+      (setf parent group))))
 
 (defmethod local-intersect ((group group) (ray ray))
-  (sort (mapcan (lambda (shape) (intersect shape ray))
-                (group-items group))
-        #'tt<))
+  (with-slots (items) group
+    (sort (mapcan (lambda (shape) (intersect shape ray)) items) #'tt<)))
 
 (defun world-to-object (shape point)
-  (when (shape-parent shape)
-    (setf point (world-to-object (shape-parent shape) point)))
-  (mult (inverse (shape-transform shape)) point))
+  (with-slots (parent transform) shape 
+    (when parent
+      (setf point (world-to-object parent point)))
+    (mult (inverse transform) point)))
 
 (defun normal-to-world (shape normal)
-  (setf normal (mult (transpose (inverse (shape-transform shape)))
-                     normal))
-  (setf (tuple-w normal) 0.0)
-  (setf normal (normalize normal))
-  (when (shape-parent shape)
-    (setf normal (normal-to-world (shape-parent shape) normal)))
-  normal)
+  (with-slots (parent transform) shape
+    (setf normal (mult (transpose (inverse transform)) normal))
+    (setf (tuple-w normal) 0.0)
+    (setf normal (normalize normal))
+    (when parent
+      (setf normal (normal-to-world parent normal)))
+    normal))
