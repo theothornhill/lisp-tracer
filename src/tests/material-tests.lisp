@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-tests)
+(in-package :lisp-tracer-tests)
 
 (deftest material-test
   (testing "The default material"

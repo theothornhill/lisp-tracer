@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-tests)
+(in-package :lisp-tracer-tests)
 
 (deftest create-world
   (testing "Creating a world"

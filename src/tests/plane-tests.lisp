@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-tests)
+(in-package :lisp-tracer-tests)
 
 (deftest normal-plane
   (testing "The normal of a plane is constant everywhere"

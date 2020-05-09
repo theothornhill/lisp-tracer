@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-tests)
+(in-package :lisp-tracer-tests)
 
 (deftest point-testing
   (testing "A tuple with w=1.0 is a point"

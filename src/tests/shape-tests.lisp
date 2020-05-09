@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-tests)
+(in-package :lisp-tracer-tests)
 
 (deftest ray-sphere-intersect
   (testing "A ray intersects a sphere at two points"

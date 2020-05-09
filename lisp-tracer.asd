@@ -6,7 +6,7 @@
   :author "Theodor Thornhill <theothornhill@pm.me>"
   :license  "MIT"
   :version "0.0.1"
-  :depends-on (#:sb-sprof)
+  :depends-on (:sb-sprof)
   :components ((:module "src"
                 :components ((:file "package")
                              (:file "structs")

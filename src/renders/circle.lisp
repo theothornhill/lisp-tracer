@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer)
+(in-package :lisp-tracer)
 
 (defparameter ray-origin (make-point :x 0.0 :y 0.0 :z -50.0))
 (defparameter wall-z 100.0)

@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-tests)
+(in-package :lisp-tracer-tests)
 
 (deftest matrix-testing
   (testing "Constructing and inspecting a 4x4 matrix"

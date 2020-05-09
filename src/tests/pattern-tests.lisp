@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-tests)
+(in-package :lisp-tracer-tests)
 
 (defparameter black (make-color :red 0.0 :green 0.0 :blue 0.0))
 (defparameter white (make-color :red 1.0 :green 1.0 :blue 1.0))

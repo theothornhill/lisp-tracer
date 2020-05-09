@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer)
+(in-package :lisp-tracer)
 
 (defstruct (group (:include shape))
   (items nil :type (or list null)))

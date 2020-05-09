@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer)
+(in-package :lisp-tracer)
 
 (defstruct (cone (:include shape))
   (closed nil :type t)

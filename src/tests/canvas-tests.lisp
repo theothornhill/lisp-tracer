@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-tests)
+(in-package :lisp-tracer-tests)
 
 (defun read-file-as-lines (filename)
   "Read file into a list of lines."

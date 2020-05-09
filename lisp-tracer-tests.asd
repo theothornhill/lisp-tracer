@@ -1,12 +1,12 @@
 (setf *read-default-float-format* 'double-float)
 
-(asdf:defsystem #:lisp-tracer-tests
+(asdf:defsystem :lisp-tracer-tests
   :description "Tests for ray tracer"
   :author "Theodor Thornhill <theothornhill@pm.me>"
   :license  "MIT"
   :version "0.0.1"
-  :depends-on (#:rove
-               #:lisp-tracer)
+  :depends-on (:rove
+               :lisp-tracer)
   :components ((:module "src/tests"
                 :components ((:file "package")
                              (:file "tuple-tests")

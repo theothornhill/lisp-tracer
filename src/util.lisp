@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer)
+(in-package :lisp-tracer)
 
 (defmacro transform-object (&rest transforms)
   `(reduce #'mult (list ,@(reverse transforms))))

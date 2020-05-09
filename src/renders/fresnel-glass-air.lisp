@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer-renders)
+(in-package :lisp-tracer-renders)
 
 (defparameter *backdrop*
   (make-plane

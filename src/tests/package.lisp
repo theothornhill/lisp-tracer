@@ -1,4 +1,4 @@
-(defpackage #:lisp-tracer-tests
-  (:use #:cl
-        #:rove
-        #:lisp-tracer))
+(defpackage :lisp-tracer-tests
+  (:use :cl
+        :rove
+        :lisp-tracer))

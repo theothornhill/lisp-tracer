@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer)
+(in-package :lisp-tracer)
 
 (declaim (inline create-matrix))
 (declaim (inline make-matrix))

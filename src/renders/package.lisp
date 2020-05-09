@@ -1,3 +1,3 @@
-(defpackage #:lisp-tracer-renders
-  (:use #:cl
-        #:lisp-tracer))
+(defpackage :lisp-tracer-renders
+  (:use :cl
+        :lisp-tracer))

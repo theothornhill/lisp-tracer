@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer)
+(in-package :lisp-tracer)
 
 (declaim (inline make-intersection))
 (defun make-intersection (&key (tt 0.0) (object nil))

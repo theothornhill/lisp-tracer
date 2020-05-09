@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer)
+(in-package :lisp-tracer)
 
 (defun make-point (&key (x 0.0) (y 0.0) (z 0.0))
   "A point is a TUPLE with provided X Y Z and W set to 1.0."

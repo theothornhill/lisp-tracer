@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer)
+(in-package :lisp-tracer)
 
 (defmacro with-ray-slots (ray (&rest args) &body body)
   `(with-slots (origin direction) ,ray

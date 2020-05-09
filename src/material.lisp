@@ -1,4 +1,4 @@
-(in-package #:lisp-tracer)
+(in-package :lisp-tracer)
 
 (defconstant vacuum 1.0)
 (defconstant air 1.00029)
